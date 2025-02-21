@@ -14,6 +14,7 @@ export default function BackButton() {
         console.log("切換至 Index 畫面");
       }}
       style={{
+        cursor: "pointer",
         border: "3px solid white",
         position: "fixed",
         top: "10px" /* 距離視窗頂部 */,
