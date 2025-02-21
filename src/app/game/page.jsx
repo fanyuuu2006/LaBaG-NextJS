@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Game from "./backend/PlayLaBaG";
 import BackButton from "./components/BackButton";
 import TitlePicture from "./components/TitlePicture";
@@ -7,6 +7,7 @@ import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
 import MusicButton from "./components/MusicButton";
+import PopPicture from "./components/PopPicture";
 
 import QST from "@/assets/QST.jpg";
 import SuperQST from "@/assets/SuperQST.jpg";
@@ -54,6 +55,7 @@ export default function GamePage() {
 
   const [ButtonAble, setButtonAble] = useState(true);
   const [NowMode, setNowMode] = useState(Game.NowMode());
+  const [NowPOP, setNowPoP] = useState(false);
 
   const [LP, setLP] = useState(QST);
   const [MP, setMP] = useState(QST);
@@ -70,24 +72,30 @@ export default function GamePage() {
   return (
     <div className="GameScreen">
       <BackButton />
-      <TitlePicture NowMode={NowMode} />
-      <Pictures LP={QSTs[NowMode]} MP={QSTs[NowMode]} RP={QSTs[NowMode]} />
-      <InfoText
-        Score={Score}
-        Times={Times}
-        MarginScore={MarginScore}
-        DoubleScore={DoubleScore}
-        GssNum={GssNum}
-        NowMode={NowMode}
-        ModeTimes={ModeTimes}
-      />
-      <BeginButton BeginFunc={() => {}} Able={ButtonAble} />
-      <MusicButton
-        IsClient = {IsClient}
-        BgmRunning={BgmRunning}
-        setBgmRunning={setBgmRunning}
-        NowMode={NowMode}
-      />
+      {NowPOP ? (
+        <PopPicture NowMode={NowMode} setNowPoP={setNowPoP} />
+      ) : (
+        <>
+          <TitlePicture NowMode={NowMode} />
+          <Pictures LP={LP} MP={MP} RP={RP} />
+          <InfoText
+            Score={Score}
+            Times={Times}
+            MarginScore={MarginScore}
+            DoubleScore={DoubleScore}
+            GssNum={GssNum}
+            NowMode={NowMode}
+            ModeTimes={ModeTimes}
+          />
+          <BeginButton BeginFunc={() => {}} Able={ButtonAble} />
+          <MusicButton
+            IsClient={IsClient}
+            BgmRunning={BgmRunning}
+            setBgmRunning={setBgmRunning}
+            NowMode={NowMode}
+          />
+        </>
+      )}
     </div>
   );
 }
