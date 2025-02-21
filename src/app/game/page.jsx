@@ -5,6 +5,7 @@ import BackButton from "./components/BackButton";
 import TitlePicture from "./components/TitlePicture";
 import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
+import BeginButton from "./components/BeginButton";
 
 import QST from "@/assets/QST.jpg";
 import SuperQST from "@/assets/SuperQST.jpg";
@@ -42,7 +43,13 @@ const CodePictures = {
 };
 
 export default function GamePage() {
+  const [ButtonAble, setButtonAble] = useState(true);
   const [NowMode, setNowMode] = useState(Game.NowMode());
+
+  const [LP, setLP] = useState(QST);
+  const [MP, setMP] = useState(QST);
+  const [RP, setRP] = useState(QST);
+  const setPs = [setLP, setMP, setRP];
 
   const [Score, setScore] = useState(Game.Score);
   const [Times, setTimes] = useState(Game.Times - Game.Played);
@@ -65,6 +72,7 @@ export default function GamePage() {
         NowMode={NowMode}
         ModeTimes={ModeTimes}
       />
+      <BeginButton BeginFunc={() =>{}} Able={ButtonAble}/>
     </div>
   );
 }
