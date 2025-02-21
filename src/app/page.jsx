@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Game from "./game/PlayLaBaG";
+import Game from "./game/backend/PlayLaBaG";
 import SuperCircle from "@/assets/SuperCircle.png";
 
 export default function IndexPage() {

@@ -1,8 +1,9 @@
 "use client";
-import Game from "./PlayLaBaG";
+import Game from "./backend/PlayLaBaG";
 
 export default function GamePage(){
     return(
-        <></>
+        <>
+        </>
     );
 }
