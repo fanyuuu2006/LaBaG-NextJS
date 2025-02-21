@@ -4,6 +4,7 @@ import Game from "./backend/PlayLaBaG";
 import BackButton from "./components/BackButton";
 import TitlePicture from "./components/TitlePicture";
 import Pictures from "./components/Pictures";
+import InfoText from "./components/InfoText";
 
 import QST from "@/assets/QST.jpg";
 import SuperQST from "@/assets/SuperQST.jpg";
@@ -43,14 +44,26 @@ const CodePictures = {
 export default function GamePage() {
   const [NowMode, setNowMode] = useState(Game.NowMode());
 
+  const [Score, setScore] = useState(Game.Score);
+  const [Times, setTimes] = useState(Game.Times - Game.Played);
+  const [MarginScore, setMarginScore] = useState(Game.MarginScore);
+  const [DoubleScore, setDoubleScore] = useState(Game.DoubleScore);
+  const [GssNum, setGssNum] = useState(Game.GssNum);
+  const [ModeTimes, setModeTimes] = useState(0);
+
   return (
     <div className="GameScreen">
       <BackButton />
       <TitlePicture NowMode={NowMode} />
-      <Pictures
-      LP={QSTs[NowMode]}
-      MP={QSTs[NowMode]}
-      RP={QSTs[NowMode]}
+      <Pictures LP={QSTs[NowMode]} MP={QSTs[NowMode]} RP={QSTs[NowMode]} />
+      <InfoText
+        Score={Score}
+        Times={Times}
+        MarginScore={MarginScore}
+        DoubleScore={DoubleScore}
+        GssNum={GssNum}
+        NowMode={NowMode}
+        ModeTimes={ModeTimes}
       />
     </div>
   );
