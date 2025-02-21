@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Game from "./backend/PlayLaBaG";
 import BackButton from "./components/BackButton";
 import TitlePicture from "./components/TitlePicture";
 import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
+import MusicButton from "./components/MusicButton";
 
 import QST from "@/assets/QST.jpg";
 import SuperQST from "@/assets/SuperQST.jpg";
@@ -43,6 +44,14 @@ const CodePictures = {
 };
 
 export default function GamePage() {
+  const [IsClient, setIsClient] = useState(false); // 用於確保只在客戶端處理音樂邏輯
+  const [BgmRunning, setBgmRunning] = useState(false);
+  // 設置只在客戶端時運行
+  useEffect(() => {
+    setIsClient(true);
+    setBgmRunning(true);
+  }, []);
+
   const [ButtonAble, setButtonAble] = useState(true);
   const [NowMode, setNowMode] = useState(Game.NowMode());
 
@@ -72,7 +81,13 @@ export default function GamePage() {
         NowMode={NowMode}
         ModeTimes={ModeTimes}
       />
-      <BeginButton BeginFunc={() =>{}} Able={ButtonAble}/>
+      <BeginButton BeginFunc={() => {}} Able={ButtonAble} />
+      <MusicButton
+        IsClient = {IsClient}
+        BgmRunning={BgmRunning}
+        setBgmRunning={setBgmRunning}
+        NowMode={NowMode}
+      />
     </div>
   );
 }
