@@ -19,6 +19,7 @@ export default function IndexPage() {
       <Image
         src = {SuperCircle}
         alt = "SuperCircle"
+        priority // 添加這行，告訴 Next.js 優先加載這張圖片
         onClick = {() => {IntoGame()}}
         style={{ cursor: "pointer" }}
       />
