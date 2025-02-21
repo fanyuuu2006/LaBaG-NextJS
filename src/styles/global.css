@@ -18,3 +18,26 @@ body {
   justify-content: center;
   line-height: 1;
 }
+
+.GameScreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Pictures {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0px; /* 增加圖片之間的間距 */
+}
+
+.Pictures > img {
+  width: 180px;
+  height: auto;
+  object-fit: contain; /* 讓圖片按比例縮放 */
+
+}
