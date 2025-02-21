@@ -1,4 +1,4 @@
-# 啦八機 (JavaScript version)
+# 啦八機 (Next.js version)
 
 **嘗試透過實作學習**
 
