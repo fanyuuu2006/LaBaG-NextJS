@@ -94,8 +94,10 @@ export default function GamePage() {
 
   // **使用 useEffect 來更新背景**
   useEffect(() => {
-      document.body.style.backgroundImage = `url(${BGs[NowMode]})`;
-      console.log(`更換背景: ${Game.NowMode()}`);
+      // document.body.style.backgroundImage 不會自動處理.src
+      const NewBG = BGs[NowMode].src;
+      document.body.style.backgroundImage = `url(${NewBG})`;
+      console.log(`更換背景: ${NewBG}`);
   }, [NowMode]); // **當 NowMode 改變時，執行 useEffect**
 
   function Begin() {
