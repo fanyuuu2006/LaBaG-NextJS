@@ -9,7 +9,7 @@ import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
 import MusicButton from "./components/MusicButton";
-import PopPicture, {PopPictureV2} from "./components/PopPicture";
+import PopPicture from "./components/PopPicture";
 
 import BG from "@/assets/BG.jpg";
 import SuperBG from "@/assets/SuperBG.jpg";
@@ -85,7 +85,6 @@ export default function GamePage() {
 
   const [ButtonAble, setButtonAble] = useState(true);
   const [NowMode, setNowMode] = useState(Game.NowMode());
-  const [NowPOP, setNowPoP] = useState(false);
 
   const [LP, setLP] = useState(QST);
   const [MP, setMP] = useState(QST);
@@ -213,7 +212,7 @@ export default function GamePage() {
         Sound(Ding);
       }
       if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-        setNowPoP(true);
+        PopPicture(Game.NowMode());
       }
       setButtonAble(true);
     }, 3500);
@@ -222,24 +221,18 @@ export default function GamePage() {
   return (
     <div className="GameScreen">
       <BackButton />
-      {NowPOP ? (
-        <PopPicture NowMode={NowMode} setNowPoP={setNowPoP} />
-      ) : (
-        <>
-          <TitlePicture NowMode={NowMode} />
-          <Pictures LP={LP} MP={MP} RP={RP} />
-          <InfoText
-            Score={Score}
-            Times={Times}
-            MarginScore={MarginScore}
-            DoubleScore={DoubleScore}
-            GssNum={GssNum}
-            NowMode={NowMode}
-            ModeTimes={ModeTimes}
-          />
-          <BeginButton BeginFunc={Begin} Able={ButtonAble} />
-        </>
-      )}
+      <TitlePicture NowMode={NowMode} />
+      <Pictures LP={LP} MP={MP} RP={RP} />
+      <InfoText
+        Score={Score}
+        Times={Times}
+        MarginScore={MarginScore}
+        DoubleScore={DoubleScore}
+        GssNum={GssNum}
+        NowMode={NowMode}
+        ModeTimes={ModeTimes}
+      />
+      <BeginButton BeginFunc={Begin} Able={ButtonAble} />
       <MusicButton
         IsClient={IsClient}
         BgmRunning={BgmRunning}
