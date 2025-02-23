@@ -27,8 +27,8 @@
     │   ├── game                            # 遊戲相關頁面與組件
     │   │   ├── backend                     # 後端邏輯（遊戲規則等）
     │   │   │   ├── LaBaG.js                # LaBaG 遊戲核心邏輯
-    │   │   │   ├── P.js                    # P 遊戲規則邏輯
-    │   │   │   ├── PlayLaBaG.js            # 遊戲的主要運行邏輯
+    │   │   │   ├── P.js                    # LaBaG 的圖案符號
+    │   │   │   ├── PlayLaBaG.js            # 提供遊玩的 LaBaG
     │   │   │   └── test.js                 # 測試程式碼
     │   │   ├── components                  # 遊戲頁面的相關組件資料夾
     │   │   │   ├── BackButton.jsx          # 返回按鈕組件
