@@ -64,6 +64,12 @@ body {
   text-align: center; /* 確保文字置中 */
 }
 
+.SB {
+  margin: 15px;
+  width: 450px;
+  height: 173px;
+}
+
 /* 響應式設計 */
 @media (max-width: 768px) {
   .GameScreen {
@@ -74,7 +80,7 @@ body {
     justify-content: flex-start;
   }
 
-  .Logo{
+  .Logo {
     width: 100%;
     height: auto;
   }
@@ -86,5 +92,11 @@ body {
   }
   .InfoText > p {
     font-size: 18px;
+  }
+
+  .SB {
+    margin: 15px;
+    width: 100%;
+    height: auto;
   }
 }
