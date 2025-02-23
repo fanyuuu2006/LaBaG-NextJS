@@ -9,7 +9,7 @@ export class LaBaG{
         this.DataIndex = 0; // 資料索引值
 
         // 遊戲變數
-        this.Times = 3; // 可遊玩次數
+        this.Times = 30; // 可遊玩次數
         this.Played = 0; // 已遊玩次數
 
         this.Score = 0;
