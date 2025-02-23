@@ -183,8 +183,8 @@ export default function GamePage() {
     };
 
     // 主要執行階段
+    setButtonAble(false);
     if (Game.GameRunning()) {
-      setButtonAble(false);
       reset_qst_and_marginscore();
       Game.Logic();
       change_picture_per500ms();
@@ -198,19 +198,20 @@ export default function GamePage() {
           mode_picture_and_sound();
         }
       }, 3000);
-
-      setTimeout(() => {
-        if (!Game.GameRunning()) {
-          setBgmRunning(false);
-          router.push("/gameover");
-          Sound(Ding);
-        }
-        if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-          setNowPoP(true);
-        }
-        setButtonAble(true);
-      }, 3500);
+    }else{ // 如果遊戲已結束仍按下按鈕
+      alert("遊戲已結束");
     }
+    setTimeout(() => {
+      if (!Game.GameRunning()) {
+        setBgmRunning(false);
+        router.push("/gameover");
+        Sound(Ding);
+      }
+      if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
+        setNowPoP(true);
+      }
+      setButtonAble(true);
+    }, 3500);
   }
 
   return (
