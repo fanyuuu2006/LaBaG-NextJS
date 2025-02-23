@@ -17,5 +17,9 @@ export default function PopPictureV2(NowMode) {
     background: "transparent", // 背景透明
     showConfirmButton: false,
     allowOutsideClick: true,
+    didOpen: (popup) => {
+      // 監聽點擊事件關閉彈窗
+      popup.addEventListener("click", () => Swal.close());
+    },
   });
 }
