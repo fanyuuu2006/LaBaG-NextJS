@@ -10,6 +10,7 @@ import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
 import PopPicture from "./components/PopPicture";
 // 使用 dynamic import 禁用 SSR (伺服器端渲染)
+import dynamic from "next/dynamic";
 const MusicButton = dynamic(() => import("./components/MusicButton"), { 
   ssr: false, // 禁用伺服器端渲染
 });
