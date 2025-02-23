@@ -70,10 +70,12 @@ export default function GamePage() {
   const router = useRouter();
   const [IsClient, setIsClient] = useState(false); // 用於確保只在客戶端處理音樂邏輯
   const [BgmRunning, setBgmRunning] = useState(false);
-  // 設置只在客戶端時運行
+  
+  // 設置只在客戶端進入頁面時運行
   useEffect(() => {
     setIsClient(true);
     setBgmRunning(true);
+    Game.Reset()
   }, []);
 
   const [ButtonAble, setButtonAble] = useState(true);
@@ -94,10 +96,10 @@ export default function GamePage() {
 
   // **使用 useEffect 來更新背景**
   useEffect(() => {
-      // document.body.style.backgroundImage 不會自動處理.src
-      const NewBG = BGs[NowMode].src;
-      document.body.style.backgroundImage = `url(${NewBG})`;
-      console.log(`更換背景: ${NewBG}`);
+    // document.body.style.backgroundImage 不會自動處理.src
+    const NewBG = BGs[NowMode].src;
+    document.body.style.backgroundImage = `url(${NewBG})`;
+    console.log(`更換背景: ${NewBG}`);
   }, [NowMode]); // **當 NowMode 改變時，執行 useEffect**
 
   function Begin() {
@@ -194,16 +196,16 @@ export default function GamePage() {
     }, 3000);
 
     setTimeout(() => {
-        if (!Game.GameRunning()) {
-          setBgmRunning(false);
-          router.push("/gameover");
-          Sound(Ding);
-        }
-        if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-          setNowPoP(true);
-        }
-        setButtonAble(true);
-      }, 3500);
+      if (!Game.GameRunning()) {
+        setBgmRunning(false);
+        router.push("/gameover");
+        Sound(Ding);
+      }
+      if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
+        setNowPoP(true);
+      }
+      setButtonAble(true);
+    }, 3500);
   }
 
   return (
@@ -225,14 +227,14 @@ export default function GamePage() {
             ModeTimes={ModeTimes}
           />
           <BeginButton BeginFunc={Begin} Able={ButtonAble} />
-          <MusicButton
-            IsClient={IsClient}
-            BgmRunning={BgmRunning}
-            setBgmRunning={setBgmRunning}
-            NowMode={NowMode}
-          />
         </>
       )}
+      <MusicButton
+        IsClient={IsClient}
+        BgmRunning={BgmRunning}
+        setBgmRunning={setBgmRunning}
+        NowMode={NowMode}
+      />
     </div>
   );
 }
