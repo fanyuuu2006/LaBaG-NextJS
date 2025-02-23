@@ -6,4 +6,4 @@
 2. React
 3. Next.js
 
-[前往遊玩](https://fanyuuu2006.github.io/LaBaG-React/)
+[前往遊玩](https://labag-nextjs.vercel.app/)
