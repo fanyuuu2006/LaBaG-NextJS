@@ -68,14 +68,18 @@ function Sound(s) {
 
 export default function GamePage() {
   const router = useRouter();
-  const [IsClient, setIsClient] = useState(false); // 用於確保只在客戶端處理音樂邏輯
+  const [IsClient, setIsClient] = useState(false); // 用於確保只在客戶端處理邏輯
   const [BgmRunning, setBgmRunning] = useState(false);
-  
-  // 設置只在客戶端進入頁面時運行
+
+  // 設置只在客戶端載入頁面時運行
   useEffect(() => {
     setIsClient(true);
     setBgmRunning(true);
-    Game.Reset()
+
+    return () => {
+      setIsClient(false);
+      setBgmRunning(false);
+    };
   }, []);
 
   const [ButtonAble, setButtonAble] = useState(true);
@@ -86,7 +90,6 @@ export default function GamePage() {
   const [MP, setMP] = useState(QST);
   const [RP, setRP] = useState(QST);
   const setPs = [setLP, setMP, setRP];
-
   const [Score, setScore] = useState(Game.Score);
   const [Times, setTimes] = useState(Game.Times - Game.Played);
   const [MarginScore, setMarginScore] = useState(Game.MarginScore);
@@ -180,32 +183,34 @@ export default function GamePage() {
     };
 
     // 主要執行階段
-    setButtonAble(false);
-    reset_qst_and_marginscore();
-    Game.Logic();
-    change_picture_per500ms();
+    if (Game.GameRunning()) {
+      setButtonAble(false);
+      reset_qst_and_marginscore();
+      Game.Logic();
+      change_picture_per500ms();
 
-    setTimeout(() => {
-      if (Game.NowMode() !== NowMode) {
-        setNowMode(Game.NowMode());
-      }
-      info_text();
-      if (Game.ModeToScreen) {
-        mode_picture_and_sound();
-      }
-    }, 3000);
+      setTimeout(() => {
+        if (Game.NowMode() !== NowMode) {
+          setNowMode(Game.NowMode());
+        }
+        info_text();
+        if (Game.ModeToScreen) {
+          mode_picture_and_sound();
+        }
+      }, 3000);
 
-    setTimeout(() => {
-      if (!Game.GameRunning()) {
-        setBgmRunning(false);
-        router.push("/gameover");
-        Sound(Ding);
-      }
-      if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-        setNowPoP(true);
-      }
-      setButtonAble(true);
-    }, 3500);
+      setTimeout(() => {
+        if (!Game.GameRunning()) {
+          setBgmRunning(false);
+          router.push("/gameover");
+          Sound(Ding);
+        }
+        if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
+          setNowPoP(true);
+        }
+        setButtonAble(true);
+      }, 3500);
+    }
   }
 
   return (

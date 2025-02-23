@@ -1,5 +1,5 @@
 "use client";
-
+import Game from "./game/backend/PlayLaBaG";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import SuperCircle from "@/assets/SuperCircle.png";
@@ -8,6 +8,7 @@ export default function IndexPage() {
   const router = useRouter();
 
   function IntoGame() {
+    Game.Reset();
     router.push("/game");
     console.log("切換至 Game 畫面");
   }
