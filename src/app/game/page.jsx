@@ -8,8 +8,12 @@ import TitlePicture from "./components/TitlePicture";
 import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
-import MusicButton from "./components/MusicButton";
 import PopPicture from "./components/PopPicture";
+// 使用 dynamic import 禁用 SSR (伺服器端渲染)
+const MusicButton = dynamic(() => import("./components/MusicButton"), { 
+  ssr: false, // 禁用伺服器端渲染
+});
+
 
 import BG from "@/assets/BG.jpg";
 import SuperBG from "@/assets/SuperBG.jpg";
