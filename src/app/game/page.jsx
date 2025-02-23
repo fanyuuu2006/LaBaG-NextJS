@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Game from "./backend/PlayLaBaG";
+import Toast from "../Toast";
 import BackButton from "./components/BackButton";
 import TitlePicture from "./components/TitlePicture";
 import Pictures from "./components/Pictures";
@@ -198,8 +199,12 @@ export default function GamePage() {
           mode_picture_and_sound();
         }
       }, 3000);
-    }else{ // 如果遊戲已結束仍按下按鈕
-      alert("遊戲已結束");
+    } else {
+      // 如果遊戲已結束仍按下按鈕
+      Toast.fire({
+        icon: "error",
+        title: "遊戲已結束",
+      });
     }
     setTimeout(() => {
       if (!Game.GameRunning()) {
