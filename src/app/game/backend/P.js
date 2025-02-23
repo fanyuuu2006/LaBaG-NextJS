@@ -5,10 +5,10 @@ export class P {
         this.code = code;
         this.score_array = score_array;
         this.rate_map = rate_map;
-        this.AddToMap();
+        this.AddToObj();
     }
 
-    AddToMap() {
+    AddToObj() {
         if (!(this.code in P.Obj)) {
             P.Obj[this.code] = this;
         }
