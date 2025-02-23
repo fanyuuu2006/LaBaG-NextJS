@@ -9,7 +9,7 @@ import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
 import MusicButton from "./components/MusicButton";
-import PopPicture from "./components/PopPicture";
+import PopPicture, {PopPictureV2} from "./components/PopPicture";
 
 import BG from "@/assets/BG.jpg";
 import SuperBG from "@/assets/SuperBG.jpg";
@@ -202,7 +202,7 @@ export default function GamePage() {
     } else {
       // 如果遊戲已結束仍按下按鈕
       Toast.fire({
-        icon: "error",
+        icon: "success",
         title: "遊戲已結束",
       });
     }

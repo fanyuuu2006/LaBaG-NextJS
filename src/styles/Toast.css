@@ -1,6 +1,6 @@
 /* SweetAlert2 自訂 Toast 樣式 */
 .colored-toast.swal2-icon-success {
-    background-color: #00ff00 !important
+    background-color: #17c600 !important
 }
 
 .colored-toast.swal2-icon-error {
@@ -8,15 +8,15 @@
 }
 
 .colored-toast.swal2-icon-warning {
-    background-color: #ff8800  !important
+    background-color: #eb7e01  !important
 }
 
 .colored-toast.swal2-icon-info {
-    background-color: #00ffff !important
+    background-color: #005fcc !important
 }
 
 .colored-toast.swal2-icon-question {
-    background-color: #ffff00 !important
+    background-color: #5d5d5d !important
 }
 
 .colored-toast .swal2-title {
