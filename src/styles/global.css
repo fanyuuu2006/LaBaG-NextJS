@@ -16,7 +16,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  padding: auto;
 }
 
 .GameScreen {
@@ -25,6 +25,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding: auto;
 }
 
 .Pictures {
@@ -39,10 +40,9 @@ body {
   width: 180px;
   height: auto;
   object-fit: contain; /* 讓圖片按比例縮放 */
-
 }
 
-.InfoText{
+.InfoText {
   background-color: rgba(0, 0, 0, 0.5); /* 50% 透明度 */
   border-radius: 10%;
   width: 60%;
@@ -54,43 +54,21 @@ body {
   line-height: 0;
 }
 
-
-.InfoText> p {
+.InfoText > p {
   margin: 16px;
   font-size: 20px;
   color: white;
   text-align: center; /* 確保文字置中 */
 }
 
- /* sweetaalert2 css toast */
-.colored-toast.swal2-icon-success {
-  background-color: #00FF00 !important;
-}
-
-.colored-toast.swal2-icon-error {
-  background-color: #ff0000 !important;
-}
-
-.colored-toast.swal2-icon-warning {
-  background-color: #ff8000 !important;
-}
-
-.colored-toast.swal2-icon-info {
-  background-color: #00FFFF !important;
-}
-
-.colored-toast.swal2-icon-question {
-  background-color: #FFFF00 !important;
-}
-
-.colored-toast .swal2-title {
-  color: white;
-}
-
-.colored-toast .swal2-close {
-  color: white;
-}
-
-.colored-toast .swal2-html-container {
-  color: white;
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .Pictures > img {
+    width: 33%;
+    height: auto;
+    object-fit: contain; /* 讓圖片按比例縮放 */
+  }
+  .InfoText > p {
+    font-size: 18px;
+  }
 }
