@@ -16,10 +16,7 @@ export default function TitlePicture({ NowMode }) {
     <Image
       src={Titles[NowMode]}
       alt="Logo"
-      style={{
-        width: "450px",
-        height: "243px",
-      }}
+      className="Logo"
     />
   );
 }

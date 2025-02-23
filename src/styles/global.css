@@ -26,6 +26,10 @@ body {
   align-items: center;
   justify-content: flex-start;
 }
+.Logo {
+  width: 450px;
+  height: 243px;
+}
 
 .Pictures {
   display: flex;
@@ -69,6 +73,12 @@ body {
     align-items: center;
     justify-content: flex-start;
   }
+
+  .Logo{
+    width: 100%;
+    height: auto;
+  }
+
   .Pictures > img {
     width: 33%;
     height: auto;
