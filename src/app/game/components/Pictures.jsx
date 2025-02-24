@@ -1,4 +1,4 @@
-import "@/styles/InfoSwal.css"
+import "@/styles/InfoSwal.css";
 import P from "../backend/P";
 import Image from "next/image";
 import Swal from "sweetalert2";
@@ -26,13 +26,12 @@ const QSTs = {
   PiKaChu: KachuQST,
 };
 
-const BackgroundColors = {
-  Normal: "#000B52",
-  SuperHHH: "#310052",
-  GreenWei: "#045200",
-  PiKaChu: "#6E5B07"
+const ModeMatchColors = {
+  Normal: { background: "#000B52", color: "#FFFFFF" },
+  SuperHHH: { background: "#310052", color: "#FF00FF" },
+  GreenWei: { background: "#045200", color: "#00FF00" },
+  PiKaChu: { background: "#6E5B07", color: "#FFFF00" },
 };
-
 
 export default function Pictures({ LCode, MCode, RCode, NowMode }) {
   const PicturesInfo = {
@@ -89,19 +88,20 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
 
   function InfoSwal(code) {
     const Info = PicturesInfo[code];
+    const MatchColor = ModeMatchColors[NowMode];
     Swal.fire({
       title: Info.title,
       html:
         code === "QST"
           ? "<p><b>點進來做什麼?</b></p>"
           : `<p><b>一般模式機率: ${Info.rates["Normal"]}%<br>超級阿禾模式機率: ${Info.rates["SuperHHH"]}%</b></p>`,
-      background: BackgroundColors[NowMode], // 設定彈窗背景顏色
-      color: "#FFFFFF", // 設定文字顏色
+      background: MatchColor.background, // 設定彈窗背景顏色
+      color: MatchColor.color, // 設定文字顏色
       imageUrl: Info.picture.src,
       customClass: {
         popup: "InfoSwal",
       },
-      confirmButtonText: "關閉"
+      confirmButtonText: "關閉",
     });
   }
   return (
