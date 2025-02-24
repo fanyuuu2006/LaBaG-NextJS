@@ -1,5 +1,5 @@
+import "@/styles/InfoSwal.css"
 import P from "../backend/P";
-import Game from "../backend/PlayLaBaG";
 import Image from "next/image";
 import Swal from "sweetalert2";
 
@@ -26,7 +26,7 @@ const QSTs = {
   PiKaChu: KachuQST,
 };
 
-export default function Pictures({ LCode, MCode, RCode, NowMode}) {
+export default function Pictures({ LCode, MCode, RCode, NowMode }) {
   const PicturesInfo = {
     QST: {
       title: "??????",
@@ -76,25 +76,48 @@ export default function Pictures({ LCode, MCode, RCode, NowMode}) {
       title: "皮卡丘",
       rates: P.Obj["E"].rate_obj,
       picture: pikachu,
-    }
+    },
   };
 
-  function InfoSwal(code, src) {
+  function InfoSwal(code) {
     const Info = PicturesInfo[code];
     Swal.fire({
       title: Info.title,
-      text:
+      html:
         code === "QST"
-          ? "點進來做什麼?"
-          : `一般機率: ${Info.rates["Normal"]}\n超級阿禾模式機率: ${Info.rates["SuperHHH"]}\n`,
-      icon: src,
+          ? "<p><b>點進來做什麼?</b></p>"
+          : `<p><b>一般模式機率: ${Info.rates["Normal"]}%<br>超級阿禾模式機率: ${Info.rates["SuperHHH"]}%</b></p>`,
+      background: "#000B52", // 設定彈窗背景顏色
+      color: "#FFFFFF", // 設定文字顏色
+      imageUrl: Info.picture.src,
+      customClass: {
+        popup: "InfoSwal",
+      },
     });
   }
   return (
     <div className="Pictures">
-      <Image src={PicturesInfo[LCode].picture} alt="Left Picture" />
-      <Image src={PicturesInfo[MCode].picture} alt="Mid Picture" />
-      <Image src={PicturesInfo[RCode].picture} alt="Right Picture" />
+      <Image
+        src={PicturesInfo[LCode].picture}
+        alt="Left Picture"
+        onClick={() => {
+          InfoSwal(LCode);
+        }}
+      />
+      <Image
+        src={PicturesInfo[MCode].picture}
+        alt="Mid Picture"
+        onClick={() => {
+          InfoSwal(MCode);
+        }}
+      />
+      <Image
+        src={PicturesInfo[RCode].picture}
+        alt="Right Picture"
+        onClick={() => {
+          InfoSwal(RCode);
+        }}
+      />
     </div>
   );
 }

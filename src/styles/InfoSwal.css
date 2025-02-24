@@ -1,0 +1,32 @@
+.InfoSwal {
+  width: 450px;
+  height: auto;
+}
+
+.InfoSwal > .swal2-image {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}
+.InfoSwal > .swal2-title {
+  font-size: 30px; /* 標題大小 */
+  font-weight: bold;
+  padding: 0;
+}
+.InfoSwal > .swal2-html-container {
+  font-size: 18px;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .InfoSwal {
+    width: 90%;
+    height: auto;
+  }
+
+  .InfoSwal > .swal2-image {
+    width: 33%;
+    height: auto;
+    object-fit: contain;
+  }
+}
