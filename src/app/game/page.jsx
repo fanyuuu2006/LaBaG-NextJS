@@ -11,34 +11,14 @@ import BeginButton from "./components/BeginButton";
 import PopPicture from "./components/PopPicture";
 // 使用 dynamic import 禁用 SSR (伺服器端渲染)
 import dynamic from "next/dynamic";
-const MusicButton = dynamic(() => import("./components/MusicButton"), { 
+const MusicButton = dynamic(() => import("./components/MusicButton"), {
   ssr: false, // 禁用伺服器端渲染
 });
-
 
 import BG from "@/assets/BG.jpg";
 import SuperBG from "@/assets/SuperBG.jpg";
 import GreenBG from "@/assets/GreenBG.jpg";
 import KachuBG from "@/assets/KachuBG.jpg";
-
-import QST from "@/assets/QST.jpg";
-import SuperQST from "@/assets/SuperQST.jpg";
-import GreenQST from "@/assets/GreenQST.jpg";
-import KachuQST from "@/assets/KachuQST.jpg";
-
-import Gss from "@/assets/Gss.jpg";
-import Hhh from "@/assets/Hhh.jpg";
-import Hentai from "@/assets/Hentai.jpg";
-import Handsun from "@/assets/Handsun.jpg";
-import Kachu from "@/assets/Kachu.jpg";
-import Rrr from "@/assets/RRR.jpg";
-
-import superhhh from "@/assets/super_hhh.jpg";
-import greenwei from "@/assets/green_wei.jpg";
-import GreenLeft from "@/assets/GreenLeft.jpg";
-import GreenMid from "@/assets/GreenMid.jpg";
-import GreenRight from "@/assets/GreenRight.jpg";
-import pikachu from "@/assets/pikachu.jpg";
 
 import Ding from "@/assets/Ding.mp3";
 import SuperUP from "@/assets/SuperUP.mp3";
@@ -49,22 +29,6 @@ const BGs = {
   SuperHHH: SuperBG,
   GreenWei: GreenBG,
   PiKaChu: KachuBG,
-};
-
-const QSTs = {
-  Normal: QST,
-  SuperHHH: SuperQST,
-  GreenWei: GreenQST,
-  PiKaChu: KachuQST,
-};
-
-const CodePictures = {
-  A: Gss,
-  B: Hhh,
-  C: Hentai,
-  D: Handsun,
-  E: Kachu,
-  F: Rrr,
 };
 
 function Sound(s) {
@@ -91,10 +55,10 @@ export default function GamePage() {
   const [ButtonAble, setButtonAble] = useState(true);
   const [NowMode, setNowMode] = useState(Game.NowMode());
 
-  const [LP, setLP] = useState(QST);
-  const [MP, setMP] = useState(QST);
-  const [RP, setRP] = useState(QST);
-  const setPs = [setLP, setMP, setRP];
+  const [LCode, setLCode] = useState("QST");
+  const [MCode, setMCode] = useState("QST");
+  const [RCode, setRCode] = useState("QST");
+  const setCodes = [setLCode, setMCode, setRCode];
   const [Score, setScore] = useState(Game.Score);
   const [Times, setTimes] = useState(Game.Times - Game.Played);
   const [MarginScore, setMarginScore] = useState(Game.MarginScore);
@@ -112,16 +76,16 @@ export default function GamePage() {
 
   function Begin() {
     const reset_qst_and_marginscore = () => {
-      setPs.forEach((setP) => {
-        setP(QSTs[Game.NowMode()]);
+      setCodes.forEach((setCode) => {
+        setCode("QST");
       });
       setMarginScore(0);
       setDoubleScore(0);
     };
     const change_picture_per500ms = () => {
-      setPs.forEach((setP, i) => {
+      setCodes.forEach((setCode, i) => {
         setTimeout(() => {
-          setP(CodePictures[Game.Ps[i].code]);
+          setCode(Game.Ps[i].code);
           console.log(`更新位置 ${i} 的圖片`);
           Sound(Ding);
         }, 500 * (i + 1));
@@ -135,33 +99,23 @@ export default function GamePage() {
         case "SuperHHH":
           for (let i = 0; i < 3; i++) {
             if (Game.Ps[i].code == "B") {
-              setPs[i](superhhh);
+              setCodes[i]("SB");
             }
           }
           Sound(SuperUP);
           break;
         case "GreenWei":
-          if (Game.Ps.every((p) => p.code === "A")) {
-            setLP(GreenLeft);
-            setMP(GreenMid);
-            setRP(GreenRight);
-          } else if (Game.Ps.some((p) => p.code === "A")) {
-            for (let i = 0; i < 3; i++) {
-              if (Game.Ps[i].code == "A") {
-                setPs[i](greenwei);
-              }
+          for (let i = 0; i < 3; i++) {
+            if (Game.Ps[i].code == "A") {
+              setCodes[i]("GW");
             }
-          } else {
-            setPs.forEach((setP) => {
-              setP(greenwei);
-            });
           }
           Sound(GreenUP);
           break;
         case "PiKaChu":
           for (let i = 0; i < 3; i++) {
             if (Game.Ps[i].code == "E") {
-              setPs[i](pikachu);
+              setCodes[i]("PK");
             }
           }
           break;
@@ -227,7 +181,7 @@ export default function GamePage() {
     <div className="GameScreen">
       <BackButton />
       <TitlePicture NowMode={NowMode} />
-      <Pictures LP={LP} MP={MP} RP={RP} />
+      <Pictures LCode={LCode} MCode={MCode} RCode={RCode} NowMode = {NowMode}/>
       <InfoText
         Score={Score}
         Times={Times}

@@ -26,11 +26,11 @@ const QSTs = {
   PiKaChu: KachuQST,
 };
 
-export default function Pictures({ LP, MP, RP }) {
+export default function Pictures({ LCode, MCode, RCode, NowMode}) {
   const PicturesInfo = {
     QST: {
       title: "??????",
-      picture: QSTs[Game.NowMode()],
+      picture: QSTs[NowMode],
     },
     A: {
       title: "咖波",
@@ -92,9 +92,9 @@ export default function Pictures({ LP, MP, RP }) {
   }
   return (
     <div className="Pictures">
-      <Image src={LP} alt="Left Picture" />
-      <Image src={MP} alt="Mid Picture" />
-      <Image src={RP} alt="Right Picture" />
+      <Image src={PicturesInfo[LCode].picture} alt="Left Picture" />
+      <Image src={PicturesInfo[MCode].picture} alt="Mid Picture" />
+      <Image src={PicturesInfo[RCode].picture} alt="Right Picture" />
     </div>
   );
 }
