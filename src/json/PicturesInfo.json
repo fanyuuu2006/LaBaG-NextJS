@@ -1,0 +1,52 @@
+{
+  "QST": {
+    "title": "??????",
+    "html": "<p><b>點進來做什麼??</b></p>",
+    "picture": "{{ModeQST}}.jpg"
+  },
+  "A": {
+    "title": "咖波",
+    "html": "<p><b>一般模式機率: {{RateNormal}}%<br>超級阿禾模式機率: {{RateSuperHHH}}%</b></p>",
+    "picture": "Gss.jpg"
+  },
+  "B": {
+    "title": "阿禾",
+    "html": "<p><b>一般模式機率: {{RateNormal}}%<br>超級阿禾模式機率: {{RateSuperHHH}}%</b></p>",
+    "picture": "Hhh.jpg"
+  },
+  "C": {
+    "title": "猥褻男",
+    "html": "<p><b>一般模式機率: {{RateNormal}}%<br>超級阿禾模式機率: {{RateSuperHHH}}%</b></p>",
+    "picture": "Hentai.jpg"
+  },
+  "D": {
+    "title": "蚊傑",
+    "html": "<p><b>一般模式機率: {{RateNormal}}%<br>超級阿禾模式機率: {{RateSuperHHH}}%</b></p>",
+    "picture": "Handsun.jpg"
+  },
+  "E": {
+    "title": "皮卡丘",
+    "html": "<p><b>一般模式機率: {{RateNormal}}%<br>超級阿禾模式機率: {{RateSuperHHH}}%</b></p>",
+    "picture": "Kachu.jpg"
+  },
+  "F": {
+    "title": "館長",
+    "html": "<p><b>一般模式機率: {{RateNormal}}%<br>超級阿禾模式機率: {{RateSuperHHH}}%</b></p>",
+    "picture": "RRR.jpg"
+  },
+  "SB": {
+    "title": "超級阿禾",
+    "html": "<p><b>觸發條件：<br>出現任一阿禾的時候 {{SuperRate}}% 機率</b></p>",
+    "picture": "super_hhh.jpg"
+  },
+  "GW": {
+    "title": "綠光阿瑋",
+    "html": "<p><b>觸發條件：<br>1. 出現全部咖波的時候 {{GreenRate}}% 機率<br>2. 咖波累積數達到 20</b></p>",
+    "picture": "green_wei.jpg"
+  },
+  "PK": {
+    "title": "皮卡丘充電",
+    "html": "<p><b>觸發條件：<br>剩餘次數即將歸零時 出現皮卡丘</b></p>",
+    "picture": "pikachu.jpg"
+  }
+}

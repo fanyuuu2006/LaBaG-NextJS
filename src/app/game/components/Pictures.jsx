@@ -3,7 +3,7 @@ import P from "@/app/game/backend/P";
 import Game from "@/app/game/backend/PlayLaBaG";
 import Image from "next/image";
 import Swal from "sweetalert2";
-
+import rawPicturesInfo from "@/json/PicturesInfo.json"; // 先匯入原始資料
 import QST from "@/assets/QST.jpg";
 import SuperQST from "@/assets/SuperQST.jpg";
 import GreenQST from "@/assets/GreenQST.jpg";
@@ -28,7 +28,7 @@ const QSTs = {
 };
 
 const ModeMatchColors = {
-  Normal: { background: "#000B52", border: "#00FFFF" },
+  Normal: { background: "#000B52", border: "#FFFFFF" },
   SuperHHH: { background: "#310052", border: "#FF00FF" },
   GreenWei: { background: "#045200", border: "#00FF00" },
   PiKaChu: { background: "#6E5B07", border: "#FFFF00" },
