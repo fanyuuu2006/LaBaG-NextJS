@@ -49,5 +49,6 @@
     │   └── page.jsx                        # 根頁面組件
     └── styles                              # 存放 CSS 檔案的資料夾
         ├── Toast.css                       # Toast 訊息的樣式表
+        ├── InfoSwal.css                    # InfoSwal 彈窗的樣式表
         └── global.css                      # 全局樣式表，設定通用的樣式規則
 ```

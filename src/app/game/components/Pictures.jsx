@@ -93,6 +93,7 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
       customClass: {
         popup: "InfoSwal",
       },
+      confirmButtonText: "關閉"
     });
   }
   return (
