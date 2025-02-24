@@ -9,6 +9,7 @@ import Pictures from "./components/Pictures";
 import InfoText from "./components/InfoText";
 import BeginButton from "./components/BeginButton";
 import PopPicture from "./components/PopPicture";
+import RuleButton from "./components/RuleButton";
 // 使用 dynamic import 禁用 SSR (伺服器端渲染)
 import dynamic from "next/dynamic";
 const MusicButton = dynamic(() => import("./components/MusicButton"), {
@@ -180,6 +181,7 @@ export default function GamePage() {
   return (
     <div className="GameScreen">
       <BackButton />
+      <RuleButton/>
       <TitlePicture NowMode={NowMode} />
       <Pictures LCode={LCode} MCode={MCode} RCode={RCode} NowMode = {NowMode}/>
       <InfoText

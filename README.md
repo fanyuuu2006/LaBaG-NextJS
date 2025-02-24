@@ -38,12 +38,12 @@
     │   │   │   ├── Pictures.jsx            # 啦八機得分圖片顯示的組件
     │   │   │   ├── PopPicture.jsx          # 彈出圖片組件
     │   │   │   └── TitlePicture.jsx        # 顯示標題圖片的組件
+    │   │   │   └── RuleButton.jsx          # 顯示分數計算規則圖片的組件
     │   │   └── page.jsx                    # 遊戲頁面的主組件
     │   ├── gameover                        # 遊戲結束頁面
     │   │   ├── components                  # 遊戲結束頁面相關組件資料夾
     │   │   │   ├── AgainButton.jsx         # 再玩一次按鈕組件
-    │   │   │   ├── InfoText.jsx            # 顯示遊戲結束訊息
-    │   │   │   └── ScoresPicture.jsx       # 顯示分數計算規則圖片的組件
+    │   │   │   └──  InfoText.jsx           # 顯示遊戲結束訊息
     │   │   └── page.jsx                    # 遊戲結束頁面的主組件
     |   ├── components                      # 根頁面相關組件資料夾
     │   │   └── CirclePicture.jsx           # 每月訪客數組件
