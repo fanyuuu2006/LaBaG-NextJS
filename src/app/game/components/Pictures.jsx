@@ -27,10 +27,10 @@ const QSTs = {
 };
 
 const ModeMatchColors = {
-  Normal: { background: "#000B52", color: "#FFFFFF" },
-  SuperHHH: { background: "#310052", color: "#FF00FF" },
-  GreenWei: { background: "#045200", color: "#00FF00" },
-  PiKaChu: { background: "#6E5B07", color: "#FFFF00" },
+  Normal: { background: "#000B52"},
+  SuperHHH: { background: "#310052" },
+  GreenWei: { background: "#045200" },
+  PiKaChu: { background: "#6E5B07" },
 };
 
 export default function Pictures({ LCode, MCode, RCode, NowMode }) {
@@ -96,7 +96,7 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
           ? "<p><b>點進來做什麼?</b></p>"
           : `<p><b>一般模式機率: ${Info.rates["Normal"]}%<br>超級阿禾模式機率: ${Info.rates["SuperHHH"]}%</b></p>`,
       background: MatchColor.background, // 設定彈窗背景顏色
-      color: MatchColor.color, // 設定文字顏色
+      color: "#FFFFFF", // 設定文字顏色
       imageUrl: Info.picture.src,
       customClass: {
         popup: "InfoSwal",
