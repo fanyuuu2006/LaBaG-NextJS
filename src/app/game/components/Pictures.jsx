@@ -28,7 +28,7 @@ const QSTs = {
 };
 
 const ModeMatchColors = {
-  Normal: { background: "#000B52", border: "#FFFFFF" },
+  Normal: { background: "#000B52", border: "#00FFFF" },
   SuperHHH: { background: "#310052", border: "#FF00FF" },
   GreenWei: { background: "#045200", border: "#00FF00" },
   PiKaChu: { background: "#6E5B07", border: "#FFFF00" },
