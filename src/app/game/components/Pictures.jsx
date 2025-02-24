@@ -1,5 +1,6 @@
 import "@/styles/InfoSwal.css";
-import P from "../backend/P";
+import P from "@/app/game/backend/P";
+import Game from "@/app/game/backend/PlayLaBaG";
 import Image from "next/image";
 import Swal from "sweetalert2";
 
@@ -37,51 +38,52 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
   const PicturesInfo = {
     QST: {
       title: "??????",
+      html: "<p><b>點進來做什麼??</b></p>",
       picture: QSTs[NowMode],
     },
     A: {
       title: "咖波",
-      rates: P.Obj["A"].rate_obj,
+      html: `<p><b>一般模式機率: ${P.Obj["A"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["A"].rate_obj["SuperHHH"]}%</b></p>`,
       picture: Gss,
     },
     B: {
       title: "阿禾",
-      rates: P.Obj["B"].rate_obj,
+      html: `<p><b>一般模式機率: ${P.Obj["B"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["B"].rate_obj["SuperHHH"]}%</b></p>`,
       picture: Hhh,
     },
     C: {
       title: "猥褻男",
-      rates: P.Obj["C"].rate_obj,
+      html: `<p><b>一般模式機率: ${P.Obj["C"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["C"].rate_obj["SuperHHH"]}%</b></p>`,
       picture: Hentai,
     },
     D: {
       title: "蚊傑",
-      rates: P.Obj["D"].rate_obj,
+      html: `<p><b>一般模式機率: ${P.Obj["D"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["D"].rate_obj["SuperHHH"]}%</b></p>`,
       picture: Handsun,
     },
     E: {
       title: "皮卡丘",
-      rates: P.Obj["E"].rate_obj,
+      html: `<p><b>一般模式機率: ${P.Obj["E"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["E"].rate_obj["SuperHHH"]}%</b></p>`,
       picture: Kachu,
     },
     F: {
       title: "館長",
-      rates: P.Obj["F"].rate_obj,
+      html: `<p><b>一般模式機率: ${P.Obj["F"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["F"].rate_obj["SuperHHH"]}%</b></p>`,
       picture: Rrr,
     },
     SB: {
       title: "超級阿禾",
-      rates: P.Obj["B"].rate_obj,
+      html: `<p><b>觸發條件：<br>出現任一阿禾的時候 ${Game.SuperRate}% 機率</b></p>`,
       picture: superhhh,
     },
     GW: {
       title: "綠光阿瑋",
-      rates: P.Obj["A"].rate_obj,
+      html: `<p><b>觸發條件：<br>1. 出現全部咖波的時候 ${Game.GreenRate}% 機率<br>2. 咖波累積數達到 20</b></p>`,
       picture: greenwei,
     },
     PK: {
-      title: "皮卡丘",
-      rates: P.Obj["E"].rate_obj,
+      title: "皮卡丘充電",
+      html: `<p><b>觸發條件：<br>剩餘次數即將歸零時 出現皮卡丘</b></p>`,
       picture: pikachu,
     },
   };
@@ -91,10 +93,7 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
     const MatchColor = ModeMatchColors[NowMode];
     Swal.fire({
       title: Info.title,
-      html:
-        code === "QST"
-          ? "<p><b>點進來做什麼?</b></p>"
-          : `<p><b>一般模式機率: ${Info.rates["Normal"]}%<br>超級阿禾模式機率: ${Info.rates["SuperHHH"]}%</b></p>`,
+      html: Info.html,
       background: MatchColor.background, // 設定彈窗背景顏色
       color: "#FFFFFF", // 設定文字顏色
       imageUrl: Info.picture.src,
