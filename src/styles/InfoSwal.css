@@ -1,6 +1,7 @@
 .InfoSwal {
   width: 450px;
   height: auto;
+  border: 3px solid #ffffff; /* 金色邊框 */
 }
 
 .InfoSwal > .swal2-image {
