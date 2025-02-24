@@ -1,10 +1,10 @@
 export default class P {
     static Obj = {};
 
-    constructor(code = null, score_array = [], rate_map = { "Normal": 0 }) {
+    constructor(code = null, score_array = [], rate_obj = { "Normal": 0 }) {
         this.code = code;
         this.score_array = score_array;
-        this.rate_map = rate_map;
+        this.rate_obj = rate_obj;
         this.AddToObj();
     }
 
