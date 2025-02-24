@@ -45,6 +45,8 @@
     │   │   │   ├── InfoText.jsx            # 顯示遊戲結束訊息
     │   │   │   └── ScoresPicture.jsx       # 顯示分數計算規則圖片的組件
     │   │   └── page.jsx                    # 遊戲結束頁面的主組件
+    |   ├── components                      # 根頁面相關組件資料夾
+    │   │   └── MonthlyVisitor.jsx          # 每月訪客數組件
     │   ├── layout.jsx                      # 全站頁面的佈局設計
     │   └── page.jsx                        # 根頁面組件
     └── styles                              # 存放 CSS 檔案的資料夾
