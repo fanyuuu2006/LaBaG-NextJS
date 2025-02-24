@@ -27,10 +27,10 @@ const QSTs = {
 };
 
 const ModeMatchColors = {
-  Normal: { background: "#000B52"},
-  SuperHHH: { background: "#310052" },
-  GreenWei: { background: "#045200" },
-  PiKaChu: { background: "#6E5B07" },
+  Normal: { background: "#000B52", border: "#FFFFFF" },
+  SuperHHH: { background: "#310052", border: "#FF00FF" },
+  GreenWei: { background: "#045200", border: "#00FF00" },
+  PiKaChu: { background: "#6E5B07", border: "#FFFF00" },
 };
 
 export default function Pictures({ LCode, MCode, RCode, NowMode }) {
@@ -100,6 +100,9 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
       imageUrl: Info.picture.src,
       customClass: {
         popup: "InfoSwal",
+      },
+      didOpen: () =>{
+        document.querySelector(".InfoSwal").style.border = `3px solid ${MatchColor.border}`;
       },
       confirmButtonText: "關閉",
     });
