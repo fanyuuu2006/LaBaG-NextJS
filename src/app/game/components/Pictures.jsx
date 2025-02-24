@@ -26,6 +26,14 @@ const QSTs = {
   PiKaChu: KachuQST,
 };
 
+const BackgroundColors = {
+  Normal: "#000B52",
+  SuperHHH: "#310052",
+  GreenWei: "#045200",
+  PiKaChu: "#6E5B07"
+};
+
+
 export default function Pictures({ LCode, MCode, RCode, NowMode }) {
   const PicturesInfo = {
     QST: {
@@ -87,7 +95,7 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
         code === "QST"
           ? "<p><b>點進來做什麼?</b></p>"
           : `<p><b>一般模式機率: ${Info.rates["Normal"]}%<br>超級阿禾模式機率: ${Info.rates["SuperHHH"]}%</b></p>`,
-      background: "#000B52", // 設定彈窗背景顏色
+      background: BackgroundColors[NowMode], // 設定彈窗背景顏色
       color: "#FFFFFF", // 設定文字顏色
       imageUrl: Info.picture.src,
       customClass: {
