@@ -1,4 +1,4 @@
-import { LaBaG } from './LaBaG.js'; 
+import  LaBaG  from './LaBaG.js'; 
 
 // 可遊玩的啦八機
 class PlayLaBaG extends LaBaG{

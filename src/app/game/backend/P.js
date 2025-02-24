@@ -1,4 +1,4 @@
-export class P {
+export default class P {
     static Obj = {};
 
     constructor(code = null, score_array = [], rate_map = { "Normal": 0 }) {
