@@ -1,7 +1,7 @@
 import  P  from './P.js'; 
 
 // 啦八機本體
-export class LaBaG{
+export default class LaBaG{
     // 建構函數
     constructor(){ 
         this.AllData = {}; // 總資料
@@ -62,7 +62,7 @@ export class LaBaG{
             let res = [];
             let acc = 0;
             for (const p of Object.values(P.Obj)) {
-                acc += p.rate_map[mode];
+                acc += p.rate_obj[mode];
                 res.push(acc);
             }
             return res;
