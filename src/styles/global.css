@@ -71,6 +71,13 @@ body {
   height: 173px;
 }
 
+.MonthlyVisitor{
+  color: #FFFFFF;
+  font-weight: bold;
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+}
 
 /* 響應式設計 */
 @media (max-width: 768px) {

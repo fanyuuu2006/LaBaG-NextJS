@@ -3,6 +3,7 @@ import Game from "./game/backend/PlayLaBaG";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import SuperCircle from "@/assets/SuperCircle.png";
+import MonthlyVisitors from "./components/MonthlyVisitor";
 
 export default function IndexPage() {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function IndexPage() {
       >
         <b>請點擊上方圖片進入遊戲</b>
       </p>
+      <MonthlyVisitors/>
     </div>
   );
 }

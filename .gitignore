@@ -40,4 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-src/config/ga4-service-account.json
+src/config/credentials.json
