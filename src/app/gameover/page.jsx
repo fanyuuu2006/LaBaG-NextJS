@@ -1,11 +1,13 @@
 "use client";
-import AgainButton from "../components/AgainButton";
-import GameoverText from "../components/GameoverText";
-import DownloadJson from "../components/DownloadJson";
+import HomeButton from "@/app/components/HomeButton";
+import AgainButton from "@/app/components/AgainButton";
+import GameoverText from "@/app/components/GameoverText";
+import DownloadJson from "@/app/components/DownloadJson";
 
 export default function GameOverPage() {
   return (
     <div className="Screen">
+      <HomeButton/>
       <GameoverText/>
       <AgainButton />
       <DownloadJson/>
