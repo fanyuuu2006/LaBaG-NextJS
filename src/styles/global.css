@@ -54,6 +54,7 @@ body {
   padding: 10px;
   background-color: #0066ff;
   border-radius: 10px;
+  white-space: nowrap; /* 防止按鈕換行 */
   cursor: pointer;
 }
 
