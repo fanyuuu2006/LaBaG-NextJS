@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
-export default function BackButton() {
+export default function HomeButton() {
   const router = useRouter();
   const DialogBox = ()  => {
     Swal.fire({
@@ -25,6 +25,7 @@ export default function BackButton() {
   return (
     <FaHome
       onClick={DialogBox}
+      title="返回首頁"
       size={30}
       color="#FFFFFF"
       style={{
