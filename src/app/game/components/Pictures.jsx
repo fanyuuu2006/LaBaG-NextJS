@@ -1,9 +1,10 @@
 import "@/styles/InfoSwal.css";
 import P from "@/app/game/backend/P";
 import Game from "@/app/game/backend/PlayLaBaG";
+import ModeMatchColor from "@/json/ModeMatchColor.json"
 import Image from "next/image";
 import Swal from "sweetalert2";
-import rawPicturesInfo from "@/json/PicturesInfo.json"; // 先匯入原始資料
+
 import QST from "@/assets/QST.jpg";
 import SuperQST from "@/assets/SuperQST.jpg";
 import GreenQST from "@/assets/GreenQST.jpg";
@@ -25,13 +26,6 @@ const QSTs = {
   SuperHHH: SuperQST,
   GreenWei: GreenQST,
   PiKaChu: KachuQST,
-};
-
-const ModeMatchColors = {
-  Normal: { background: "#000B52", border: "#00FFFF" },
-  SuperHHH: { background: "#310052", border: "#FF00FF" },
-  GreenWei: { background: "#045200", border: "#00FF00" },
-  PiKaChu: { background: "#6E5B07", border: "#FFFF00" },
 };
 
 export default function Pictures({ LCode, MCode, RCode, NowMode }) {
@@ -90,7 +84,7 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
 
   function InfoSwal(code) {
     const Info = PicturesInfo[code];
-    const MatchColor = ModeMatchColors[NowMode];
+    const MatchColor = ModeMatchColor[NowMode];
     Swal.fire({
       title: Info.title,
       html: Info.html,
