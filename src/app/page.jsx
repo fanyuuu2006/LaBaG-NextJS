@@ -17,8 +17,8 @@ export default function IndexPage() {
         >
           <b>請點擊上方圖片進入遊戲</b>
         </p>
-        <Links />
       </div>
+      <Links />
     </>
   );
 }
