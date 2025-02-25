@@ -27,13 +27,21 @@ body {
   justify-content: flex-start;
 }
 
-.LoginButton > button {
-  position: fixed;
-  top: 15px;
+.TopBar{
+  position: fixed; /* 必須設定為 relative，才能讓子元素使用 absolute 定位 */
+  top: 0;
+  width: 100%;
+  height: 10%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.LoginButton{
+  position: absolute;
   right: 15px;
   font-size: 20px;
   font-weight: bold;
   color: #ffffff;
+  margin: 10px;
   padding: 10px;
   background-color: #0066ff;
   border-radius: 5px;
@@ -41,7 +49,7 @@ body {
 }
 
 .Links {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #000000;
   position: fixed;
   bottom: 0px;
   width: 100vw;
