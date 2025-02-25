@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 export default function HomeButton() {
   const router = useRouter();
-  const DialogBox = ()  => {
+  const DialogBox = () => {
     Swal.fire({
       title: "確認是否返回首頁？",
       icon: "question",
@@ -20,7 +20,7 @@ export default function HomeButton() {
         console.log("切換至 Index 畫面");
       }
     });
-  }
+  };
 
   return (
     <FaHome

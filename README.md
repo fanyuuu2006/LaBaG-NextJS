@@ -30,7 +30,7 @@
     │   │   │   ├── PlayLaBaG.js            # 提供遊玩的 LaBaG
     │   │   │   └── test.js                 # 測試程式碼
     │   │   ├── components                  # 遊戲頁面的相關組件資料夾
-    │   │   │   ├── BackButton.jsx          # 返回按鈕組件
+    │   │   │   ├── HomeButton.jsx          # 返回主頁按鈕組件
     │   │   │   ├── BeginButton.jsx         # 開始遊戲按鈕組件
     │   │   │   ├── InfoText.jsx            # 顯示遊戲相關資訊訊息組件
     │   │   │   ├── MusicButton.jsx         # 音樂開關按鈕組件
@@ -42,6 +42,7 @@
     │   ├── gameover                        # 遊戲結束頁面
     │   │   ├── components                  # 遊戲結束頁面相關組件資料夾
     │   │   │   ├── AgainButton.jsx         # 再玩一次按鈕組件
+    │   │   │   ├── DownloadJson.jsx        # 保存遊戲資料(.json檔案)按鈕組件
     │   │   │   └──  InfoText.jsx           # 顯示遊戲結束訊息
     │   │   └── page.jsx                    # 遊戲結束頁面的主組件
     |   ├── components                      # 根頁面相關組件資料夾
