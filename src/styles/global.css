@@ -38,6 +38,12 @@ body {
   padding: 10px;
 }
 
+.TopBar img {
+  max-width: 150%;
+  max-height: 150%;
+  object-fit: contain; /* 確保圖片等比縮放 */
+}
+
 .LoginButton{
   position: absolute;
   right: 20px;
