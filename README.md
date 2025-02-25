@@ -23,7 +23,6 @@
 └── src                                     # 來源碼文件夾
     ├── assets                              # 存放資源檔案的資料夾，如圖片、音效等
     ├── app                                 # 存放主要應用程式邏輯的資料夾
-    │   ├── Toast.jsx                       # 顯示 Toast 訊息的組件
     │   ├── game                            # 遊戲相關頁面與組件
     │   │   ├── backend                     # 後端邏輯（遊戲規則等）
     │   │   │   ├── LaBaG.js                # LaBaG 遊戲核心邏輯
@@ -47,10 +46,13 @@
     │   │   └── page.jsx                    # 遊戲結束頁面的主組件
     |   ├── components                      # 根頁面相關組件資料夾
     │   │   └── CirclePicture.jsx           # 每月訪客數組件
+    │   ├── Toast.jsx                       # 顯示 Toast 訊息的組件
     │   ├── layout.jsx                      # 全站頁面的佈局設計
     │   └── page.jsx                        # 根頁面組件
-    └── styles                              # 存放 CSS 檔案的資料夾
-        ├── Toast.css                       # Toast 訊息的樣式表
-        ├── InfoSwal.css                    # InfoSwal 彈窗的樣式表
-        └── global.css                      # 全局樣式表，設定通用的樣式規則
+    ├── styles                              # 存放 CSS 檔案的資料夾
+    │   ├── Toast.css                       # Toast 訊息的樣式表
+    │   ├── InfoSwal.css                    # InfoSwal 彈窗的樣式表
+    │   └── global.css                      # 全局樣式表，設定通用的樣式規則
+    └── json                                # 存放 json 檔案的資料夾
+        └── ModeMatchColor.json             # 模式對應的配色
 ```
