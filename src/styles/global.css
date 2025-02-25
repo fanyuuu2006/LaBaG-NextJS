@@ -28,20 +28,23 @@ body {
 }
 
 .TopBar{
+  display: flex;
+  align-items: center; /* 垂直居中對齊內容 */
   position: fixed; /* 必須設定為 relative，才能讓子元素使用 absolute 定位 */
   top: 0;
   width: 100%;
   height: 10%;
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
 .LoginButton{
   position: absolute;
-  right: 15px;
+  right: 20px;
   font-size: 20px;
   font-weight: bold;
   color: #ffffff;
-  margin: 10px;
+  margin: 5px;
   padding: 10px;
   background-color: #0066ff;
   border-radius: 5px;
