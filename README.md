@@ -35,6 +35,8 @@
     |   ├── components                      # 相關組件資料夾
     │   │   ├── HomeButton.jsx              # 返回主頁按鈕組件
     │   │   ├── BeginButton.jsx             # 開始遊戲按鈕組件
+    │   │   ├── LoginButton.jsx             # 登入帳號按鈕組件
+    │   │   ├── ClientSessionProvider.jsx   # 用戶端登入後可顯示區塊組件
     │   │   ├── InfoText.jsx                # 顯示遊戲相關資訊訊息組件
     │   │   ├── MusicButton.jsx             # 音樂開關按鈕組件
     │   │   ├── Pictures.jsx                # 啦八機得分圖片顯示的組件
