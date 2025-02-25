@@ -86,7 +86,7 @@ export default class LaBaG{
         this.ModeToScreen = false;
 
         // 超級阿禾
-        this.SuperRate = 15;
+        this.SupeRate = 15;
         this.SuperHHH = false;
         this.SuperNum = 0;
         this.SuperTimes = 0;
@@ -265,7 +265,7 @@ export default class LaBaG{
             case "Normal": 
             case "PiKaChu":
                 // 判斷超級阿禾 
-                if (this.SuperNum <= this.SuperRate && this.Ps.some(p => p.code === "B")){
+                if (this.SuperNum <= this.SupeRate && this.Ps.some(p => p.code === "B")){
                     this.SuperHHH = true;
                     this.SuperTimes += 6;
                     if(this.PiKaChu){
