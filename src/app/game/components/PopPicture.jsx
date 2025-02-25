@@ -9,7 +9,7 @@ const POPs = {
   PiKaChu: KachuPOP,
 };
 
-export default function PopPictureV2(NowMode) {
+export default function PopPicture(NowMode) {
   Swal.fire({
     imageUrl: POPs[NowMode].src,
     imageWidth: "auto",
