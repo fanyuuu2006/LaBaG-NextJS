@@ -15,7 +15,7 @@ function GitHub() {
     <FaGithub
       title="前往 GitHub Repository"
       color="#FFFFFF"
-      size={30}
+      size={35}
       style={{ cursor: "pointer" }}
       onClick={() => {
         window.open(URL, "_blank");
@@ -30,7 +30,7 @@ function Instagram() {
     <FaInstagram
       title="前往作者 Instagram"
       color="#FFFFFF"
-      size={30}
+      size={35}
       style={{ cursor: "pointer" }}
       onClick={() => {
         window.open(URL, "_blank");
