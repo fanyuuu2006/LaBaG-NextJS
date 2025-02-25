@@ -26,7 +26,7 @@ export default function HomeButton() {
     <FaHome
       onClick={DialogBox}
       title="返回首頁"
-      size={30}
+      size={25}
       color="#FFFFFF"
       style={{
         cursor: "pointer",
