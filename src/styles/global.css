@@ -27,7 +27,20 @@ body {
   justify-content: flex-start;
 }
 
-.Links{
+.LoginButton > button {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  padding: 10px;
+  background-color: #0066ff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Links {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   bottom: 0px;
@@ -84,7 +97,7 @@ body {
   height: 173px;
 }
 
-.RuleButton{
+.RuleButton {
   position: fixed;
   top: 10px;
   right: 10px;

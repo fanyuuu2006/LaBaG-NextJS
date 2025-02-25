@@ -1,9 +1,11 @@
 "use client";
+import LoginButton from "./components/LoginButton";
 import CirclePicture from "./components/CirclePicture";
 import Links from "./components/Links";
 export default function IndexPage() {
   return (
     <div className="Screen">
+      <LoginButton/>
       <CirclePicture />
       <p
         style={{

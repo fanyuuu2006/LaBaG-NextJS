@@ -1,4 +1,6 @@
 import "@/styles/global.css";
+import ClientSessionProvider from "@/app/components/ClientSessionProvider";
+
 
 export const metadata = {
   title: "啦八機",
@@ -9,7 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="zh-TW">
-      <body>{children}</body>
+      <body>
+        <ClientSessionProvider>{children}</ClientSessionProvider>
+      </body>
     </html>
   );
 }
