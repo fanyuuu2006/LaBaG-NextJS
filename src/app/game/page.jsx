@@ -3,16 +3,16 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Game from "./backend/PlayLaBaG";
 import Toast from "../Toast";
-import HomeButton from "./components/HomeButton";
-import TitlePicture from "./components/TitlePicture";
-import Pictures from "./components/Pictures";
-import InfoText from "./components/InfoText";
-import BeginButton from "./components/BeginButton";
-import PopPicture from "./components/PopPicture";
-import RuleButton from "./components/RuleButton";
+import HomeButton from "@/app/components/HomeButton";
+import TitlePicture from "@/app/components/TitlePicture";
+import Pictures from "@/app/components/Pictures";
+import InfoText from "@/app/components/InfoText";
+import BeginButton from "@/app/components/BeginButton";
+import PopPicture from "@/app/components/PopPicture";
+import RuleButton from "@/app/components/RuleButton";
 // 使用 dynamic import 禁用 SSR (伺服器端渲染)
 import dynamic from "next/dynamic";
-const MusicButton = dynamic(() => import("./components/MusicButton"), {
+const MusicButton = dynamic(() => import("@/app/components/MusicButton"), {
   ssr: false, // 禁用伺服器端渲染
 });
 

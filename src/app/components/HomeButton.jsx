@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { FaHome } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
