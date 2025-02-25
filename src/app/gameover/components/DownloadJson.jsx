@@ -35,7 +35,7 @@ export default function DownloadJson() {
           borderRadius: "5px",
         }}
       >
-        "保存本次紀錄檔案(.json)"
+        保存本次紀錄檔案(.json)
       </button>
     </>
   );
