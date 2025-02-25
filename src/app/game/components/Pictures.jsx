@@ -98,6 +98,7 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
         document.querySelector(".InfoSwal").style.border = `3px solid ${MatchColor.border}`;
       },
       confirmButtonText: "關閉",
+      confirmButtonColor: MatchColor.buttoncolor,
     });
   }
   return (
