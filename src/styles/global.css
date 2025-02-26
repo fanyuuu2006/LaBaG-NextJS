@@ -27,7 +27,7 @@ body {
   justify-content: flex-start;
 }
 
-.TopBar{
+.TopBar {
   display: flex;
   align-items: center; /* 垂直居中對齊內容 */
   justify-content: space-between;
@@ -39,13 +39,18 @@ body {
   padding: 10px;
 }
 
-.TopBar img {
+.UserButton {
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.TopBar > img {
   max-width: 150%;
   max-height: 150%;
   object-fit: contain; /* 確保圖片等比縮放 */
 }
 
-.LoginButton{
+.LoginButton {
   right: 20px;
   font-size: 16px;
   font-weight: bold;
@@ -130,6 +135,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+  }
+
+  .TopBar > img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 確保圖片等比縮放 */
   }
 
   .Logo {

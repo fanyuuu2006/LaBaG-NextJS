@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
+import UserButton from "./UserButton";
 export default function LoginButton() {
   const { data: session, status } = useSession();
 
@@ -14,13 +14,7 @@ export default function LoginButton() {
             <button className="LoginButton" onClick={() => signOut()}>
               登出
             </button>
-            <Image
-              src={session.user.image}
-              width={40}
-              height={40}
-              style={{borderRadius: "100%", cursor: "pointer"}}
-              alt="User Avatar"
-            />
+            <UserButton/>
           </div>
         </>
       ) : (
