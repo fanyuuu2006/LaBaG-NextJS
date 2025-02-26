@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 import Game from "./backend/PlayLaBaG";
 import Toast from "../Toast";
 import UserButton from "@/app/components/UserButton";
@@ -38,7 +40,31 @@ function Sound(s) {
   audio.play();
 }
 
+async function CommitScore(Name, Score) {
+  if (Name && Score) {
+    try {
+      const response = await fetch("/api/CommitScore", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ Name, Score }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log(result.message);
+      } else {
+        console.log(result.message);
+      }
+    } catch (error) {
+      console.error("無法提交分數:", error);
+    }
+  }
+}
+
 export default function GamePage() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [IsClient, setIsClient] = useState(false); // 用於確保只在客戶端處理邏輯
   const [BgmRunning, setBgmRunning] = useState(false);
@@ -169,6 +195,7 @@ export default function GamePage() {
     setTimeout(() => {
       if (!Game.GameRunning()) {
         setBgmRunning(false);
+        CommitScore(session?.user?.name || null, Game.Score);
         router.push("/gameover");
         Sound(Ding);
       }
@@ -181,29 +208,29 @@ export default function GamePage() {
 
   return (
     <>
-    <UserButton/>
-    <div className="GameScreen">
-      <HomeButton />
-      <RuleButton/>
-      <TitlePicture NowMode={NowMode} />
-      <Pictures LCode={LCode} MCode={MCode} RCode={RCode} NowMode = {NowMode}/>
-      <InfoText
-        Score={Score}
-        Times={Times}
-        MarginScore={MarginScore}
-        DoubleScore={DoubleScore}
-        GssNum={GssNum}
-        NowMode={NowMode}
-        ModeTimes={ModeTimes}
-      />
-      <BeginButton BeginFunc={Begin} Able={ButtonAble} />
-      <MusicButton
-        IsClient={IsClient}
-        BgmRunning={BgmRunning}
-        setBgmRunning={setBgmRunning}
-        NowMode={NowMode}
-      />
-    </div>
+      <UserButton />
+      <div className="GameScreen">
+        <HomeButton />
+        <RuleButton />
+        <TitlePicture NowMode={NowMode} />
+        <Pictures LCode={LCode} MCode={MCode} RCode={RCode} NowMode={NowMode} />
+        <InfoText
+          Score={Score}
+          Times={Times}
+          MarginScore={MarginScore}
+          DoubleScore={DoubleScore}
+          GssNum={GssNum}
+          NowMode={NowMode}
+          ModeTimes={ModeTimes}
+        />
+        <BeginButton BeginFunc={Begin} Able={ButtonAble} />
+        <MusicButton
+          IsClient={IsClient}
+          BgmRunning={BgmRunning}
+          setBgmRunning={setBgmRunning}
+          NowMode={NowMode}
+        />
+      </div>
     </>
   );
 }

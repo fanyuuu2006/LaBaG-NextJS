@@ -17,6 +17,7 @@ export default function TitlePicture({ NowMode }) {
       src={Titles[NowMode]}
       alt="Logo"
       className="Logo"
+      priority
     />
   );
 }
