@@ -12,9 +12,9 @@ export default function LoginButton() {
     <>
       {session ? (
         <>
-          <button className="LoginButton" onClick={() => signOut()}>
-            登出
-          </button>
+          <p
+            style={{ fontSize: "18px", color: "#FFFFFF", fontWeight: "bold" }}
+          >{`歡迎，${session?.user?.name}！`}</p>
         </>
       ) : (
         <button className="LoginButton" onClick={() => signIn("google")}>

@@ -11,9 +11,8 @@ export default function IndexPage() {
         <CirclePicture />
         <p
           style={{
-            textAlign: "center",
             fontSize: "25px",
-            color: "white",
+            color: "#FFFFFF",
           }}
           >
           <b>請點擊上方圖片進入遊戲</b>
