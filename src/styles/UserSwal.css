@@ -1,0 +1,22 @@
+.UserSwal{
+    border: 5px solid #1869ff;
+    border-radius: 5%;
+}
+
+.UserSwal > .swal2-image{
+    border: 8px solid #6c9dff;
+    border-radius: 100%;
+}
+
+.UserSwal > .swal2-title{
+    font-size: 30px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.UserSwal > .swal2-html-container{
+    color: #011a49;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+}
