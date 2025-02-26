@@ -24,10 +24,10 @@ export default function UserButton() {
               style={{
                 width: "80%",
                 padding: "10px",
-                border: "none",
+                border: "1px solid rgb(144, 0, 0)",
                 background: "rgb(252, 82, 82)",
                 color: "white",
-                margin: "5px 0",
+                margin: "5px",
                 cursor: "pointer",
                 borderRadius: "5px",
               }}

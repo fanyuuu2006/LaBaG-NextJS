@@ -6,6 +6,7 @@
 .UserSwal > .swal2-image{
     border: 8px solid #6c9dff;
     border-radius: 100%;
+    margin-top: 20px;
 }
 
 .UserSwal > .swal2-title{
