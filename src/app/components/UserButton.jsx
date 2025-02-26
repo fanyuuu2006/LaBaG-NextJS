@@ -27,7 +27,7 @@ export default function UserButton() {
                 border: "1px solid rgb(144, 0, 0)",
                 background: "rgb(252, 82, 82)",
                 color: "white",
-                margin: "5px",
+                margin: "10px",
                 cursor: "pointer",
                 borderRadius: "5px",
               }}

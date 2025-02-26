@@ -1,10 +1,10 @@
 .UserSwal{
-    border: 5px solid #1869ff;
+    border: 10px solid #0014ad;
     border-radius: 5%;
 }
 
 .UserSwal > .swal2-image{
-    border: 8px solid #6c9dff;
+    border: 5px solid #435b7a;
     border-radius: 100%;
     margin-top: 20px;
 }
