@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Game from "./backend/PlayLaBaG";
 import Toast from "../Toast";
+import UserButton from "@/app/components/UserButton";
 import HomeButton from "@/app/components/HomeButton";
 import TitlePicture from "@/app/components/TitlePicture";
 import Pictures from "@/app/components/Pictures";
@@ -179,6 +180,8 @@ export default function GamePage() {
   }
 
   return (
+    <>
+    <UserButton/>
     <div className="GameScreen">
       <HomeButton />
       <RuleButton/>
@@ -201,5 +204,6 @@ export default function GamePage() {
         NowMode={NowMode}
       />
     </div>
+    </>
   );
 }
