@@ -6,13 +6,17 @@ export default function UserButton() {
 
   return (
     <>
-      <Image
-        className="UserButton"
-        src={session.user.image}
-        width={40}
-        height={40}
-        alt="UserButton"
-      />
+      {session ? (
+        <Image
+          className="UserButton"
+          src={session?.user?.image}
+          width={40}
+          height={40}
+          alt="UserButton"
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

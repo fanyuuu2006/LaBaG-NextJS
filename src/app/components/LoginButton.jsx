@@ -14,7 +14,6 @@ export default function LoginButton() {
             <button className="LoginButton" onClick={() => signOut()}>
               登出
             </button>
-            <UserButton/>
           </div>
         </>
       ) : (
