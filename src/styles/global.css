@@ -27,18 +27,6 @@ body {
   justify-content: flex-start;
 }
 
-.TopBar {
-  display: flex;
-  align-items: center; /* 垂直居中對齊內容 */
-  justify-content: space-between;
-  position: fixed; /* 必須設定為 relative，才能讓子元素使用 absolute 定位 */
-  top: 0;
-  width: 100%;
-  height: 10%;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-}
-
 .UserButton {
   border-radius: 100%;
   border: 3px solid #000000;
@@ -52,7 +40,7 @@ body {
   padding: 5px;
   background-color: #0066ff;
   border-radius: 5px;
-  white-space: nowrap; /* 防止按鈕換行 */
+  white-space: nowrap; /* 防止按鈕文字換行 */
   cursor: pointer;
 }
 

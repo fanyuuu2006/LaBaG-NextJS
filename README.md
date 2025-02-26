@@ -23,9 +23,11 @@
 └── src                                     # 來源碼文件夾
     ├── assets                              # 存放資源檔案的資料夾，如圖片、音效等
     ├── api                                 # API 相關邏輯的資料夾，包含後端身份驗證、資料請求等
-    │   └── auth                            # 身份驗證 API，處理用戶登入、登出等邏輯
-    │       └── [...nextauth]               # NextAuth.js 的身份驗證 API 端點
-    │           └── route.js                # 處理身份驗證請求的路由
+    │   ├── auth                            # 身份驗證 API，處理用戶登入、登出等邏輯
+    │   │   └── [...nextauth]               # NextAuth.js 的身份驗證 API 端點
+    │   │       └── route.js                # 處理身份驗證請求的路由
+    │   └── CommitScore                     # 提交遊戲分數至表單的端點
+    │       └── route.js                    # 其路由
     ├── app                                 # 存放主要應用程式邏輯的資料夾
     │   ├── game                            # 遊戲相關頁面與組件
     │   │   ├── backend                     # 後端邏輯（遊戲規則等）
@@ -36,7 +38,7 @@
     │   │   └── page.jsx                    # 遊戲頁面的主組件
     │   ├── gameover                        # 遊戲結束頁面
     │   │   └── page.jsx                    # 遊戲結束頁面的主組件
-    |   ├── components                      # 相關組件資料夾
+    │   ├── components                      # 相關組件資料夾
     │   │   ├── HomeButton.jsx              # 返回主頁按鈕組件
     │   │   ├── BeginButton.jsx             # 開始遊戲按鈕組件
     │   │   ├── LoginButton.jsx             # 登入帳號按鈕組件
