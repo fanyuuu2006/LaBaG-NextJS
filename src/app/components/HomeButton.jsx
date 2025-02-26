@@ -27,14 +27,7 @@ export default function HomeButton() {
       title="返回首頁"
       size={25}
       color="#FFFFFF"
-      style={{
-        cursor: "pointer",
-        position: "fixed",
-        top: "10px" /* 距離視窗頂部 */,
-        left: "10px" /* 距離視窗左邊 */,
-        border: "3px solid white",
-        borderRadius: "5px",
-      }}
+      className="HomeButton"
     />
   );
 }
