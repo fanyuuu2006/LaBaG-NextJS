@@ -1,29 +1,28 @@
 import { signIn, useSession } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import UserButton from "./UserButton";
+
 export default function LoginButton() {
   const { data: session, status } = useSession();
 
-  if (status === "loading")
-    return (
-      <p style={{ color: "#FFFFFF", fontWeight: "bold", left: 0 }}>載入中...</p>
-    );
-
   return (
-    <>
-      {session ? (
+    <div style={{ position: "fixed", top: "10px", right: "10px" }}>
+      {status === "loading" ? (
+        <p style={{ color: "#FFFFFF", fontWeight: "bold", left: 0 }}>
+          載入中...
+        </p>
+      ) : session ? (
         <>
-          <p
-            style={{ fontSize: "18px", color: "#FFFFFF", fontWeight: "bold" }}
-          >{`歡迎，${session?.user?.name}！`}</p>
+          <UserButton />
         </>
       ) : (
         <button className="LoginButton" onClick={() => signIn("google")}>
           <FcGoogle
             style={{ backgroundColor: "#FFFFFF", borderRadius: "100%" }}
           />{" "}
-          使用 Google 帳號登入
+          Google 帳號登入
         </button>
       )}
-    </>
+    </div>
   );
 }

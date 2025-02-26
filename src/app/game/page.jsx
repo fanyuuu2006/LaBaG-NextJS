@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 
 import Game from "./backend/PlayLaBaG";
 import Toast from "../Toast";
-import UserButton from "@/app/components/UserButton";
+import LoginButton from "@/app/components/LoginButton";
 import HomeButton from "@/app/components/HomeButton";
 import TitlePicture from "@/app/components/TitlePicture";
 import Pictures from "@/app/components/Pictures";
@@ -208,7 +208,7 @@ export default function GamePage() {
 
   return (
     <>
-      <UserButton />
+      <LoginButton />
       <div className="GameScreen">
         <HomeButton />
         <RuleButton />
