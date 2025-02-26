@@ -22,6 +22,10 @@
 │   └── Superhhh.ico                        # 網站或應用程序的圖標
 └── src                                     # 來源碼文件夾
     ├── assets                              # 存放資源檔案的資料夾，如圖片、音效等
+    ├── api                                 # API 相關邏輯的資料夾，包含後端身份驗證、資料請求等
+    │   └── auth                            # 身份驗證 API，處理用戶登入、登出等邏輯
+    │       └── [...nextauth]               # NextAuth.js 的身份驗證 API 端點
+    │           └── route.js                # 處理身份驗證請求的路由
     ├── app                                 # 存放主要應用程式邏輯的資料夾
     │   ├── game                            # 遊戲相關頁面與組件
     │   │   ├── backend                     # 後端邏輯（遊戲規則等）
@@ -36,6 +40,7 @@
     │   │   ├── HomeButton.jsx              # 返回主頁按鈕組件
     │   │   ├── BeginButton.jsx             # 開始遊戲按鈕組件
     │   │   ├── LoginButton.jsx             # 登入帳號按鈕組件
+    │   │   ├── UserButton.jsx              # 用戶頭像按鈕組件
     │   │   ├── ClientSessionProvider.jsx   # 用戶端登入後可顯示區塊組件
     │   │   ├── InfoText.jsx                # 顯示遊戲相關資訊訊息組件
     │   │   ├── MusicButton.jsx             # 音樂開關按鈕組件
