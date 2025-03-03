@@ -1,4 +1,4 @@
-import Game from "@/app/game/backend/PlayLaBaG";
+import { Game } from "@/app/game/backend/PlayLaBaG";
 export default function GameoverText() {
   return (
     <>

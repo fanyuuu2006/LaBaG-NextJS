@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import Game from "./backend/PlayLaBaG";
+import {Game} from "./backend/PlayLaBaG";
+import { Modes } from "./backend/Mode";
 import Toast from "../Toast";
 import LoginButton from "@/app/components/LoginButton";
 import HomeButton from "@/app/components/HomeButton";
@@ -90,8 +91,8 @@ export default function GamePage() {
   const [Score, setScore] = useState(Game.Score);
   const [Times, setTimes] = useState(Game.Times - Game.Played);
   const [MarginScore, setMarginScore] = useState(Game.MarginScore);
-  const [DoubleScore, setDoubleScore] = useState(Game.DoubleScore);
-  const [GssNum, setGssNum] = useState(Game.GssNum);
+  const [DoubleScore, setDoubleScore] = useState(Modes.SuperHHH.Score);
+  const [GssNum, setGssNum] = useState(Modes.GreenWei.Score);
   const [ModeTimes, setModeTimes] = useState(0);
 
   // **使用 useEffect 來更新背景**
@@ -113,7 +114,7 @@ export default function GamePage() {
     const change_picture_per500ms = () => {
       setCodes.forEach((setCode, i) => {
         setTimeout(() => {
-          setCode(Game.Ps[i].code);
+          setCode(Game.Ps[i].Code);
           console.log(`更新位置 ${i} 的圖片`);
           Sound(Ding);
         }, 500 * (i + 1));
@@ -126,7 +127,7 @@ export default function GamePage() {
           break;
         case "SuperHHH":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i].code == "B") {
+            if (Game.Ps[i].Code == "B") {
               setCodes[i]("SB");
             }
           }
@@ -134,7 +135,7 @@ export default function GamePage() {
           break;
         case "GreenWei":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i].code == "A") {
+            if (Game.Ps[i].Code == "A") {
               setCodes[i]("GW");
             }
           }
@@ -142,7 +143,7 @@ export default function GamePage() {
           break;
         case "PiKaChu":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i].code == "E") {
+            if (Game.Ps[i].Code == "E") {
               setCodes[i]("PK");
             }
           }
@@ -151,20 +152,20 @@ export default function GamePage() {
     };
     const info_text = () => {
       setMarginScore(Game.MarginScore);
-      setDoubleScore(Game.DoubleScore);
+      setDoubleScore(Modes.SuperHHH.Score);
       setScore(Game.Score);
       setTimes(Game.Times - Game.Played);
-      setGssNum(Game.GssNum);
+      setGssNum(Modes.GreenWei.Score);
       const Mode = Game.NowMode();
       switch (Mode) {
         case "SuperHHH":
-          setModeTimes(Game.SuperTimes);
+          setModeTimes(Modes.SuperHHH.Times);
           break;
         case "GreenWei":
-          setModeTimes(Game.GreenTimes);
+          setModeTimes(Modes.GreenWei.Times);
           break;
         case "PiKaChu":
-          setModeTimes(Game.KachuTimes);
+          setModeTimes(Modes.PiKaChu.Times);
           break;
       }
     };

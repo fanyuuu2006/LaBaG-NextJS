@@ -1,6 +1,6 @@
 import "@/styles/InfoSwal.css";
-import P from "@/app/game/backend/P";
-import Game from "@/app/game/backend/PlayLaBaG";
+import {P} from "@/app/game/backend/P";
+import {Game} from "@/app/game/backend/PlayLaBaG";
 import ModeMatchColor from "@/json/ModeMatchColor.json"
 import Image from "next/image";
 import Swal from "sweetalert2";
@@ -20,6 +20,7 @@ import Rrr from "@/assets/RRR.jpg";
 import superhhh from "@/assets/super_hhh.jpg";
 import greenwei from "@/assets/green_wei.jpg";
 import pikachu from "@/assets/pikachu.jpg";
+import { Modes } from "../game/backend/Mode";
 
 const QSTs = {
   Normal: QST,
@@ -37,42 +38,42 @@ export default function Pictures({ LCode, MCode, RCode, NowMode }) {
     },
     A: {
       title: "咖波",
-      html: `<p><b>一般模式機率: ${P.Obj["A"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["A"].rate_obj["SuperHHH"]}%</b></p>`,
+      html: `<p><b>一般模式機率: ${P.Obj["A"].Rates["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["A"].Rates["SuperHHH"]}%</b></p>`,
       picture: Gss,
     },
     B: {
       title: "阿禾",
-      html: `<p><b>一般模式機率: ${P.Obj["B"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["B"].rate_obj["SuperHHH"]}%</b></p>`,
+      html: `<p><b>一般模式機率: ${P.Obj["B"].Rates["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["B"].Rates["SuperHHH"]}%</b></p>`,
       picture: Hhh,
     },
     C: {
       title: "猥褻男",
-      html: `<p><b>一般模式機率: ${P.Obj["C"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["C"].rate_obj["SuperHHH"]}%</b></p>`,
+      html: `<p><b>一般模式機率: ${P.Obj["C"].Rates["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["C"].Rates["SuperHHH"]}%</b></p>`,
       picture: Hentai,
     },
     D: {
       title: "蚊傑",
-      html: `<p><b>一般模式機率: ${P.Obj["D"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["D"].rate_obj["SuperHHH"]}%</b></p>`,
+      html: `<p><b>一般模式機率: ${P.Obj["D"].Rates["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["D"].Rates["SuperHHH"]}%</b></p>`,
       picture: Handsun,
     },
     E: {
       title: "皮卡丘",
-      html: `<p><b>一般模式機率: ${P.Obj["E"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["E"].rate_obj["SuperHHH"]}%</b></p>`,
+      html: `<p><b>一般模式機率: ${P.Obj["E"].Rates["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["E"].Rates["SuperHHH"]}%</b></p>`,
       picture: Kachu,
     },
     F: {
       title: "館長",
-      html: `<p><b>一般模式機率: ${P.Obj["F"].rate_obj["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["F"].rate_obj["SuperHHH"]}%</b></p>`,
+      html: `<p><b>一般模式機率: ${P.Obj["F"].Rates["Normal"]}%<br>超級阿禾模式機率: ${P.Obj["F"].Rates["SuperHHH"]}%</b></p>`,
       picture: Rrr,
     },
     SB: {
       title: "超級阿禾",
-      html: `<p><b>觸發條件：<br>出現任一阿禾的時候 ${Game.SuperRate}% 機率</b></p>`,
+      html: `<p><b>觸發條件：<br>出現任一阿禾的時候 ${Modes.SuperHHH.Rate}% 機率</b></p>`,
       picture: superhhh,
     },
     GW: {
       title: "綠光阿瑋",
-      html: `<p><b>觸發條件：<br>1. 出現全部咖波的時候 ${Game.GreenRate}% 機率<br>2. 咖波累積數達到 20</b></p>`,
+      html: `<p><b>觸發條件：<br>1. 出現全部咖波的時候 ${Modes.GreenWei.Rate}% 機率<br>2. 咖波累積數達到 20</b></p>`,
       picture: greenwei,
     },
     PK: {
