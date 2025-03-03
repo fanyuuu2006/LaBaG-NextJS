@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-// 登入選項
-export const AuthOptions = {
+// 設置 NextAuth 配置
+const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -11,11 +11,12 @@ export const AuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      session.user.id = token.sub; // 確保 session 有 user ID
+      session.user.id = token.sub; // 確保 session 包含 user ID
       return session;
     },
   },
 };
 
-const handler = NextAuth(AuthOptions);
+// 直接匯出 handler 並處理 GET 和 POST 請求
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
