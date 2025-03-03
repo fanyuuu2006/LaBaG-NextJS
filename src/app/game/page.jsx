@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import {Game} from "./backend/PlayLaBaG";
+import { Game } from "./backend/PlayLaBaG";
 import { Modes } from "./backend/Mode";
 import Toast from "../Toast";
 import LoginButton from "@/app/components/LoginButton";
@@ -127,23 +127,29 @@ export default function GamePage() {
           break;
         case "SuperHHH":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i].Code == "B") {
+            if (Game.Ps[i].Code === "B") {
               setCodes[i]("SB");
             }
           }
           Sound(SuperUP);
           break;
         case "GreenWei":
-          for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i].Code == "A") {
-              setCodes[i]("GW");
-            }
-          }
+          if (Game.Ps.some((p) => p?.Code === "A")) {
+            setCodes.forEach((setCode, i) => {
+              if (Game.Ps[i]?.Code === "A") {
+                setCode("GW");
+              }
+            });
+          } else
+            setCodes.forEach((setCode) => {
+              setCode("GW");
+            });
+
           Sound(GreenUP);
           break;
         case "PiKaChu":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i].Code == "E") {
+            if (Game.Ps[i].Code === "E") {
               setCodes[i]("PK");
             }
           }
