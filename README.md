@@ -55,7 +55,7 @@
     │   │   ├── DownloadJson.jsx            # 保存遊戲資料(.json檔案)按鈕組件
     │   │   ├── InfoText.jsx                # 顯示遊戲結束訊息
     │   │   ├── Links.jsx                   # 相關連結欄位組件
-    │   │   └── CirclePicture.jsx           # 每月訪客數組件
+    │   │   └── CirclePicture.jsx           # 根頁面圓形大圖
     │   ├── Toast.jsx                       # 顯示 Toast 訊息的組件
     │   ├── layout.jsx                      # 全站頁面的佈局設計
     │   └── page.jsx                        # 根頁面組件
