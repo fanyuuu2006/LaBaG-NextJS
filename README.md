@@ -31,10 +31,11 @@
     ├── app                                 # 存放主要應用程式邏輯的資料夾
     │   ├── game                            # 遊戲相關頁面與組件
     │   │   ├── backend                     # 後端邏輯（遊戲規則等）
-    │   │   │   ├── LaBaG.js                # LaBaG 遊戲核心邏輯
-    │   │   │   ├── P.js                    # LaBaG 的圖案符號
-    │   │   │   ├── PlayLaBaG.js            # 提供遊玩的 LaBaG
-    │   │   │   └── test.js                 # 測試程式碼
+    │   │   │   ├── LaBaG.ts                # LaBaG 遊戲核心邏輯
+    │   │   │   ├── P.ts                    # LaBaG 的圖案符號
+    │   │   │   ├── PlayLaBaG.ts            # 提供遊玩的 LaBaG
+    │   │   │   ├── RandInt.ts              # 可產生 1 ~ 100 隨機數的函式
+    │   │   │   └── Mode.ts                 # LaBaG 相關模式邏輯
     │   │   └── page.jsx                    # 遊戲頁面的主組件
     │   ├── gameover                        # 遊戲結束頁面
     │   │   └── page.jsx                    # 遊戲結束頁面的主組件
