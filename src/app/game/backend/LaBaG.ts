@@ -179,6 +179,7 @@ export class BaseLaBaG implements LaBaG {
   JudgeMode(): void {
     if (!this.GameRunning()) {
       Modes.PiKaChu.Judge(this);
+      return;
     }
 
     const mode: ModeNames = this.NowMode();
