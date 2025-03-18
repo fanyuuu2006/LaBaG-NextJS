@@ -1,0 +1,18 @@
+@import url(../json/ModeColors.json);
+
+.custom-popover-Normal .ant-popover-inner{
+  background-color: #003387;
+  border: #00ffff solid 3px;
+}
+.custom-popover-SuperHHH .ant-popover-inner{
+  background-color: #550055;
+  border: #ff00ff solid 3px;
+}
+.custom-popover-GreenWei .ant-popover-inner{
+  background-color: #005500;
+  border: #00ff00 solid 3px;
+}
+.custom-popover-PiKaChu .ant-popover-inner{
+  background-color: #555500;
+  border: #ffff00 solid 3px;
+}

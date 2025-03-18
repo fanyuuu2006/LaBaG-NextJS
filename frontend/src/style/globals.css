@@ -1,0 +1,140 @@
+:root {
+  --background-color: #000000;
+  --div-background-color: #000d80;
+  --border-color: #888888;
+
+  --space-small: 5px;
+  --space-medium: 10px;
+  --space-large: 20px;
+  --space-ultra: 30px;
+}
+
+* {
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  scroll-margin: 4em;
+  line-height: 1.5em;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100dvw;
+  height: 100dvh;
+  overflow-x: hidden;
+
+  background: black url("../assets/BG.jpg") center/cover no-repeat fixed;
+  transition: background-image 0.5s;
+}
+
+header {
+  position: sticky;
+  height: auto;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 1em 3em;
+}
+
+section {
+  width: 100%;
+  height: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+mark {
+  background-color: transparent !important;
+  font-size: 90%;
+  color: red;
+}
+
+a {
+  color: #0069ff;
+  cursor: pointer;
+  text-decoration: none; /* 移除底線 */
+}
+
+a:hover {
+  color: #0000ff;
+  text-decoration: underline;
+}
+
+.Title {
+  font-size: 40px;
+}
+
+.Label {
+  font-size: 30px;
+}
+
+.Content {
+  font-size: 24px;
+}
+
+.Note {
+  font-size: 18px;
+}
+
+.Hint {
+  font-size: 14px;
+}
+
+.BottomLine {
+  padding-bottom: var(--space-small);
+  border-bottom: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --space-small: 5px;
+    --space-medium: 10px;
+    --space-large: 18px;
+    --space-ultra: 24px;
+  }
+
+  header {
+    padding: 1em 2em;
+  }
+
+  .Title {
+    font-size: 30px;
+  }
+
+  .Label {
+    font-size: 25px;
+  }
+
+  .Content {
+    font-size: 20px;
+  }
+
+  .Note {
+    font-size: 16px;
+  }
+
+  .Hint {
+    font-size: 10px;
+  }
+
+  .BottomLine {
+    padding-bottom: var(--space-small);
+    border-bottom: 1px solid var(--border-color);
+  }
+}
