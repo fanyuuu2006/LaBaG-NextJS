@@ -6,9 +6,11 @@ declare module "@/json/ModeColors.json" {
 }
 
 declare module "@/json/PDatas.json" {
+  import { ModeNames } from "@/lib/Mode";
   export type PData = {
     name: string;
-    rate: number;
+    code: string;
+    rates: Record<ModeNames, number>;
     scores: [number, number, number];
   };
   const value: Record<string, PData>;
