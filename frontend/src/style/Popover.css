@@ -1,5 +1,3 @@
-@import url(../json/ModeColors.json);
-
 .custom-popover-Normal .ant-popover-inner{
   background-color: #003387;
   border: #00ffff solid 3px;
