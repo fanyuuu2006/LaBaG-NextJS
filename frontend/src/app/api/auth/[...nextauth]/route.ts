@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-export type CustomSession = {
+export type CustomSessionUser = {
   name?: string;
   email?: string;
   image?: string;
@@ -36,7 +36,7 @@ const authOptions: AuthOptions = {
           ...session.user,
           id: token.sub ?? "",
           accessToken: token.accessToken ?? undefined,
-        } as CustomSession;
+        } as CustomSessionUser;
       }
       return session;
     },

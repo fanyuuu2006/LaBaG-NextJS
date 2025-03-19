@@ -26,6 +26,7 @@ import { CommitScore } from "@/lib/CommitScore";
 import { useSession } from "next-auth/react";
 import { useNowMode } from "@/app/NowModeContext";
 import { RuleButton } from "./RuleButton";
+import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -176,7 +177,12 @@ export const GameSection = () => {
     }
     setTimeout(() => {
       if (!Game.GameRunning()) {
-        CommitScore(session?.user?.name || null, Game.Score);
+        CommitScore({
+          UserID: (session?.user as CustomSessionUser)?.id ?? null,
+          Name: session?.user?.name ?? null,
+          Score: Game.Score,
+          JsonData: Game.AllData,
+        });
         Sound("/audio/Ding.mp3");
         router.push("./GameOver");
       }
