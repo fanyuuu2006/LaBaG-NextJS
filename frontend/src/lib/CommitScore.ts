@@ -8,17 +8,7 @@ export const CommitScore = async (props: FormProps) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          props
-          //   , (_, value) =>
-          //   {
-          //   // 如果 value 是一個物件，則轉成 JSON 字串
-          //   if (typeof value === "object") {
-          //     return JSON.stringify(value);
-          //   }
-          //   return value;
-          // }
-        ),
+        body: JSON.stringify(props),
       });
 
       const result = await response.json();

@@ -6,36 +6,32 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import ModeColors from "@/json/ModeColors.json";
 import { useNowMode } from "@/app/NowModeContext";
 import { CustomModal, Modal } from "./Alert";
-
-// const AuthMenu: MenuProps = {
-//   items: [
-//     {
-//       key: "登出",
-//       label: (
-// <Button
-//   onClick={() => {
-//     signOut();
-//   }}
-//   style={{
-//     backgroundColor: "#FF0000",
-//     border: "#690000 solid 1px",
-//     color: "#FFFFFF",
-//   }}
-// >
-//   登出
-// </Button>
-//       ),
-//     },
-//   ],
-// };
+import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
+import { useEffect, useState } from "react";
 
 export const AuthButton = () => {
   const { data: session, status } = useSession();
   const { NowMode } = useNowMode();
+  const [RecordRows, setRecordRows] = useState<string[][]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/Sheet");
+        const data = await response.json();
+        setRecordRows(data.RecordRows); // 存儲獲取到的資料
+      } catch (error) {
+        console.error("Error fetching sheet data:", error);
+      }
+    }
+
+    fetchData(); // 執行異步操作
+  }, []); // 只有在組件掛載後執行一次
+
   return (
     <Space>
       {status === "loading" ? (
-        <div>載入中</div>
+        <div style={{ color: "#FFFFFF" }}>載入中</div>
       ) : session ? (
         <Image
           unoptimized={true}
@@ -67,8 +63,19 @@ export const AuthButton = () => {
                       borderRadius: "100%",
                     }}
                   />
-                  <div className="Label">{session?.user?.name}</div>
-                  <div className="Hint">{session?.user?.email}</div>
+                  <div className="Label ">{session?.user?.name}</div>
+                  <div className="Note">
+                    歷史最高分數：
+                    <span className="Content">
+                      {RecordRows.reduce((res: number, row: string[]) => {
+                        return row[1] ===
+                          (session?.user as CustomSessionUser)?.id
+                          ? Math.max(res, parseInt(row[3]))
+                          : res;
+                      }, 0)}
+                    </span>
+                  </div>
+
                   <div
                     style={{
                       marginTop: "1em",
