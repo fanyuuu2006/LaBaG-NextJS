@@ -13,8 +13,8 @@ export async function GET() {
       range: "紀錄!A:E",
     });
 
-    const UserRows = UserResponse.data.values as string[][];
-    const RecordRows = RecordResponse.data.values as string[][];
+    const UserRows = UserResponse.data.values?.slice(1) as string[][];
+    const RecordRows = RecordResponse.data.values?.slice(1) as string[][];
 
     return NextResponse.json({ UserRows, RecordRows });
   } catch (error) {
