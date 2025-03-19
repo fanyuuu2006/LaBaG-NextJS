@@ -68,7 +68,7 @@ export const AuthButton = () => {
                     }}
                   />
                   <div className="Label">{session?.user?.name}</div>
-                  <div className="Note">{session?.user?.email}</div>
+                  <div className="Hint">{session?.user?.email}</div>
                   <div
                     style={{
                       marginTop: "1em",

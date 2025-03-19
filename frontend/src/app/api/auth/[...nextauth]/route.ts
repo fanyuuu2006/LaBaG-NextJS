@@ -1,6 +1,13 @@
-import NextAuth, { AuthOptions} from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+export type CustomSession = {
+  name?: string;
+  email?: string;
+  image?: string;
+  id?: string;
+  accessToken?: string;
+};
 
 // 設置 NextAuth 配置
 const authOptions: AuthOptions = {
@@ -11,13 +18,25 @@ const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async session({
-      session,
-      token,
-    }) {
-      // 確保 session 包含 user ID
-      if (session.user && "id" in session.user) {
-        session.user.id = token.sub;
+    async jwt({ token, user, account }) {
+      // 把 user.id（如果有的話）加入 token
+      if (user) {
+        token.id = user.id;
+      }
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // 確保 session.user 存在，並且加上 id
+      if (session.user) {
+        // 讓 TypeScript 知道 user 有 id 和 accessToken
+        session.user = {
+          ...session.user,
+          id: token.sub ?? "",
+          accessToken: token.accessToken ?? undefined,
+        } as CustomSession;
       }
       return session;
     },
