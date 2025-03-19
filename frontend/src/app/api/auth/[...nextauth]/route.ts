@@ -1,3 +1,4 @@
+import { Sheet } from "@/lib/Sheet";
 import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -37,6 +38,50 @@ const authOptions: AuthOptions = {
           id: token.sub ?? "",
           accessToken: token.accessToken ?? undefined,
         } as CustomSessionUser;
+
+        if ((session.user as CustomSessionUser).id) {
+          try {
+            const response = await Sheet.spreadsheets.values.get({
+              spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
+              range: "用戶資料!A:F",
+            });
+            const rows = response.data.values as string[][];
+            const userIndex = rows?.findIndex(
+              (row) => row[1] === (session.user as CustomSessionUser).id
+            );
+
+            if (userIndex !== -1) {
+              // 如果找到用戶
+              session.user.name = rows?.[userIndex][2];
+              session.user.email = rows?.[userIndex][3];
+              session.user.image = rows?.[userIndex][4];
+            } else {
+              // 如果找不到用戶
+              await Sheet.spreadsheets.values.append({
+                spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
+                range: "用戶資料!A:F",
+                valueInputOption: "RAW",
+                requestBody: {
+                  values: [
+                    [
+                      new Date().toLocaleString("zh-TW", {
+                        timeZone: "Asia/Taipei",
+                      }),
+                      (session.user as CustomSessionUser).id,
+                      (session.user as CustomSessionUser).name,
+                      (session.user as CustomSessionUser).email,
+                      (session.user as CustomSessionUser).image,
+                      (session.user as CustomSessionUser).accessToken,
+                    ],
+                  ],
+                },
+              });
+              console.log("用戶資料添加成功:", response.data);
+            }
+          } catch (error) {
+            console.error("無法存取 Google Sheets:", error);
+          }
+        }
       }
       return session;
     },
