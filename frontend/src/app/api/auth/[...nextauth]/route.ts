@@ -45,7 +45,10 @@ const authOptions: AuthOptions = {
           );
           const { UserRows }: { UserRows: string[] } = await response.json();
           const userIndex = UserRows?.findIndex(
-            (row) => row[1] === (session.user as CustomSessionUser).id
+            (row) =>
+              Array.isArray(row) &&
+              row.length > 1 &&
+              row[1] === (session.user as CustomSessionUser).id
           );
 
           if (userIndex !== -1) {
@@ -70,7 +73,6 @@ const authOptions: AuthOptions = {
                       (session.user as CustomSessionUser).name,
                       (session.user as CustomSessionUser).email,
                       (session.user as CustomSessionUser).image,
-                      (session.user as CustomSessionUser).accessToken,
                     ],
                   ],
                 },
