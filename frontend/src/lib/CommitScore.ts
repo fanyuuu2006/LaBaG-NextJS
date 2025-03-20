@@ -7,7 +7,7 @@ export const CommitScore = async (props: FormProps) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${props.accessToken}`,
+          Authorization: `Bearer ${props.idToken}`,
         },
         body: JSON.stringify(props),
       });

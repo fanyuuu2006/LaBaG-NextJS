@@ -7,7 +7,7 @@ export type CustomSessionUser = {
   email?: string;
   image?: string;
   id?: string;
-  accessToken?: string;
+  idToken?: string;
 };
 
 // 設置 NextAuth 配置
@@ -25,18 +25,18 @@ const authOptions: AuthOptions = {
         token.id = user.id;
       }
       if (account) {
-        token.accessToken = account.access_token;
+        token.idToken = account.id_token;
       }
       return token;
     },
     async session({ session, token }) {
       // 確保 session.user 存在，並且加上 id
       if (session.user) {
-        // 讓 TypeScript 知道 user 有 id 和 accessToken
+        // 讓 TypeScript 知道 user 有 id 和 idToken
         session.user = {
           ...session.user,
           id: token.sub ?? "",
-          accessToken: token.accessToken ?? undefined,
+          idToken: token.idToken ?? undefined,
         } as CustomSessionUser;
 
         if ((session.user as CustomSessionUser).id) {
