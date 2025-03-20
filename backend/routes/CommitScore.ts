@@ -8,6 +8,9 @@ export const CommitScore = async (req: Request, res: Response) => {
     if (!UserID || !Name || !Score) {
       return res.status(400).json({ message: '缺少UserID、Name 或 Score' });
     }
+    if (!(typeof JsonData === "object" || JsonData === null)){
+      return res.status(400).json({ message: 'JsonData格式錯誤' });
+    }
     
     const formData = new URLSearchParams();
     formData.append('entry.1181479366', UserID);

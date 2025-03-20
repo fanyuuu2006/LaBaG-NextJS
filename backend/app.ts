@@ -1,8 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
+import rateLimit from "express-rate-limit";
 import { CommitScore } from "./routes/CommitScore"; // 請確保導入正確的路徑
 import cors from "cors";
 
 const app = express();
+
+app.use(rateLimit({
+  windowMs: 60 * 1000, // 1 分钟
+  max: 10, // 每分钟最多允许 10 次请求
+  message: { message: "請求過於頻繁，請稍後再試" },
+}));
 
 app.use(
   cors({

@@ -6,12 +6,21 @@ export type CommitScoreProps = {
 };
 
 export const POST = async (req: Request): Promise<Response> => {
-  if (!process?.env?.COMMITSCORE_URL || !process?.env?.API_SECRET_KEY) {
+  if (!process?.env?.COMMITSCORE_URL || !process?.env?.API_SECRET_KEY|| !process?.env?.WEBSITE_URL) {
     return new Response(JSON.stringify({ message: "缺少必要的環境變數" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
   }
+
+  const referer = req.headers.get('referer');
+  if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
+    return new Response(
+      JSON.stringify({ message: "禁止存取" }),
+      { status: 403, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     const data = await req.json();
     if (
@@ -45,7 +54,7 @@ export const POST = async (req: Request): Promise<Response> => {
         JSON.stringify({
           message: `提交失敗，回應狀態: ${
             response.status
-          }，回應訊息: ${response.text()}`,
+          }，回應訊息: ${await response.text()}`,
         }),
         {
           status: response.status,

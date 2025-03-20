@@ -41,7 +41,7 @@ const authOptions: AuthOptions = {
 
         if ((session.user as CustomSessionUser).id) {
           const response = await fetch(
-            `${process?.env?.NEXTAUTH_URL}/api/Sheet`
+            `${process?.env?.WEBSITE_URL}/api/Sheet`
           );
           const { UserRows }: { UserRows: string[] } = await response.json();
           const userIndex = UserRows?.findIndex(

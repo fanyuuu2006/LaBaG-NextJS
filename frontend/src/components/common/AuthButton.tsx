@@ -70,7 +70,7 @@ export const AuthButton = () => {
                       {RecordRows.reduce((res: number, row: string[]) => {
                         return row[1] ===
                           (session?.user as CustomSessionUser)?.id
-                          ? Math.max(res, parseInt(row[3]))
+                          ? Math.max(res, parseInt(row[3].replace(",", "")))
                           : res;
                       }, 0)}
                     </span>
