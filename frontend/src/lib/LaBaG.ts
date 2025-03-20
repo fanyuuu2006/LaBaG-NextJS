@@ -36,7 +36,7 @@ export class BaseLaBaG implements LaBaG {
   OneData: Record<string, number> = {};
   DataIndex: number = 0;
 
-  Times: number = 3;
+  Times: number = 30;
   Played: number = 0;
 
   Score: number = 0;
