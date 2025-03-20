@@ -6,8 +6,7 @@ export const CommitScore = async (props: FormProps) => {
       const response = await fetch("/api/CommitScore", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${props.idToken}`,
+          "Content-Type": "application/json", // 指定 JSON 類型
         },
         body: JSON.stringify(props),
       });

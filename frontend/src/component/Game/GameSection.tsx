@@ -178,7 +178,6 @@ export const GameSection = () => {
     setTimeout(() => {
       if (!Game.GameRunning()) {
         CommitScore({
-          idToken: (session?.user as CustomSessionUser)?.idToken ?? "",
           UserID: (session?.user as CustomSessionUser)?.id ?? null,
           Name: session?.user?.name ?? null,
           Score: Game.Score,

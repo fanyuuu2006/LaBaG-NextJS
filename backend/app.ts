@@ -1,7 +1,20 @@
 import express, { Request, Response } from "express";
 import { CommitScore } from "./routes/CommitScore"; // 請確保導入正確的路徑
+import cors from 'cors';
 
 const app = express();
+
+// 設定允許的網域
+const allowedOrigins = [process.env.WEBSITE_URL as string];
+
+app.use(
+  cors({
+    origin: allowedOrigins, // 只允許指定的網站
+    methods: ["GET", "POST"], // 允許的 HTTP 方法
+    allowedHeaders: ["Content-Type", "x-api-key"], // 允許的請求標頭
+  })
+);
+
 
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
@@ -20,4 +33,8 @@ app.post("/CommitScore", async (req: Request, res: Response) => {
   }
 });
 
-export default app;
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

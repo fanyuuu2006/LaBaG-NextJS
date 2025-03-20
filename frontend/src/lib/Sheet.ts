@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 
+console.log(process?.env); 
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: process.env.GOOGLE_CLIENT_EMAIL,
