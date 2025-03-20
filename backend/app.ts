@@ -4,12 +4,9 @@ import cors from 'cors';
 
 const app = express();
 
-// 設定允許的網域
-const allowedOrigins = [process.env.WEBSITE_URL as string];
-
 app.use(
   cors({
-    origin: allowedOrigins, // 只允許指定的網站
+    origin: [process.env.WEBSITE_URL as string], // 只允許指定的網站
     methods: ["GET", "POST"], // 允許的 HTTP 方法
     allowedHeaders: ["Content-Type", "x-api-key"], // 允許的請求標頭
   })

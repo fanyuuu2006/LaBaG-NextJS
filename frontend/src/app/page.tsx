@@ -1,5 +1,5 @@
 "use client"
-import { HomeSection } from "@/component/Home/HomeSection";
+import { HomeSection } from "@/components/Home/HomeSection";
 
 export default function HomePage() {
   return <HomeSection/>;

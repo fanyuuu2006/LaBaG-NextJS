@@ -1,5 +1,5 @@
 "use client";
-import { GameSection } from "@/component/Game/GameSection";
+import { GameSection } from "@/components/Game/GameSection";
 
 export default function GamePage() {
   return <GameSection />;

@@ -1,4 +1,4 @@
-import { RankSection } from "@/component/Rank/RankSection";
+import { RankSection } from "@/components/Rank/RankSection";
 
 export default function Rank() {
     return (

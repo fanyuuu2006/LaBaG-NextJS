@@ -1,5 +1,5 @@
 "use client"
-import { GameOverSection } from "@/component/GameOver/GameOverSection";
+import { GameOverSection } from "@/components/GameOver/GameOverSection";
 
 export default function GameOverPage() {
   return <GameOverSection />;

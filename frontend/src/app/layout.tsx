@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "@/style/globals.css";
-import { ClientSessionProvider } from "@/component/common/ClientSessionProvider";
+import { ClientSessionProvider } from "@/components/common/ClientSessionProvider";
 import { NowModeProvider } from "./NowModeContext";
-import { Header } from "@/component/common/Header";
+import { Header } from "@/components/common/Header";
 
 export const metadata: Metadata = {
   title: "啦八機 LaBaG",

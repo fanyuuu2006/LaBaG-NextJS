@@ -10,7 +10,7 @@ import { PopPicture } from "./PopPicture";
 // 使用 dynamic import 禁用 SSR (伺服器端渲染)
 import dynamic from "next/dynamic";
 const MusicButton = dynamic(
-  () => import("@/component/Game/MusicButton").then((mod) => mod.MusicButton),
+  () => import("@/components/Game/MusicButton").then((mod) => mod.MusicButton),
   {
     ssr: false, // 禁用伺服器端渲染
   }
