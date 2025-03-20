@@ -1,4 +1,4 @@
-export type FormProps = {
+export type CommitScoreProps = {
   UserID: string | null;
   Name: string | null;
   Score: number;
@@ -6,39 +6,47 @@ export type FormProps = {
 };
 
 export const POST = async (req: Request): Promise<Response> => {
+  if (!process?.env?.COMMITSCORE_URL || !process?.env?.API_SECRET_KEY) {
+    return new Response(JSON.stringify({ message: "缺少必要的環境變數" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
   try {
-    const { UserID, Name, Score, JsonData } = await req.json();
-
-    if (!UserID || !Name || !Score) {
+    const data = await req.json();
+    if (
+      !data.UserID ||
+      !data.Name ||
+      typeof data.Score !== "number" ||
+      !data.JsonData
+    ) {
       return new Response(
-        JSON.stringify({ message: "缺少UserID、Name 或 Score" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
+        JSON.stringify({ message: "請求數據缺失或格式不正確" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    const formData = new URLSearchParams();
-    formData.append("entry.1181479366", UserID);
-    formData.append("entry.868955826", Name);
-    formData.append("entry.413238880", String(Score));
-    formData.append("entry.255424064", JSON.stringify(JsonData));
-
-    const response = await fetch(process?.env?.GOOGLE_FORM_RECORD ?? "", {
+    const response = await fetch(process?.env?.COMMITSCORE_URL ?? "", {
       method: "POST",
-      body: formData,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process?.env?.API_SECRET_KEY as string,
+      },
     });
 
-    if (response.status === 204 || response.ok) {
-      return new Response(JSON.stringify({ message: "成功提交分數" }), {
+    if (response.status === 204 || response.status === 200 || response.ok) {
+      return new Response(JSON.stringify({ message: "CommitScore請求成功" }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
     } else {
       return new Response(
-        JSON.stringify({ message: `提交失敗，回應狀態: ${response.status}` }),
+        JSON.stringify({
+          message: `提交失敗，回應狀態: ${
+            response.status
+          }，回應訊息: ${response.text()}`,
+        }),
         {
           status: response.status,
           headers: { "Content-Type": "application/json" },
@@ -47,7 +55,9 @@ export const POST = async (req: Request): Promise<Response> => {
     }
   } catch (error) {
     return new Response(
-      JSON.stringify({ message: `伺服器錯誤，無法提交分數: ${error}` }),
+      JSON.stringify({
+        message: `伺服器錯誤，無法提交分數: ${error}`,
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },

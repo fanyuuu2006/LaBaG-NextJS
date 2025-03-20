@@ -1,6 +1,6 @@
-import { FormProps } from "@/app/api/CommitScore/route";
+import { CommitScoreProps } from "@/app/api/CommitScore/route";
 
-export const CommitScore = async (props: FormProps) => {
+export const CommitScore = async (props: CommitScoreProps) => {
   if (props.UserID && props.Name && props.Score) {
     try {
       const response = await fetch("/api/CommitScore", {

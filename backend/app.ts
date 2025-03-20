@@ -1,6 +1,6 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { CommitScore } from "./routes/CommitScore"; // 請確保導入正確的路徑
-import cors from 'cors';
+import cors from "cors";
 
 const app = express();
 
@@ -12,6 +12,19 @@ app.use(
   })
 );
 
+// API key 驗證中介軟體
+const verifyApiKey = (req: Request, res: Response, next: NextFunction): void => {
+  const apiKey = req.headers['x-api-key'];
+
+  // 如果 API Key 無效，返回 401 錯誤
+  if (!apiKey || apiKey !== process.env.API_SECRET_KEY) {
+    res.status(401).json({ message: "未經授權的請求或是無效的金鑰" });
+    return
+  }
+
+  // 驗證成功，調用 next() 繼續處理後續邏輯
+  next();
+};
 
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
@@ -20,7 +33,7 @@ app.get("/test", (_, res) => {
   res.send("The server is up and running!");
 });
 
-app.post("/CommitScore", async (req: Request, res: Response) => {
+app.post("/CommitScore", verifyApiKey, async (req: Request, res: Response) => {
   try {
     // 調用 CommitScore 函數並傳遞 req 和 res
     await CommitScore(req, res);
