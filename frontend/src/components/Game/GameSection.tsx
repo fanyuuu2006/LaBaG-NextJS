@@ -161,6 +161,8 @@ export const GameSection = () => {
         icon: "warning",
         title: "遊戲已結束",
       });
+      Sound("/audio/Ding.mp3");
+      router.push("./GameOver");
     } else {
       reset_qst_and_marginscore();
       Game.Logic();
@@ -174,23 +176,24 @@ export const GameSection = () => {
           mode_picture_and_sound();
         }
       }, 3000);
+
+      setTimeout(() => {
+        if (!Game.GameRunning()) {
+          CommitScore({
+            UserID: (session?.user as CustomSessionUser)?.id ?? null,
+            Name: session?.user?.name ?? null,
+            Score: Game.Score,
+            JsonData: Game.AllData,
+          });
+          Sound("/audio/Ding.mp3");
+          router.push("./GameOver");
+        }
+        if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
+          PopPicture(Game.NowMode());
+        }
+        setButtonAble(true);
+      }, 3500);
     }
-    setTimeout(() => {
-      if (!Game.GameRunning()) {
-        CommitScore({
-          UserID: (session?.user as CustomSessionUser)?.id ?? null,
-          Name: session?.user?.name ?? null,
-          Score: Game.Score,
-          JsonData: Game.AllData,
-        });
-        Sound("/audio/Ding.mp3");
-        router.push("./GameOver");
-      }
-      if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-        PopPicture(Game.NowMode());
-      }
-      setButtonAble(true);
-    }, 3500);
   };
 
   return (
