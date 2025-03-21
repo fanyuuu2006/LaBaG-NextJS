@@ -33,9 +33,8 @@ export const InfoText = ({
       className="Note"
       style={{
         backgroundColor: "rgba(0, 0, 0, 0.3)",
-        width: "60%",
         borderRadius: "5%",
-        padding: "2% 0",
+        padding: "1em 4em",
       }}
       direction="vertical"
       align="center"

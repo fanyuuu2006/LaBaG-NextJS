@@ -31,6 +31,7 @@ body {
 }
 
 header {
+  z-index: 9999;
   position: sticky;
   height: auto;
   width: 100%;
@@ -53,10 +54,12 @@ nav{
   display: none;
 }
 
+
+
 section {
   width: 100%;
   height: 100%;
-  max-width: 450px;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,11 +94,11 @@ th, td {
 }
 
 .Title {
-  font-size: 40px;
+  font-size: 35px;
 }
 
 .Label {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .Content {
@@ -149,11 +152,11 @@ th, td {
   }
 
   .Title {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .Label {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   .Content {
@@ -165,7 +168,7 @@ th, td {
   }
 
   .Hint {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .BottomLine {

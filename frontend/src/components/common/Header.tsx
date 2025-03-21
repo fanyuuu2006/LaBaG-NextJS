@@ -26,6 +26,11 @@ const NavItems: NavItem[] = [
     label: <>排行</>,
     href: "/Rank",
   },
+  {
+    key: "Profile",
+    label: <>個人檔案</>,
+    href: "/Profile",
+  },
 ];
 
 export const Header = () => {
@@ -44,6 +49,7 @@ export const Header = () => {
         icon={<MenuOutlined />}
         size="large"
       />
+
       <nav role="navigation">
         {NavItems.map((item: NavItem) => {
           const isCurrentPath = pathName === item.href;
@@ -61,7 +67,7 @@ export const Header = () => {
             </Link>
           );
         })}
-        <AuthButton />
+        <AuthButton/>
       </nav>
     </header>
   );
