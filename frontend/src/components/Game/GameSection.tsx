@@ -52,10 +52,23 @@ export const GameSection = () => {
     setisClient(true);
     setBgmRunning(true);
 
+    const SpaceKeyDown = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        document.removeEventListener("keydown", SpaceKeyDown);
+        Begin();
+        setTimeout(() => {
+          document.addEventListener("keydown", SpaceKeyDown);
+        }, 3500);
+      }
+    };
+    document.addEventListener("keydown", SpaceKeyDown);
+
     return () => {
       setisClient(false);
       setBgmRunning(false);
+      document.removeEventListener("keydown", SpaceKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [LCode, setLCode] = useState<string>("QST");
