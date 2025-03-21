@@ -1,44 +1,21 @@
 "use client";
+import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Space } from "antd";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 type RankTableProps = {
-  key: number;
+  userId: string;
   rank: number;
   name: string;
   score: number;
-  timestamp: string;
+  timeStamp: string;
 };
 
-// const RankColumns: ColumnType<RankTableProps>[] = [
-//   {
-//     title: "名次",
-//     dataIndex: "rank",
-//     key: "rank",
-//     align: "center",
-//   },
-//   {
-//     title: "名稱",
-//     dataIndex: "name",
-//     key: "name",
-//   },
-//   {
-//     title: "分數",
-//     dataIndex: "score",
-//     key: "score",
-//     align: "right",
-//   },
-//   {
-//     title: "時間",
-//     dataIndex: "timestamp",
-//     key: "timestamp",
-//     align: "center",
-//   },
-// ];
-
 export const RankSection = () => {
+  const { data: session } = useSession();
   const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
     null
   );
@@ -52,18 +29,15 @@ export const RankSection = () => {
         const RecordRows = data.RecordRows as string[][];
 
         // 使用 Map 來存放每位玩家的最高分
-        const recordMap = new Map<
-          string,
-          { name: string; score: number; timestamp: string }
-        >();
+        const recordMap = new Map<string, Omit<RankTableProps, "rank">>();
 
         for (const row of RecordRows) {
-          const [timestamp, userId, name, scoreStr] = row;
+          const [timeStamp, userId, name, scoreStr] = row;
           const score = parseInt(scoreStr);
 
           // 如果 ID 不存在於 Map，或新分數更高，則更新
           if (!recordMap.has(userId) || score > recordMap.get(userId)!.score) {
-            recordMap.set(userId, { name, score, timestamp });
+            recordMap.set(userId, { timeStamp, userId, name, score });
           }
         }
 
@@ -71,11 +45,10 @@ export const RankSection = () => {
         const sortedData = Array.from(recordMap.values())
           .sort((a, b) => b.score - a.score)
           .map((value, index) => ({
-            key: index,
             rank: index + 1,
             ...value,
           }));
-
+        console.log(sortedData)
         setRankDataSource(sortedData);
       } catch (error) {
         console.error("無法獲取排行榜數據:", error);
@@ -117,7 +90,15 @@ export const RankSection = () => {
             </thead>
             <tbody>
               {RankDataSource.map((data) => (
-                <tr key={data.key} className="Note">
+                <tr
+                  key={data.userId}
+                  className="Note"
+                  style={
+                    (session?.user as CustomSessionUser)?.id == data.userId
+                      ? { color: "#FFFF00" }
+                      : {}
+                  }
+                >
                   <td className="CenterAlign">{data.rank}</td>
                   <td className="LeftAlign">{data.name}</td>
                   <td className="RightAlign">{data.score}</td>
@@ -125,7 +106,7 @@ export const RankSection = () => {
                     className="Hint CenterAlign"
                     style={{ whiteSpace: "wrap" }}
                   >
-                    {data.timestamp}
+                    {data.timeStamp}
                   </td>
                 </tr>
               ))}
@@ -133,7 +114,7 @@ export const RankSection = () => {
           </table>
         ) : (
           <div className="Title" style={{ color: "#FFFFFF" }}>
-            資料載入中
+            資料載入中...
           </div>
         )}
       </Space>
