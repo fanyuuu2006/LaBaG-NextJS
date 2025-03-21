@@ -52,7 +52,7 @@ export const ProfileSection = () => {
       >
         {User ? (
           <>
-            <Space direction="horizontal">
+            <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
                 src={User?.image ?? "./DefaultAvator.jpg"}
@@ -60,8 +60,8 @@ export const ProfileSection = () => {
                 height={300}
                 alt="頭像"
                 style={{
-                  width: "4em",
-                  minWidth: "30px",
+                  width: "5em",
+                  minWidth: "70px",
                   height: "auto",
                   border: `${ModeColors[NowMode].dark} solid 3px`,
                   borderRadius: "100%",
@@ -84,7 +84,7 @@ export const ProfileSection = () => {
             <div className="Label" style={{ color: "#FFFFFF" }}>
               請先登入
             </div>
-            <AuthButton />
+            <AuthButton className="Note" />
           </>
         )}
       </Space>

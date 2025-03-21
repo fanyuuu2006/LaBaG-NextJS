@@ -30,7 +30,7 @@ body {
   transition: background-image 0.5s;
 }
 
-header {
+/* header {
   z-index: 9999;
   position: sticky;
   height: auto;
@@ -52,7 +52,7 @@ nav{
 
 .Menu{
   display: none;
-}
+} */
 
 
 
@@ -138,7 +138,7 @@ th, td {
     --space-large: 18px;
     --space-ultra: 24px;
   }
-
+/* 
   header {
     flex-direction: column;
     padding: 1em 2em;
@@ -153,11 +153,11 @@ th, td {
 
   nav{
     display: none;
-  }
-
+  } */
+/* 
   .Menu{
     display:block;
-  }
+  } */
 
   .Title {
     font-size: 28px;

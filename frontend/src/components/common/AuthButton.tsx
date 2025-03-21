@@ -10,20 +10,22 @@ export const AuthButton = (props: ButtonProps) => {
     <div style={{ color: "#FFFFFF" }}>載入中</div>
   ) : (
     <Button
+      icon={
+        !session ? (
+          <FcGoogle
+            style={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: "100%",
+              padding: "5px",
+            }}
+          />
+        ) : null
+      }
       {...props}
       onClick={() => (session ? signOut() : signIn("google"))}
       type="primary"
     >
-      {session ? (
-        "登出"
-      ) : (
-        <div className="Note">
-          <FcGoogle
-            style={{ backgroundColor: "#FFFFFF", borderRadius: "100%" }}
-          />{" "}
-          登入
-        </div>
-      )}
+      {session ? "登出" : <>登入</>}
     </Button>
   );
 };

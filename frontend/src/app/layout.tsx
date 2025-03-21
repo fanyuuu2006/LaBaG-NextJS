@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
 import "@/style/globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import type { Metadata } from "next";
 import { ClientSessionProvider } from "@/components/common/ClientSessionProvider";
 import { NowModeProvider } from "./NowModeContext";
 import { Header } from "@/components/common/Header";
