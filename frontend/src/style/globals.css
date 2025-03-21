@@ -35,7 +35,7 @@ header {
   position: sticky;
   height: auto;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
@@ -98,7 +98,7 @@ th, td {
 }
 
 .Label {
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .Content {
@@ -140,7 +140,15 @@ th, td {
   }
 
   header {
+    flex-direction: column;
     padding: 1em 2em;
+  }
+
+  header > div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   nav{

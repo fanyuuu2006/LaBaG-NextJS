@@ -64,6 +64,7 @@ export const RankSection = () => {
         direction="vertical"
         align="center"
         style={{
+          transition: "ease-in-out 0.5s",
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           backdropFilter: "blur(2px)",
           border: `${ModeColors[NowMode].dark} solid 5px`,

@@ -10,24 +10,26 @@ import Image from "next/image";
 
 export const ProfileSection = () => {
   const { data: session } = useSession();
+  const User = session?.user as CustomSessionUser | null;
   const { NowMode } = useNowMode();
 
   const [HistoryScore, setHistoryScore] = useState<number>(0);
 
   useEffect(() => {
+    if (!User?.id) return;
     fetch("/api/Sheet")
       .then((res) => res.json())
       .then((data) =>
         setHistoryScore(
-          data.RecordRows.reduce((res: number, row: string[]) => {
-            return row[1] === (session?.user as CustomSessionUser)?.id
-              ? Math.max(res, parseInt(row[3].replace(",", "")))
-              : res;
-          }, 0)
+          data.RecordRows.reduce(
+            (res: number, row: string[]) =>
+              row[1] === User?.id ? Math.max(res, parseInt(row[3])) : res,
+            0
+          )
         )
       )
       .catch((err) => console.error("無法獲取資料: ", err));
-  }, [session?.user]);
+  }, [User?.id]);
 
   return (
     <section>
@@ -37,45 +39,45 @@ export const ProfileSection = () => {
         size="small"
         style={{
           color: "white",
-          transition: "0.5s",
+          transition: "ease-in-out 0.5s",
           borderRadius: "10%",
           padding: "1em 2em",
-          ...(session
-            ? {
-                backgroundColor: "rgba(0, 0, 0, 0.7)",
-                border: `${ModeColors[NowMode].dark} solid 3px`,
-              }
-            : {
-                backgroundColor: ModeColors[NowMode].dark,
-                border: `${ModeColors[NowMode].light} solid 3px`,
-              }),
+          backgroundColor: User
+            ? "rgba(0, 0, 0, 0.5)"
+            : ModeColors[NowMode].dark,
+          border: `${
+            User ? ModeColors[NowMode].dark : ModeColors[NowMode].light
+          } solid 3px`,
         }}
       >
-        {session ? (
+        {User ? (
           <>
             <Space direction="horizontal">
               <Image
-                src={session.user?.image ?? ""}
+                unoptimized={true}
+                src={User?.image ?? "./DefaultAvator.jpg"}
                 width={300}
                 height={300}
                 alt="頭像"
                 style={{
-                  width: "80%",
-                  minWidth: "70px",
+                  width: "4em",
+                  minWidth: "30px",
                   height: "auto",
                   border: `${ModeColors[NowMode].dark} solid 3px`,
                   borderRadius: "100%",
                 }}
               />
               <div>
-                <p className="Label">{session.user?.name ?? ""}</p>
-                <p className="Hint">{session.user?.email ?? ""}</p>
+                <p className="Title">{User?.name ?? ""}</p>
+                <p className="Note">{User?.email ?? ""}</p>
               </div>
             </Space>
             <p className="Note">
-              歷史最高分數: <span className="Content">{HistoryScore}</span>
+              歷史最高分數: <span className="Label">{HistoryScore}</span>
             </p>
-            <AuthButton style={{ backgroundColor: "#FF3333" }} />
+            <AuthButton
+              style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
+            />
           </>
         ) : (
           <>

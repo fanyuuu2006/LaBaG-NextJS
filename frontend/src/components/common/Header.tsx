@@ -3,10 +3,9 @@ import { Logo } from "./Logo";
 import Link from "next/link";
 import ModeColors from "@/json/ModeColors.json";
 import { AuthButton } from "./AuthButton";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useNowMode } from "@/app/NowModeContext";
-import { Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 
 type NavItem = {
@@ -36,19 +35,43 @@ const NavItems: NavItem[] = [
 export const Header = () => {
   const pathName = usePathname();
   const { NowMode } = useNowMode();
+  const [IsOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header>
-      <Logo />
-      <Button
-        className="Menu"
-        type="text"
-        style={{
-          backgroundColor: ModeColors[NowMode].dark,
-          color: ModeColors[NowMode].light,
-        }}
-        icon={<MenuOutlined />}
-        size="large"
-      />
+      <div>
+        <Logo />
+        <MenuOutlined
+          className="Title Menu"
+          style={{
+            color: "#FFFFFF",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setIsOpen(!IsOpen);
+          }}
+        />
+      </div>
+      {IsOpen &&
+        NavItems.map((item: NavItem) => {
+          const isCurrentPath = pathName === item.href;
+          return (
+            <Link
+              className="Menu Label"
+              style={{
+                transition: "ease-in-out 0.5s",
+                textAlign: "center",
+                width: "100%",
+                color: isCurrentPath ? ModeColors[NowMode].light : "#FFFFFF",
+                padding: "0.5em 0"
+              }}
+              key={item.key}
+              href={item.href}
+              aria-current={isCurrentPath ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
 
       <nav role="navigation">
         {NavItems.map((item: NavItem) => {
@@ -67,7 +90,7 @@ export const Header = () => {
             </Link>
           );
         })}
-        <AuthButton/>
+        <AuthButton />
       </nav>
     </header>
   );
