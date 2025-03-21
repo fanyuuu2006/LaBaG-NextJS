@@ -48,7 +48,7 @@ export const RankSection = () => {
             rank: index + 1,
             ...value,
           }));
-        console.log(sortedData)
+        console.log(sortedData);
         setRankDataSource(sortedData);
       } catch (error) {
         console.error("無法獲取排行榜數據:", error);
@@ -95,7 +95,7 @@ export const RankSection = () => {
                   className="Note"
                   style={
                     (session?.user as CustomSessionUser)?.id == data.userId
-                      ? { color: "#FFFF00" }
+                      ? { color: "#FFFF69" }
                       : {}
                   }
                 >

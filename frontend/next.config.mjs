@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: false, // 禁用 Turbopack，強制使用 Webpack
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.(mp3|wav|ogg)$/i,

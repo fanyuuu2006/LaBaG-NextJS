@@ -43,6 +43,16 @@ header {
   padding: 1em 3em;
 }
 
+nav{
+  display: flex;
+  align-items: center;
+  gap: var(--space-medium)
+}
+
+.Menu{
+  display: none;
+}
+
 section {
   width: 100%;
   height: 100%;
@@ -117,6 +127,7 @@ th, td {
   text-align: right;
 }
 
+
 @media (max-width: 768px) {
   :root {
     --space-small: 5px;
@@ -127,6 +138,14 @@ th, td {
 
   header {
     padding: 1em 2em;
+  }
+
+  nav{
+    display: none;
+  }
+
+  .Menu{
+    display:block;
   }
 
   .Title {

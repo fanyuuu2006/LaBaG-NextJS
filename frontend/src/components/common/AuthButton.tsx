@@ -58,7 +58,7 @@ export const AuthButton = () => {
                     alt="頭像"
                     style={{
                       width: "auto",
-                      height: "4em",
+                      height: "3em",
                       border: `${ModeColors[NowMode].dark} solid 2px`,
                       borderRadius: "100%",
                     }}
