@@ -76,6 +76,10 @@ a:hover {
   text-decoration: underline;
 }
 
+th, td {
+  padding: var(--space-medium);
+}
+
 .Title {
   font-size: 40px;
 }
@@ -99,6 +103,18 @@ a:hover {
 .BottomLine {
   padding-bottom: var(--space-small);
   border-bottom: 1px solid var(--border-color);
+}
+
+.CenterAlign {
+  text-align: center;
+}
+
+.LeftAlign {
+  text-align: left;
+}
+
+.RightAlign {
+  text-align: right;
 }
 
 @media (max-width: 768px) {

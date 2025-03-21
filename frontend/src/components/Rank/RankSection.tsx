@@ -1,6 +1,7 @@
 "use client";
+import { useNowMode } from "@/app/NowModeContext";
+import ModeColors from "@/json/ModeColors.json";
 import { Space } from "antd";
-import Table, { ColumnType } from "antd/es/table";
 import { useEffect, useState } from "react";
 
 type RankTableProps = {
@@ -11,36 +12,37 @@ type RankTableProps = {
   timestamp: string;
 };
 
-const RankColumns: ColumnType<RankTableProps>[] = [
-  {
-    title: "名次",
-    dataIndex: "rank",
-    key: "rank",
-    align: "center",
-  },
-  {
-    title: "名稱",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "分數",
-    dataIndex: "score",
-    key: "score",
-    align: "right",
-  },
-  {
-    title: "時間",
-    dataIndex: "timestamp",
-    key: "timestamp",
-    align: "center",
-  },
-];
+// const RankColumns: ColumnType<RankTableProps>[] = [
+//   {
+//     title: "名次",
+//     dataIndex: "rank",
+//     key: "rank",
+//     align: "center",
+//   },
+//   {
+//     title: "名稱",
+//     dataIndex: "name",
+//     key: "name",
+//   },
+//   {
+//     title: "分數",
+//     dataIndex: "score",
+//     key: "score",
+//     align: "right",
+//   },
+//   {
+//     title: "時間",
+//     dataIndex: "timestamp",
+//     key: "timestamp",
+//     align: "center",
+//   },
+// ];
 
 export const RankSection = () => {
   const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
     null
   );
+  const { NowMode } = useNowMode();
 
   useEffect(() => {
     async function fetchData() {
@@ -85,13 +87,50 @@ export const RankSection = () => {
 
   return (
     <section>
-      <Space direction="vertical" align="center" style={{ width: "100%"}}>
+      <Space
+        direction="vertical"
+        align="center"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backdropFilter: "blur(2px)",
+          border: `${ModeColors[NowMode].dark} solid 5px`,
+          borderRadius: "10px",
+          padding: "1.5em 0.5em",
+        }}
+      >
         {RankDataSource ? (
-          <Table
-            columns={RankColumns}
-            dataSource={RankDataSource}
-            pagination={false}
-            />
+          <table
+            style={{
+              borderCollapse: "collapse",
+              whiteSpace: "nowrap",
+              color: "#FFFFFF",
+              width: "100%",
+            }}
+          >
+            <thead>
+              <tr className="Content CenterAlign">
+                <th>名次</th>
+                <th>名稱</th>
+                <th>分數</th>
+                <th>時間</th>
+              </tr>
+            </thead>
+            <tbody>
+              {RankDataSource.map((data) => (
+                <tr key={data.key} className="Note">
+                  <td className="CenterAlign">{data.rank}</td>
+                  <td className="LeftAlign">{data.name}</td>
+                  <td className="RightAlign">{data.score}</td>
+                  <td
+                    className="Hint CenterAlign"
+                    style={{ whiteSpace: "wrap" }}
+                  >
+                    {data.timestamp}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
           <div className="Title" style={{ color: "#FFFFFF" }}>
             資料載入中
