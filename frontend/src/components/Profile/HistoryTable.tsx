@@ -32,21 +32,19 @@ export const HistoryTable = ({
               zIndex: 1, // 確保表頭在其他內容之上
             }}
           >
-            <tr className="Content">
-              <th className="CenterAlign">時間</th>
-              <th className="RightAlign">分數</th>
+            <tr className="Content CenterAlign">
+              <th>時間</th>
+              <th>分數</th>
             </tr>
           </thead>
           <tbody>
             {HistoryDatas?.sort((a, b) => b.index - a.index)
               .slice(-20)
               .map((data: HistoryData, i: number) => (
-                <tr key={i} className="Note">
-                  <td className="CenterAlign">{data.timestamp}</td>
+                <tr key={i} className="Note CenterAlign">
+                  <td>{data.timestamp}</td>
 
-                  <td className="RightAlign" style={{ whiteSpace: "nowrap" }}>
-                    {data.score}
-                  </td>
+                  <td style={{ whiteSpace: "nowrap" }}>{data.score}</td>
                 </tr>
               ))}
           </tbody>
