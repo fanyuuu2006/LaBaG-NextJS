@@ -1,5 +1,4 @@
 "use client";
-import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Button, Space, Tooltip } from "antd";
@@ -10,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CopyOutlined } from "@ant-design/icons";
 import { Toast } from "../common/Alert";
+import { CustomSessionUser } from "@/lib/authOptions";
 
 type HistoryData = {
   timestamp: string;

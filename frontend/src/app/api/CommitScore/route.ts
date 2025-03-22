@@ -1,5 +1,6 @@
+import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+
 
 export type CommitScoreProps = {
   UserID: string | null;

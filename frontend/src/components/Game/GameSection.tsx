@@ -26,7 +26,7 @@ import { CommitScore } from "@/lib/CommitScore";
 import { useSession } from "next-auth/react";
 import { useNowMode } from "@/app/NowModeContext";
 import { RuleButton } from "./RuleButton";
-import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
+import { CustomSessionUser } from "@/lib/authOptions";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -43,10 +43,12 @@ function Sound(src: string) {
 export const GameSection = () => {
   const { NowMode, setNowMode } = useNowMode();
   const { data: session } = useSession();
+  const User = session?.user as CustomSessionUser;
   const router = useRouter();
   const [isClient, setisClient] = useState(false); // 用於確保只在客戶端處理邏輯
   const [BgmRunning, setBgmRunning] = useState<boolean>(false);
   const [ButtonAble, setButtonAble] = useState<boolean>(true);
+
   // 設置只在客戶端載入頁面時運行
   useEffect(() => {
     setisClient(true);
@@ -193,8 +195,8 @@ export const GameSection = () => {
       setTimeout(() => {
         if (!Game.GameRunning()) {
           CommitScore({
-            UserID: (session?.user as CustomSessionUser)?.id ?? null,
-            Name: session?.user?.name ?? null,
+            UserID: User?.id ?? null,
+            Name: User?.name ?? null,
             Score: Game.Score,
             JsonData: Game.AllData,
           });
