@@ -8,7 +8,7 @@ export type CommitScoreProps = {
 export const CommitScore = async (props: CommitScoreProps) => {
   if (props.UserID && props.Name && props.Score) {
     try {
-      const response = await fetch("/api/CommitScore", {
+      const response = await fetch("https://labag-backend.vercel.app/CommitScore", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // 指定 JSON 類型
