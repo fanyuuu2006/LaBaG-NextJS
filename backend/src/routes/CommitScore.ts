@@ -4,6 +4,11 @@ import jwt from "jsonwebtoken";
 
 export const CommitScore = async (req: Request, res: Response) => {
   try {
+    const referer = req.headers["referer"]
+    if (!referer || !referer.startsWith(process.env?.WEBSITE_URL ?? "")){
+      return res.status(400).json({ message: `禁止存取: ${referer}` });
+    }
+
     const { UserID, Name, Score, JsonData } = req.body;
     if (
       !UserID ||
