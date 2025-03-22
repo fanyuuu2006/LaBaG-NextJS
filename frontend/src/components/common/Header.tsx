@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useNowMode } from "@/app/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { MenuOutlined } from "@ant-design/icons";
+import { useSession } from "next-auth/react";
 
 type NavItem = {
   key: string;
@@ -15,27 +16,31 @@ type NavItem = {
   href: string;
 };
 
-const NavItems: NavItem[] = [
-  {
-    key: "Home",
-    label: <>首頁</>,
-    href: "/",
-  },
-  {
-    key: "Rank",
-    label: <>排行</>,
-    href: "/Rank",
-  },
-  {
-    key: "Profile",
-    label: <>個人檔案</>,
-    href: "/Profile",
-  },
-];
 
 export const Header = () => {
   const pathName = usePathname();
   const { NowMode } = useNowMode();
+  const {data: session} = useSession();
+
+  const NavItems: NavItem[] = [
+    {
+      key: "Home",
+      label: <>首頁</>,
+      href: "/",
+    },
+    {
+      key: "Rank",
+      label: <>排行</>,
+      href: "/Rank",
+    },
+    {
+      key: "Profile",
+      label: <>{session?.user?.name ?? "個人檔案"}</>,
+      href: "/Profile",
+    },
+  ];
+  
+
   return (
     <Navbar
       className="sticky-top"
