@@ -24,10 +24,11 @@ export const POST = async (req: Request): Promise<Response> => {
       `${process?.env?.BACKEND_URL ?? ""}/CommitScore`,
       {
         method: "POST",
-        body: JSON.stringify(data),
+        credentials: "include", // 讓請求夾帶 Cookie
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(data),
       }
     );
 
