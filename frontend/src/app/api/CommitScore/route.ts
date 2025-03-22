@@ -36,7 +36,6 @@ export const POST = async (req: Request): Promise<Response> => {
         status: 200,
         headers: {
           "Content-Type": "application/json",
-          referer: process.env?.WEBSITE_URL ?? "",
         },
       });
     } else {
