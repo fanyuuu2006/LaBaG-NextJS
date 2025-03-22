@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 
 export const CommitScore = async (req: Request, res: Response) => {
   try {
-    // const referer = req.headers["referer"] as string | undefined;
-    // if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
-    //   return res.status(403).json({ message: `${referer ?? ""} 禁止存取` });
-    // }
+    const referer = req.headers["referer"] as string | undefined;
+    if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
+      return res.status(403).json({ message: `禁止存取 referer: ${referer} ` });
+    }
 
     const cookies = req.headers["cookie"];
     const parsedCookies = cookies ? cookie.parse(cookies) : {};
@@ -17,11 +17,9 @@ export const CommitScore = async (req: Request, res: Response) => {
       parsedCookies["__Secure-next-auth.session-token"];
 
     if (!token) {
-      return res
-        .status(400)
-        .json({
-          message: `無效的token, header: ${JSON.stringify(req.headers)}`,
-        });
+      return res.status(400).json({
+        message: `無效的token, header: ${JSON.stringify(req.headers)}`,
+      });
     }
     // 解析 JWT
     const decodedToken = jwt.decode(token);
