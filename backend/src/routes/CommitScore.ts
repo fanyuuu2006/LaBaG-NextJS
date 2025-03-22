@@ -4,41 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const CommitScore = async (req: Request, res: Response) => {
   try {
-    const referer = req.headers["referer"] as string | undefined;
-    if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
-      return res.status(403).json({ message: `禁止存取 referer: ${referer} ` });
-    }
-
-    const cookies = req.headers["cookie"];
-    const parsedCookies = cookies ? cookie.parse(cookies) : {};
-    // 获取存储在 Cookie 中的 JWT
-    const token =
-      parsedCookies["next-auth.session-token"] ||
-      parsedCookies["__Secure-next-auth.session-token"];
-
-    if (!token) {
-      return res.status(400).json({
-        message: `無效的token, header: ${JSON.stringify(req.headers)}`,
-      });
-    }
-    // 解析 JWT
-    const decodedToken = jwt.decode(token);
-    if (
-      !decodedToken ||
-      typeof decodedToken !== "object" ||
-      !decodedToken.sub
-    ) {
-      return res.status(400).json({ message: "token 中未包含有效的 UserID" });
-    }
-
-    // 確保 decodedToken 存在並且包含 sub 字段
-    const userId = decodedToken?.sub;
-    if (!userId) {
-      return res.status(400).json({ message: "token 中未包含有效的 UserID" });
-    }
-
     const { UserID, Name, Score, JsonData } = req.body;
-
     if (
       !UserID ||
       !Name ||
