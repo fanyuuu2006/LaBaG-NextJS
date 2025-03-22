@@ -17,6 +17,7 @@ app.use(
   cors({
     origin: [process.env.WEBSITE_URL as string], // 只允許指定的網站
     methods: ["GET", "POST"], // 允許的 HTTP 方法
+    credentials: true, // 允許 Cookie
     allowedHeaders: ["Content-Type"], // 允許的請求標頭
   })
 );
