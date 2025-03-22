@@ -18,6 +18,26 @@
   line-height: 1.5em;
 }
 
+/* 設定滾動條的寬度 */
+::-webkit-scrollbar {
+  width: 5px; /* 垂直滾動條的寬度 */
+}
+
+/* 設定滾動條的背景 */
+::-webkit-scrollbar-track {
+  background: none; /* 滾動條背景顏色 */
+}
+
+/* 設定滾動條的顏色 */
+::-webkit-scrollbar-thumb {
+  background: #ffffff; /* 滾動條顏色 */
+}
+
+/* 滾動條滑塊 hover 時的顏色 */
+::-webkit-scrollbar-thumb:hover {
+  background: #878787; /* 滑塊 hover 時的顏色 */
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -29,8 +49,6 @@ body {
   background: black url("../assets/BG.jpg") center/cover no-repeat fixed;
   transition: background-image 0.5s;
 }
-
-
 
 section {
   width: 100%;
@@ -65,11 +83,12 @@ a:hover {
   text-decoration: underline;
 }
 
-th, td {
+th,
+td {
   padding: var(--space-medium);
 }
 
-tr :hover{
+tr :hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -109,7 +128,6 @@ tr :hover{
 .RightAlign {
   text-align: right;
 }
-
 
 @media (max-width: 768px) {
   :root {
