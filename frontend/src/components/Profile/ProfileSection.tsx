@@ -12,6 +12,7 @@ import { Toast } from "../common/Alert";
 import { CustomSessionUser } from "@/lib/authOptions";
 
 type HistoryData = {
+  index: number;
   timestamp: string;
   score: number;
 };
@@ -38,7 +39,8 @@ export const ProfileSection = () => {
       .then((data) =>
         setHistoryDatas(
           data.RecordRows.filter((row: string[]) => row[1] === User.id).map(
-            (row: string[]) => ({
+            (row: string[], index: number) => ({
+              index,
               timestamp: row[0],
               score: parseInt(row[3]),
             })
@@ -58,6 +60,7 @@ export const ProfileSection = () => {
           flexDirection: "column",
           gap: "1em",
           padding: "1em 2em",
+          marginTop: "3em",
           backgroundColor: User
             ? "rgba(0, 0, 0, 0.5)"
             : ModeColors[NowMode].dark,
@@ -165,7 +168,7 @@ export const ProfileSection = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {HistoryDatas?.sort((a, b) => b.score - a.score)
+                      {HistoryDatas?.sort((a, b) => b.index - a.index)
                         .slice(-20)
                         .map((data: HistoryData, i: number) => (
                           <tr key={i} className="Note">
