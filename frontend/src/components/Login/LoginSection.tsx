@@ -39,7 +39,7 @@ export const LoginSection = () => {
             <div className="Label" style={{ color: "#FFFFFF" }}>
               選擇登入方式
             </div>
-            <AuthButton className="Note" signBy="google" />
+            <AuthButton type="primary" className="Note" signBy="google" />
           </>
         ) : (
           <></>

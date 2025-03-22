@@ -50,14 +50,13 @@ export const ProfileSection = () => {
 
   return (
     <section>
-      <Space
-        direction="vertical"
-        align="center"
-        size="small"
+      <div
         style={{
+          width: "100%",
           color: "white",
-          transition: "ease-in-out 0.5s",
-          borderRadius: "10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1em",
           padding: "1em 2em",
           backgroundColor: User
             ? "rgba(0, 0, 0, 0.5)"
@@ -65,11 +64,12 @@ export const ProfileSection = () => {
           border: `${
             User ? ModeColors[NowMode].dark : ModeColors[NowMode].light
           } solid 3px`,
+          borderRadius: "10px",
         }}
       >
         {User && (
           <>
-            <div className="Title">個人檔案</div>
+            <div className="Title BottomLine">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
@@ -120,7 +120,7 @@ export const ProfileSection = () => {
             </Space>
             {HistoryDatas && (
               <>
-                <div className="Note">
+                <div className="Note CenterAlign">
                   歷史最高分數:{" "}
                   <span className="Label">
                     {/*補空格*/}
@@ -134,10 +134,10 @@ export const ProfileSection = () => {
                   </span>{" "}
                   分
                 </div>
-                <div className="Content">歷史紀錄</div>
+                <div className="Content CenterAlign">歷史紀錄</div>
                 <div
                   style={{
-                    maxHeight: "350px", // 限制表格的最大高度
+                    maxHeight: "400px", // 限制表格的最大高度
                     overflowY: "auto", // 開啟垂直滾動條
                     width: "100%",
                     border: "#FFFFFF solid 1px",
@@ -169,7 +169,7 @@ export const ProfileSection = () => {
                         .slice(-20)
                         .map((data: HistoryData, i: number) => (
                           <tr key={i} className="Note">
-                            <td className="LeftAlign">{data.timestamp}</td>
+                            <td className="CenterAlign">{data.timestamp}</td>
 
                             <td
                               className="RightAlign"
@@ -184,12 +184,19 @@ export const ProfileSection = () => {
                 </div>
               </>
             )}
-            <AuthButton
-              style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
-            />
+            <div className="CenterAlign">
+              <AuthButton
+                type="text"
+                style={{
+                  color: "#FFFFFF",
+                  width: "50%",
+                  backgroundColor: "#FF3333",
+                }}
+              />
+            </div>
           </>
         )}
-      </Space>
+      </div>
     </section>
   );
 };

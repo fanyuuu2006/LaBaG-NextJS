@@ -33,7 +33,6 @@ export const AuthButton = ({ signBy, style, ...props }: AuthButtonProps) => {
       {...props}
       style={style}
       onClick={handleAuth}
-      type="primary"
     >
       {session ? "登出" : "登入"}
     </Button>
