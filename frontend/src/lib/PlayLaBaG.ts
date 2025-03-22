@@ -3,7 +3,6 @@ import { ModeNames, Modes } from "./Mode";
 
 export class PlayLaBaG extends BaseLaBaG {
   Name: string = "";
-  HistoryScore: number = 0;
 
   constructor() {
     super();
@@ -11,7 +10,6 @@ export class PlayLaBaG extends BaseLaBaG {
 
   Reset(): void {
     super.Reset();
-    this.HistoryScore = 0;
     console.log("遊戲已重置");
   }
 

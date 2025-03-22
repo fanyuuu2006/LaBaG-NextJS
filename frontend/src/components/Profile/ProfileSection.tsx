@@ -2,12 +2,14 @@
 import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
-import { Space } from "antd";
+import { Button, Space, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import { AuthButton } from "../common/AuthButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { CopyOutlined } from "@ant-design/icons";
+import { Toast } from "../common/Alert";
 
 export const ProfileSection = () => {
   const router = useRouter();
@@ -58,6 +60,7 @@ export const ProfileSection = () => {
       >
         {User ? (
           <>
+            <div className="Title">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
@@ -74,18 +77,46 @@ export const ProfileSection = () => {
                 }}
               />
               <div>
-                <div className="Title">{User?.name ?? ""}</div>
-                <div className="Note">{User?.email ?? ""}</div>
+                <div className="Label">{User?.name ?? ""}</div>
+                <div className="Hint">{User?.email ?? ""}</div>
+                <div className="Hint">
+                  ID: {User.id ?? ""}
+                  <Tooltip title="複製 ID">
+                    <Button
+                      type="text"
+                      onClick={() => {
+                        if (User.id)
+                          navigator.clipboard.writeText(User.id).then(
+                            () => {
+                              Toast.fire({
+                                icon: "success",
+                                text: "已複製到剪貼簿",
+                              });
+                            },
+                            (err) => {
+                              console.error("複製失敗: ", err);
+                              Toast.fire({
+                                icon: "error",
+                                text: "複製失敗",
+                              });
+                            }
+                          );
+                      }}
+                      icon={<CopyOutlined />}
+                      style={{ color: "#FFFFFF" }}
+                    />
+                  </Tooltip>
+                </div>
               </div>
             </Space>
-            <p className="Note">
+            <div className="Note">
               歷史最高分數:{" "}
               <span className="Label">
                 {/*補空格*/}
                 {String(HistoryScore).padStart(8, "\u00A0")}
               </span>{" "}
               分
-            </p>
+            </div>
             <AuthButton
               style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
             />
