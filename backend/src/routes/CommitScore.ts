@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 
 export const CommitScore = async (req: Request, res: Response) => {
   try {
-    const referer = req.headers["referer"] as string | undefined;
-    if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
-      return res.status(403).json({ message: `${referer ?? ""} 禁止存取` });
-    }
+    // const referer = req.headers["referer"] as string | undefined;
+    // if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
+    //   return res.status(403).json({ message: `${referer ?? ""} 禁止存取` });
+    // }
 
     const cookies = req.headers["cookie"];
     const parsedCookies = cookies ? cookie.parse(cookies) : {};
