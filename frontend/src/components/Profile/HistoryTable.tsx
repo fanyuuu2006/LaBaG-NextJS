@@ -39,7 +39,7 @@ export const HistoryTable = ({
           </thead>
           <tbody>
             {HistoryDatas?.sort((a, b) => b.index - a.index)
-              .slice(-20)
+              .slice(20)
               .map((data: HistoryData, i: number) => (
                 <tr key={i} className="Note CenterAlign">
                   <td>{data.timestamp}</td>
