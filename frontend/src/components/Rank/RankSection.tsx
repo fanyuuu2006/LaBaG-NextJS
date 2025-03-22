@@ -1,7 +1,7 @@
 "use client";
-import { CustomSessionUser } from "@/app/api/auth/[...nextauth]/route";
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
+import { CustomSessionUser } from "@/lib/authOptions";
 import { Space } from "antd";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
