@@ -11,7 +11,7 @@ export const HistoryTable = ({
       <div
         style={{
           maxHeight: "400px", // 限制表格的最大高度
-          overflowY: "auto", // 開啟垂直滾動條
+          overflowY: "auto", 
           width: "100%",
           border: "#FFFFFF solid 1px",
         }}
@@ -26,10 +26,10 @@ export const HistoryTable = ({
           <thead
             style={{
               position: "sticky", // 使表頭固定
-              top: 0, // 固定在頂部
-              backgroundColor: "rgba(0, 0, 0, 0.5)", // 根據模式顏色設置背景色
+              top: 0, 
+              backgroundColor: "rgba(0, 0, 0, 0.5)", 
               backdropFilter: "blur(2px)",
-              zIndex: 1, // 確保表頭在其他內容之上
+              zIndex: 1, 
             }}
           >
             <tr className="Content CenterAlign">
