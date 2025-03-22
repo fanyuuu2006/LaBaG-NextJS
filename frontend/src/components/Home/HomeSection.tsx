@@ -1,13 +1,14 @@
 import { useRouter } from "next/navigation";
-import { Space, Tooltip } from "antd";
+import { Button, Space, Tooltip } from "antd";
 import Image from "next/image";
 import SuperCircle from "@/assets/SuperCircle.png";
 import { Game } from "@/lib/PlayLaBaG";
 import { useNowMode } from "@/app/NowModeContext";
+import ModeColors from "@/json/ModeColors.json";
 
 export const HomeSection = () => {
   const router = useRouter();
-  const { setNowMode } = useNowMode();
+  const { NowMode, setNowMode } = useNowMode();
   return (
     <section>
       <Space
@@ -16,21 +17,26 @@ export const HomeSection = () => {
         align="center"
         size={"large"}
       >
-        <Tooltip title="進入遊戲">
-          <Image
-            priority
+        <Image priority src={SuperCircle} alt="SuperCircle" />
+        <Tooltip title="點擊進入遊戲">
+          <Button
+            type="text"
+            className="Label"
+            style={{
+              backgroundColor: "rgba(0, 0 ,0, 0.5)",
+              color: "#FFFFFF",
+              border: `${ModeColors[NowMode].dark} solid 3px`,
+              padding: "1em",
+            }}
             onClick={() => {
               Game.Reset();
               setNowMode(Game.NowMode());
               router.push("./Game");
             }}
-            src={SuperCircle}
-            alt="SuperCircle"
-          />
+          >
+            進入遊戲
+          </Button>
         </Tooltip>
-        <div className="Label" style={{ color: "white" }}>
-          點擊上方圖片進入遊戲
-        </div>
       </Space>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 import { Button, ButtonProps } from "antd";
-import { FcGoogle } from "react-icons/fc";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { GoogleOutlined } from "@ant-design/icons";
 
 export const AuthButton = (props: ButtonProps) => {
   const { data: session, status } = useSession();
@@ -10,22 +10,12 @@ export const AuthButton = (props: ButtonProps) => {
     <div style={{ color: "#FFFFFF" }}>載入中</div>
   ) : (
     <Button
-      icon={
-        !session ? (
-          <FcGoogle
-            style={{
-              backgroundColor: "#FFFFFF",
-              borderRadius: "100%",
-              padding: "5px",
-            }}
-          />
-        ) : null
-      }
+      icon={session ? null: <GoogleOutlined /> }
       {...props}
       onClick={() => (session ? signOut() : signIn("google"))}
       type="primary"
     >
-      {session ? "登出" : <>登入</>}
+      {session ? "登出" : "登入" }
     </Button>
   );
 };

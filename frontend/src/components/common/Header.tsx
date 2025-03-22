@@ -9,18 +9,16 @@ import { useNowMode } from "@/app/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { MenuOutlined } from "@ant-design/icons";
 import { useSession } from "next-auth/react";
-
 type NavItem = {
   key: string;
   label: ReactNode;
   href: string;
 };
 
-
 export const Header = () => {
   const pathName = usePathname();
   const { NowMode } = useNowMode();
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
   const NavItems: NavItem[] = [
     {
@@ -30,7 +28,7 @@ export const Header = () => {
     },
     {
       key: "Rank",
-      label: <>排行</>,
+      label: <>排行榜</>,
       href: "/Rank",
     },
     {
@@ -39,7 +37,6 @@ export const Header = () => {
       href: "/Profile",
     },
   ];
-  
 
   return (
     <Navbar

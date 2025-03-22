@@ -73,7 +73,11 @@ export const ProfileSection = () => {
               </div>
             </Space>
             <p className="Note">
-              歷史最高分數: <span className="Label">{HistoryScore}</span>
+              歷史最高分數:{" "}
+              <span className="Label">
+                {/*補空格*/}
+                {String(HistoryScore).padStart(8, "\u00A0")}
+              </span>
             </p>
             <AuthButton
               style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
