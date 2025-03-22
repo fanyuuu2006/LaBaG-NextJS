@@ -18,23 +18,9 @@ app.use(
     origin: [process.env.WEBSITE_URL as string], // 只允許指定的網站
     methods: ["GET", "POST"], // 允許的 HTTP 方法
     credentials: true, // 允許 Cookie
-    allowedHeaders: ["Content-Type"], // 允許的請求標頭
+    allowedHeaders: ["Content-Type", "Cookies", "Referer"], // 允許的請求標頭
   })
 );
-
-// // API key 驗證中介軟體
-// const verifyApiKey = (req: Request, res: Response, next: NextFunction): void => {
-//   const apiKey = req.headers['x-api-key'];
-
-//   // 如果 API Key 無效，返回 401 錯誤
-//   if (!apiKey || apiKey !== process.env.API_SECRET_KEY) {
-//     res.status(401).json({ message: "未經授權的請求或是無效的金鑰" });
-//     return
-//   }
-
-//   // 驗證成功，調用 next() 繼續處理後續邏輯
-//   next();
-// };
 
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
