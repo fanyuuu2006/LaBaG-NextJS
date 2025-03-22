@@ -1,3 +1,6 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
+
 export type CommitScoreProps = {
   UserID: string | null;
   Name: string | null;
@@ -6,19 +9,30 @@ export type CommitScoreProps = {
 };
 
 export const POST = async (req: Request): Promise<Response> => {
-  if (!process?.env?.COMMITSCORE_URL || !process?.env?.API_SECRET_KEY|| !process?.env?.WEBSITE_URL) {
+  if (
+    !process?.env?.COMMITSCORE_URL ||
+    !process?.env?.API_SECRET_KEY ||
+    !process?.env?.WEBSITE_URL
+  ) {
     return new Response(JSON.stringify({ message: "缺少必要的環境變數" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
   }
 
-  const referer = req.headers.get('referer');
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return new Response(JSON.stringify({ message: "未登入，禁止存取" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  const referer = req.headers.get("referer");
   if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
-    return new Response(
-      JSON.stringify({ message: "禁止存取" }),
-      { status: 403, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ message: "禁止存取" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {

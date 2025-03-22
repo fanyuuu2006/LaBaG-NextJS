@@ -11,7 +11,7 @@ export type CustomSessionUser = {
 };
 
 // 設置 NextAuth 配置
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process?.env?.GOOGLE_CLIENT_ID ?? "",

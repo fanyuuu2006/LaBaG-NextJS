@@ -31,18 +31,18 @@ export const ProfileSection = () => {
     }
 
     fetch("/api/Sheet")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("API 回應錯誤");
+        return res.json();
+      })
       .then((data) =>
         setHistoryDatas(
-          data.RecordRows.reduce((res: HistoryData[], row: string[]) => {
-            if (row[1] === User.id) {
-              res.push({
-                timestamp: row[0],
-                score: parseInt(row[3]),
-              });
-            }
-            return res;
-          }, [])
+          data.RecordRows.filter((row: string[]) => row[1] === User.id).map(
+            (row: string[]) => ({
+              timestamp: row[0],
+              score: parseInt(row[3]),
+            })
+          )
         )
       )
       .catch((error) => console.error("無法獲取資料: ", error));
@@ -67,7 +67,7 @@ export const ProfileSection = () => {
           } solid 3px`,
         }}
       >
-        {User ? (
+        {User && (
           <>
             <div className="Title">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
@@ -123,10 +123,9 @@ export const ProfileSection = () => {
               <span className="Label">
                 {/*補空格*/}
                 {String(
-                  HistoryDatas?.reduce(
-                    (res, curr: HistoryData) => Math.max(res, curr.score),
-                    0
-                  ) ?? 0
+                  HistoryDatas?.length
+                    ? Math.max(...HistoryDatas.map((h: HistoryData) => h.score))
+                    : 0
                 ).padStart(8, "\u00A0")}
               </span>{" "}
               分
@@ -135,8 +134,6 @@ export const ProfileSection = () => {
               style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
             />
           </>
-        ) : (
-          <></>
         )}
       </Space>
     </section>
