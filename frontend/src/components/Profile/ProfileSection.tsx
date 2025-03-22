@@ -11,13 +11,18 @@ import { useRouter } from "next/navigation";
 import { CopyOutlined } from "@ant-design/icons";
 import { Toast } from "../common/Alert";
 
+type HistoryData = {
+  timestamp: string;
+  score: number;
+};
+
 export const ProfileSection = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const User = session?.user as CustomSessionUser | null;
   const { NowMode } = useNowMode();
 
-  const [HistoryScore, setHistoryScore] = useState<number>(0);
+  const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
     if (!User?.id) {
@@ -28,15 +33,19 @@ export const ProfileSection = () => {
     fetch("/api/Sheet")
       .then((res) => res.json())
       .then((data) =>
-        setHistoryScore(
-          data.RecordRows.reduce(
-            (res: number, row: string[]) =>
-              row[1] === User?.id ? Math.max(res, parseInt(row[3])) : res,
-            0
-          )
+        setHistoryDatas(
+          data.RecordRows.reduce((res: HistoryData[], row: string[]) => {
+            if (row[1] === User.id) {
+              res.push({
+                timestamp: row[0],
+                score: parseInt(row[3]),
+              });
+            }
+            return res;
+          }, [])
         )
       )
-      .catch((err) => console.error("無法獲取資料: ", err));
+      .catch((error) => console.error("無法獲取資料: ", error));
   }, [User?.id, router]);
 
   return (
@@ -86,21 +95,21 @@ export const ProfileSection = () => {
                       type="text"
                       onClick={() => {
                         if (User.id)
-                          navigator.clipboard.writeText(User.id).then(
-                            () => {
+                          navigator.clipboard
+                            .writeText(User.id)
+                            .then(() => {
                               Toast.fire({
                                 icon: "success",
                                 text: "已複製到剪貼簿",
                               });
-                            },
-                            (err) => {
-                              console.error("複製失敗: ", err);
+                            })
+                            .catch((error) => {
+                              console.error("複製失敗: ", error);
                               Toast.fire({
                                 icon: "error",
                                 text: "複製失敗",
                               });
-                            }
-                          );
+                            });
                       }}
                       icon={<CopyOutlined />}
                       style={{ color: "#FFFFFF" }}
@@ -113,7 +122,12 @@ export const ProfileSection = () => {
               歷史最高分數:{" "}
               <span className="Label">
                 {/*補空格*/}
-                {String(HistoryScore).padStart(8, "\u00A0")}
+                {String(
+                  HistoryDatas?.reduce(
+                    (res, curr: HistoryData) => Math.max(res, curr.score),
+                    0
+                  ) ?? 0
+                ).padStart(8, "\u00A0")}
               </span>{" "}
               分
             </div>
