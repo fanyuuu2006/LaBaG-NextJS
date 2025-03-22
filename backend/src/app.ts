@@ -15,12 +15,14 @@ app.use(
 
 app.use(
   cors({
-    origin: [process.env.WEBSITE_URL as string], // 只允許指定的網站
-    methods: ["GET", "POST"], // 允許的 HTTP 方法
+    origin: [process.env.WEBSITE_URL as string],
+    methods: ["GET", "POST"],
     credentials: true, // 允許 Cookie
-    allowedHeaders: ["Content-Type", "Cookies", "Referer"], // 允許的請求標頭
+    allowedHeaders: ["Content-Type", "Cookies", "Referer"], // 允許 Referer 和 Cookies
+    exposedHeaders: ["Referer", "Set-Cookie"], // 允許在前端讀取 Referer 和 Cookie
   })
 );
+
 
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
