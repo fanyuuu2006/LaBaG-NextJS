@@ -17,7 +17,7 @@ export const CommitScore = async (req: Request, res: Response) => {
       parsedCookies["__Secure-next-auth.session-token"];
 
     if (!token) {
-      return res.status(400).json({ message: "無效的token" });
+      return res.status(400).json({ message: `無效的token, cookie: ${cookies}` });
     }
     // 解析 JWT
     const decodedToken = jwt.decode(token);
