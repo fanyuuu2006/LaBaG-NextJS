@@ -57,7 +57,7 @@ export const ProfileSection = () => {
         style={{
           color: "white",
           transition: "ease-in-out 0.5s",
-          borderRadius: "10%",
+          borderRadius: "10px",
           padding: "1em 2em",
           backgroundColor: User
             ? "rgba(0, 0, 0, 0.5)"
@@ -129,6 +129,33 @@ export const ProfileSection = () => {
                 ).padStart(8, "\u00A0")}
               </span>{" "}
               分
+            </div>
+
+            <div
+              style={{
+                maxHeight: "400px", // 限制表格的最大高度
+                overflowY: "auto", // 開啟垂直滾動條
+                width: "100%",
+              }}
+            >
+              <table>
+                <thead>
+                  <tr className="Content">
+                    <th className="CenterAlign">時間</th>
+                    <th className="RightAlign">分數</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(HistoryDatas ?? [])
+                    .slice(-20)
+                    .map((data: HistoryData, i: number) => (
+                      <tr key={i} className="Note">
+                        <td className="LeftAlign">{data.timestamp}</td>
+                        <td className="RightAlign">{data.score}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
             <AuthButton
               style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
