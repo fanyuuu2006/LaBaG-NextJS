@@ -34,7 +34,10 @@ export const POST = async (req: Request): Promise<Response> => {
     if (response.status === 204 || response.status === 200 || response.ok) {
       return new Response(JSON.stringify({ message: "BACKEND請求成功" }), {
         status: 200,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          referer: process.env?.WEBSITE_URL ?? "",
+        },
       });
     } else {
       return new Response(
