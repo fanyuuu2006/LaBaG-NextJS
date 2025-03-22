@@ -7,8 +7,10 @@ import { useSession } from "next-auth/react";
 import { AuthButton } from "../common/AuthButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export const ProfileSection = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const User = session?.user as CustomSessionUser | null;
   const { NowMode } = useNowMode();
@@ -16,7 +18,11 @@ export const ProfileSection = () => {
   const [HistoryScore, setHistoryScore] = useState<number>(0);
 
   useEffect(() => {
-    if (!User?.id) return;
+    if (!User?.id) {
+      router.push("/Login");
+      return;
+    }
+
     fetch("/api/Sheet")
       .then((res) => res.json())
       .then((data) =>
@@ -29,7 +35,7 @@ export const ProfileSection = () => {
         )
       )
       .catch((err) => console.error("無法獲取資料: ", err));
-  }, [User?.id]);
+  }, [User?.id, router]);
 
   return (
     <section>
@@ -68,8 +74,8 @@ export const ProfileSection = () => {
                 }}
               />
               <div>
-                <p className="Title">{User?.name ?? ""}</p>
-                <p className="Note">{User?.email ?? ""}</p>
+                <div className="Title">{User?.name ?? ""}</div>
+                <div className="Note">{User?.email ?? ""}</div>
               </div>
             </Space>
             <p className="Note">
@@ -77,19 +83,15 @@ export const ProfileSection = () => {
               <span className="Label">
                 {/*補空格*/}
                 {String(HistoryScore).padStart(8, "\u00A0")}
-              </span>
+              </span>{" "}
+              分
             </p>
             <AuthButton
               style={{ backgroundColor: "#FF3333", marginTop: "0.5em" }}
             />
           </>
         ) : (
-          <>
-            <div className="Label" style={{ color: "#FFFFFF" }}>
-              請先登入
-            </div>
-            <AuthButton className="Note" />
-          </>
+          <></>
         )}
       </Space>
     </section>

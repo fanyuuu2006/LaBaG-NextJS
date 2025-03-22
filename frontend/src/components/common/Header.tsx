@@ -2,13 +2,12 @@
 import { Logo } from "./Logo";
 import Link from "next/link";
 import ModeColors from "@/json/ModeColors.json";
-import { AuthButton } from "./AuthButton";
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useNowMode } from "@/app/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { MenuOutlined } from "@ant-design/icons";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 type NavItem = {
   key: string;
   label: ReactNode;
@@ -35,6 +34,19 @@ export const Header = () => {
       key: "Profile",
       label: <>{session?.user?.name ?? "個人檔案"}</>,
       href: "/Profile",
+    },
+    {
+      key: "Sign",
+      label: (
+        <div
+          onClick={() => {
+            if (session) signOut();
+          }}
+        >
+          {session ? "登出" : "登入"}
+        </div>
+      ),
+      href: session ? "" : "/Login",
     },
   ];
 
@@ -94,22 +106,6 @@ export const Header = () => {
               );
             })}
           </Nav>
-
-          {/* 置中 AuthButton */}
-          <div
-            style={{
-              margin: "0 0.5em",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <AuthButton
-              className="Note"
-              style={{
-                padding: "1em",
-              }}
-            />
-          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

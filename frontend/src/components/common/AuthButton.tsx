@@ -2,20 +2,40 @@
 import { Button, ButtonProps } from "antd";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { GoogleOutlined } from "@ant-design/icons";
+import { ReactNode } from "react";
 
-export const AuthButton = (props: ButtonProps) => {
+interface AuthButtonProps extends ButtonProps {
+  signBy?: "google";
+}
+
+const AuthIcons: Record<NonNullable<AuthButtonProps["signBy"]>, ReactNode> = {
+  google: <GoogleOutlined />,
+};
+
+export const AuthButton = ({ signBy, style, ...props }: AuthButtonProps) => {
   const { data: session, status } = useSession();
 
-  return status === "loading" ? (
-    <div style={{ color: "#FFFFFF" }}>載入中</div>
-  ) : (
+  if (status === "loading") {
+    return <div style={{ color: style?.color ?? "#FFFFFF" }}>載入中</div>;
+  }
+
+  const handleAuth = () => {
+    if (session) {
+      signOut();
+    } else {
+      signIn(signBy);
+    }
+  };
+
+  return (
     <Button
-      icon={session ? null: <GoogleOutlined /> }
+      icon={!session && signBy ? AuthIcons[signBy] : null} // 確保只有登入按鈕有圖示
       {...props}
-      onClick={() => (session ? signOut() : signIn("google"))}
+      style={style}
+      onClick={handleAuth}
       type="primary"
     >
-      {session ? "登出" : "登入" }
+      {session ? "登出" : "登入"}
     </Button>
   );
 };
