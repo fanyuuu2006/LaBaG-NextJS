@@ -2,7 +2,6 @@
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { CustomSessionUser } from "@/lib/authOptions";
-import { Space } from "antd";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -60,10 +59,9 @@ export const RankSection = () => {
 
   return (
     <section>
-      <Space
-        direction="vertical"
-        align="center"
+      <div
         style={{
+          width: "100%",
           transition: "ease-in-out 0.5s",
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           backdropFilter: "blur(2px)",
@@ -101,7 +99,7 @@ export const RankSection = () => {
                   }
                 >
                   <td className="CenterAlign">{data.rank}</td>
-                  <td className="LeftAlign">{data.name}</td>
+                  <td className="CenterAlign">{data.name}</td>
                   <td className="RightAlign">{data.score}</td>
                   <td
                     className="Hint CenterAlign"
@@ -118,7 +116,7 @@ export const RankSection = () => {
             資料載入中...
           </div>
         )}
-      </Space>
+      </div>
     </section>
   );
 };

@@ -1,20 +1,8 @@
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 
-
-export type CommitScoreProps = {
-  UserID: string | null;
-  Name: string | null;
-  Score: number;
-  JsonData: Record<string, Record<string, number>>;
-};
-
 export const POST = async (req: Request): Promise<Response> => {
-  if (
-    !process?.env?.COMMITSCORE_URL ||
-    !process?.env?.API_SECRET_KEY ||
-    !process?.env?.WEBSITE_URL
-  ) {
+  if (!process?.env?.BACKEND_URL) {
     return new Response(JSON.stringify({ message: "缺少必要的環境變數" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
@@ -28,39 +16,23 @@ export const POST = async (req: Request): Promise<Response> => {
       headers: { "Content-Type": "application/json" },
     });
   }
-  const referer = req.headers.get("referer");
-  if (!referer || !referer.startsWith(process?.env?.WEBSITE_URL as string)) {
-    return new Response(JSON.stringify({ message: "禁止存取" }), {
-      status: 403,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
 
   try {
     const data = await req.json();
-    if (
-      !data.UserID ||
-      !data.Name ||
-      typeof data.Score !== "number" ||
-      !data.JsonData
-    ) {
-      return new Response(
-        JSON.stringify({ message: "請求數據缺失或格式不正確" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
 
-    const response = await fetch(process?.env?.COMMITSCORE_URL ?? "", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process?.env?.API_SECRET_KEY as string,
-      },
-    });
+    const response = await fetch(
+      `${process?.env?.BACKEND_URL ?? ""}/CommitScore`,
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (response.status === 204 || response.status === 200 || response.ok) {
-      return new Response(JSON.stringify({ message: "CommitScore請求成功" }), {
+      return new Response(JSON.stringify({ message: "BACKEND請求成功" }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
