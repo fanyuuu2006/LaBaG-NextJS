@@ -28,7 +28,7 @@ export const LoginSection = () => {
         style={{
           color: "white",
           transition: "ease-in-out 0.5s",
-          borderRadius: "10%",
+          borderRadius: "10px",
           padding: "1em 2em",
           backgroundColor: ModeColors[NowMode].dark,
           border: `${ModeColors[NowMode].light} solid 3px`,
