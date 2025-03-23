@@ -164,7 +164,7 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
             )}
           </>
         ) : (
-          <>找不到 ID 為 {UserID} 的用戶資料</>
+          <>載入中</>
         )}
       </div>
     </section>

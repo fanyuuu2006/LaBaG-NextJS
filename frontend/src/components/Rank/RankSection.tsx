@@ -123,7 +123,7 @@ export const RankSection = () => {
             </tbody>
           </table>
         ) : (
-          <div className="Title" style={{ color: "#FFFFFF" }}>
+          <div className="Content" style={{ color: "#FFFFFF" }}>
             資料載入中...
           </div>
         )}
