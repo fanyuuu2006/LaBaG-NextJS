@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { AuthButton } from "../common/AuthButton";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { CustomSessionUser } from "@/lib/authOptions";
 
 export const LoginSection = () => {
   const { data: session } = useSession();
@@ -15,7 +16,7 @@ export const LoginSection = () => {
 
   useEffect(() => {
     if (session) {
-      router.push("/Profile");
+      router.push(`/Profile/${(session.user as CustomSessionUser).id}`);
     }
   }, [session, router]);
 

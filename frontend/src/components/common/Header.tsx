@@ -28,7 +28,7 @@ export const Header = () => {
       {
         key: "Profile",
         label: <>{user?.name ?? "個人檔案"}</>,
-        href: `/Profile/${user?.id ?? "0"}`,
+        href: `/Profile/${user?.id}`,
       },
       {
         key: "Sign",
@@ -38,7 +38,7 @@ export const Header = () => {
         href: user ? "#" : "/Login",
       },
     ];
-  }, [session]); // 只依赖必要的字段
+  }, [session?.user]); // 只依赖必要的字段
 
   return (
     <Navbar
@@ -80,8 +80,9 @@ export const Header = () => {
             {NavItems.map((item) => {
               const isCurrentPath =
                 pathName === "/"
-                  ? pathName.startsWith(item.href)
-                  : pathName === item.href;
+                  ? item.href === "/"
+                  : pathName.startsWith(item.href) && item.href !== "/";
+
               return (
                 <Nav.Link
                   as={Link}

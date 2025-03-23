@@ -26,11 +26,6 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
   const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
-    if (!UserID) {
-      router.push("/Login");
-      return;
-    }
-
     fetch("/api/Sheet")
       .then(async (res) => {
         if (!res.ok) throw new Error("API 回應錯誤");
