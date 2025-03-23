@@ -18,7 +18,7 @@ export async function GET() {
         }
       );
     }
-    return NextResponse.json(response.json());
+    return NextResponse.json(await response.json());
   } catch (error) {
     return NextResponse.json(
       { message: `伺服器錯誤，無法存取試算表: ${error}` },

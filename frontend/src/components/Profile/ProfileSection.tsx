@@ -33,9 +33,9 @@ export const ProfileSection = () => {
     }
 
     fetch("/api/Sheet")
-      .then((res) => {
+      .then(async (res) => {
         if (!res.ok) throw new Error("API 回應錯誤");
-        return res.json();
+        return await res.json();
       })
       .then((data) => {
         setHistoryDatas(
