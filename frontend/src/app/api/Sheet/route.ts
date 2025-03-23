@@ -1,22 +1,24 @@
 import { NextResponse } from "next/server";
-import { Sheet } from "@/lib/Sheet";
 
 export async function GET() {
   try {
-    const UserResponse = await Sheet.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
-      range: "用戶資料!A:F",
-    });
-
-    const RecordResponse = await Sheet.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
-      range: "紀錄!A:E",
-    });
-
-    const UserRows = UserResponse.data.values?.slice(1) as string[][];
-    const RecordRows = RecordResponse.data.values?.slice(1) as string[][];
-
-    return NextResponse.json({ UserRows, RecordRows });
+    const response = await fetch(
+      `${process?.env?.BACKEND_URL ?? ""}/GetSheetData`
+    );
+    if (!response.ok) {
+      return new Response(
+        JSON.stringify({
+          message: `獲取失敗，回應狀態: ${
+            response.status
+          }，回應訊息: ${await response.text()}`,
+        }),
+        {
+          status: response.status,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+    return NextResponse.json(response.json());
   } catch (error) {
     return NextResponse.json(
       { message: `伺服器錯誤，無法存取試算表: ${error}` },

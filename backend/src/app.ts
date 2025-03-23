@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 import { CommitScore } from "./routes/CommitScore"; // 請確保導入正確的路徑
 import cors from "cors";
+import { GetSheetData } from "./routes/GetSheetData";
 
 const app = express();
 
@@ -23,7 +24,6 @@ app.use(
   })
 );
 
-
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
 
@@ -31,13 +31,19 @@ app.get("/test", (_, res) => {
   res.send("The server is up and running!");
 });
 
+app.get("/GetSheetData", async (req: Request, res: Response) => {
+  try {
+    await GetSheetData(req, res);
+  } catch (error) {
+    res.status(500).json({ message: `處理請求時出現錯誤: ${error}` });
+  }
+});
+
 app.post("/CommitScore", async (req: Request, res: Response) => {
   try {
-    // 調用 CommitScore 函數並傳遞 req 和 res
     await CommitScore(req, res);
   } catch (error) {
-    // 如果 CommitScore 函數出現錯誤，可以這樣處理
-    res.status(500).json({ message: "處理請求時出現錯誤" });
+    res.status(500).json({ message: `處理請求時出現錯誤: ${error}` });
   }
 });
 

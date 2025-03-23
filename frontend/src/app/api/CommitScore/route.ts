@@ -11,7 +11,7 @@ export const POST = async (req: Request): Promise<Response> => {
 
   const session = await getServerSession(authOptions);
   if (!session) {
-    return new Response(JSON.stringify({ message: "未登入，禁止存取" }), {
+    return new Response(JSON.stringify({ message: "禁止存取" }), {
       status: 403,
       headers: { "Content-Type": "application/json" },
     });
@@ -32,7 +32,7 @@ export const POST = async (req: Request): Promise<Response> => {
     );
 
     if (response.status === 204 || response.status === 200 || response.ok) {
-      return new Response(JSON.stringify({ message: "BACKEND請求成功" }), {
+      return new Response(JSON.stringify({ message: "請求成功" }), {
         status: 200,
         headers: {
           "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 import React from "react";
 
 // 擴充時轉 Intetface
-export type OutsideLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
+export type OutsideLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 export const OutsideLink: React.FC<OutsideLinkProps> = (props) => {
   const { target, rel, children, ...rest } = props;

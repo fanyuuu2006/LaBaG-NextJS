@@ -37,7 +37,7 @@ export const ProfileSection = () => {
         if (!res.ok) throw new Error("API 回應錯誤");
         return res.json();
       })
-      .then((data) =>
+      .then((data) => {
         setHistoryDatas(
           data.RecordRows.filter((row: string[]) => row[1] === User.id).map(
             (row: string[], index: number) => ({
@@ -46,8 +46,8 @@ export const ProfileSection = () => {
               score: parseInt(row[3]),
             })
           )
-        )
-      )
+        );
+      })
       .catch((error) => console.error("無法獲取資料: ", error));
   }, [User?.id, router]);
 
