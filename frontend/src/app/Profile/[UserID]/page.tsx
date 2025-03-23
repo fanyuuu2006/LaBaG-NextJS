@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import { ProfileSection } from "@/components/Profile/ProfileSection";
 import React from "react";
 
 interface PageProps {
-  params: Promise<{ UserID: string }>;  // 確保這裡是Promise
+  params: Promise<{ UserID: string }>; // 確保這裡是Promise
 }
 
 export default function ProfilePage({ params }: PageProps) {
@@ -16,6 +16,5 @@ export default function ProfilePage({ params }: PageProps) {
     });
   }, [params]);
 
-
-  return <ProfileSection UserID={userID} />;
+  return userID ? <ProfileSection UserID={userID} /> : <>LOADING...</>;
 }
