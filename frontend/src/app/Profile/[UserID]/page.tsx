@@ -1,3 +1,4 @@
+"use client"
 import { ProfileSection } from "@/components/Profile/ProfileSection";
 import React from "react";
 
@@ -15,9 +16,6 @@ export default function ProfilePage({ params }: PageProps) {
     });
   }, [params]);
 
-  if (!userID) {
-    return <div>Loading...</div>;  // 可以處理加載狀態
-  }
 
   return <ProfileSection UserID={userID} />;
 }
