@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 import { CommitScore } from "./routes/CommitScore"; // 請確保導入正確的路徑
 import cors from "cors";
-import { GetSheetData } from "./routes/GetSheetData";
+import { GetSheetDatas } from "./routes/GetSheetData";
 
 const app = express();
 
@@ -31,9 +31,9 @@ app.get("/test", (_, res) => {
   res.send("The server is up and running!");
 });
 
-app.get("/GetSheetData", async (req: Request, res: Response) => {
+app.get("/GetSheetDatas", async (req: Request, res: Response) => {
   try {
-    await GetSheetData(req, res);
+    await GetSheetDatas(req, res);
   } catch (error) {
     res.status(500).json({ message: `處理請求時出現錯誤: ${error}` });
   }

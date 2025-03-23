@@ -7,7 +7,6 @@ export type CustomSessionUser = {
   email?: string;
   image?: string;
   id?: string;
-  idToken?: string;
 };
 
 export const authOptions: AuthOptions = {
@@ -18,13 +17,10 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       // 把 user.id（如果有的話）加入 token
       if (user) {
         token.id = user.id;
-      }
-      if (account) {
-        token.idToken = account.id_token;
       }
       return token;
     },
@@ -35,7 +31,6 @@ export const authOptions: AuthOptions = {
         session.user = {
           ...session.user,
           id: token.sub ?? "",
-          idToken: token.idToken ?? undefined,
         } as CustomSessionUser;
 
         if ((session.user as CustomSessionUser).id) {

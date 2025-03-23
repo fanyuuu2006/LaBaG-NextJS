@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { Sheet } from "../lib/Sheet";
 
-export const GetSheetData = async (_: Request, res: Response) => {
+export const GetSheetDatas = async (_: Request, res: Response) => {
   try {
     const UserResponse = await Sheet.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
-      range: "用戶資料!A:F",
+      range: "用戶資料!A:E",
     });
 
     const RecordResponse = await Sheet.spreadsheets.values.get({

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const response = await fetch(
-      `${process?.env?.BACKEND_URL ?? ""}/GetSheetData`
+      `${process?.env?.BACKEND_URL ?? ""}/GetSheetDatas`
     );
     if (!response.ok) {
       return new Response(

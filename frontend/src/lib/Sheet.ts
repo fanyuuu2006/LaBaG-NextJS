@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 
-console.log(process?.env); 
+console.log(process?.env);
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: process.env.GOOGLE_CLIENT_EMAIL,
@@ -13,3 +13,20 @@ export const Sheet = google.sheets({
   version: "v4",
   auth,
 });
+
+export type SheetDatas = {
+  UserRows: [
+    string | null,
+    string | null,
+    string | null,
+    string | null,
+    string | null
+  ][];
+  RecordRows: [
+    string | null,
+    string | null,
+    string | null,
+    string | null,
+    string | null
+  ][];
+};

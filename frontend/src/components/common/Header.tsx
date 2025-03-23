@@ -8,6 +8,7 @@ import { useNowMode } from "@/app/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { MenuOutlined } from "@ant-design/icons";
 import { signOut, useSession } from "next-auth/react";
+import { CustomSessionUser } from "@/lib/authOptions";
 type NavItem = {
   key: string;
   label: ReactNode;
@@ -18,6 +19,7 @@ export const Header = () => {
   const pathName = usePathname();
   const { NowMode } = useNowMode();
   const { data: session } = useSession();
+  const User = session?.user as CustomSessionUser;
 
   const NavItems: NavItem[] = useMemo(
     () => [
@@ -33,25 +35,25 @@ export const Header = () => {
       },
       {
         key: "Profile",
-        label: <>{session?.user?.name ?? "個人檔案"}</>,
-        href: "/Profile",
+        label: <>{User?.name ?? "個人檔案"}</>,
+        href: `/Profile/${User?.id ?? ""}`,
       },
       {
         key: "Sign",
         label: (
           <div
             onClick={() => {
-              if (session) signOut();
+              if (User) signOut();
             }}
           >
-            {session ? "登出" : "登入"}
+            {User ? "登出" : "登入"}
           </div>
         ),
-        href: session ? "" : "/Login",
+        href: User ? "" : "/Login",
       },
     ],
-    [session]
-  ); // 只有當 session 變動時才會重新創建列表
+    [User]
+  ); // 只有當 User 變動時才會重新創建列表
 
   return (
     <Navbar

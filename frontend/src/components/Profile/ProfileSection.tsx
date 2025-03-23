@@ -2,15 +2,15 @@
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Button, Space, Tooltip } from "antd";
-import { useSession } from "next-auth/react";
-import { AuthButton } from "../common/AuthButton";
+import { AuthButton } from "@/components/common/AuthButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CopyOutlined } from "@ant-design/icons";
-import { Toast } from "../common/Alert";
+import { Toast } from "@/components/common/Alert";
 import { CustomSessionUser } from "@/lib/authOptions";
 import { HistoryTable } from "./HistoryTable";
+import { SheetDatas } from "@/lib/Sheet";
 
 export type HistoryData = {
   index: number;
@@ -18,16 +18,15 @@ export type HistoryData = {
   score: number;
 };
 
-export const ProfileSection = () => {
+export const ProfileSection = ({ UserID }: { UserID: string }) => {
   const router = useRouter();
-  const { data: session } = useSession();
-  const User = session?.user as CustomSessionUser | null;
+  const [User, setUser] = useState<CustomSessionUser | null>(null);
   const { NowMode } = useNowMode();
 
   const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
-    if (!User?.id) {
+    if (!UserID) {
       router.push("/Login");
       return;
     }
@@ -37,19 +36,27 @@ export const ProfileSection = () => {
         if (!res.ok) throw new Error("API 回應錯誤");
         return await res.json();
       })
-      .then((data) => {
+      .then((data: SheetDatas) => {
+        const userData = data.UserRows.filter((row) => row[1] === UserID)[0];
+        setUser({
+          id: userData[1] ?? "",
+          name: userData[2] ?? "",
+          email: userData[3] ?? "",
+          image: userData[4] ?? "",
+        });
+
         setHistoryDatas(
-          data.RecordRows.filter((row: string[]) => row[1] === User.id).map(
-            (row: string[], index: number) => ({
+          data.RecordRows.filter((row) => row[1] === UserID).map(
+            (row, index: number) => ({
               index,
-              timestamp: row[0],
-              score: parseInt(row[3]),
+              timestamp: row[0] ?? "",
+              score: parseInt(row[3] ?? "0"),
             })
           )
         );
       })
       .catch((error) => console.error("無法獲取資料: ", error));
-  }, [User?.id, router]);
+  }, [UserID, router]);
 
   return (
     <section>
