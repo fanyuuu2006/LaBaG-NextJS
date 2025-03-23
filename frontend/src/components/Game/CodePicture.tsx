@@ -198,6 +198,7 @@ export const CodePicture = ({
           trigger="click" // 點擊觸發彈窗
           arrow={false}
           classNames={{ root: `custom-popover-${NowMode}` }}
+          placement="bottom"
         >
           <Image
             key={index}
