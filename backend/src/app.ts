@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 import { CommitScore } from "./routes/CommitScore"; // 請確保導入正確的路徑
 import cors from "cors";
-import { GetSheetDatas } from "./routes/GetSheetData";
+import { GetSheetDatas } from "./routes/GetSheetDatas";
 
 const app = express();
 
