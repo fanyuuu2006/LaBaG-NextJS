@@ -19,41 +19,26 @@ export const Header = () => {
   const pathName = usePathname();
   const { NowMode } = useNowMode();
   const { data: session } = useSession();
-  const User = session?.user as CustomSessionUser;
 
-  const NavItems: NavItem[] = useMemo(
-    () => [
-      {
-        key: "Home",
-        label: <>首頁</>,
-        href: "/",
-      },
-      {
-        key: "Rank",
-        label: <>排行榜</>,
-        href: "/Rank",
-      },
+  const NavItems: NavItem[] = useMemo(() => {
+    const user = session?.user as CustomSessionUser | undefined;
+    return [
+      { key: "Home", label: <>首頁</>, href: "/" },
+      { key: "Rank", label: <>排行榜</>, href: "/Rank" },
       {
         key: "Profile",
-        label: <>{User?.name ?? "個人檔案"}</>,
-        href: `/Profile/${User?.id ?? ""}`,
+        label: <>{user?.name ?? "個人檔案"}</>,
+        href: `/Profile/${user?.id ?? "0"}`,
       },
       {
         key: "Sign",
         label: (
-          <div
-            onClick={() => {
-              if (User) signOut();
-            }}
-          >
-            {User ? "登出" : "登入"}
-          </div>
+          <div onClick={() => user && signOut()}>{user ? "登出" : "登入"}</div>
         ),
-        href: User ? "" : "/Login",
+        href: user ? "#" : "/Login",
       },
-    ],
-    [User]
-  ); // 只有當 User 變動時才會重新創建列表
+    ];
+  }, [session]); // 只依赖必要的字段
 
   return (
     <Navbar
@@ -93,7 +78,10 @@ export const Header = () => {
             }}
           >
             {NavItems.map((item) => {
-              const isCurrentPath = pathName === item.href;
+              const isCurrentPath =
+                pathName === "/"
+                  ? pathName.startsWith(item.href)
+                  : pathName === item.href;
               return (
                 <Nav.Link
                   as={Link}
