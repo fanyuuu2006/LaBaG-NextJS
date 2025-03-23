@@ -64,23 +64,19 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
     <section>
       <div
         style={{
-          width: "100%",
+          width: User ? "100%" : "auto",
           color: "white",
           display: "flex",
           flexDirection: "column",
           gap: "1em",
           padding: "1em 2em",
           marginTop: "3em",
-          backgroundColor: User
-            ? "rgba(0, 0, 0, 0.5)"
-            : ModeColors[NowMode].dark,
-          border: `${
-            User ? ModeColors[NowMode].dark : ModeColors[NowMode].light
-          } solid 3px`,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          border: `${ModeColors[NowMode].dark} solid 3px`,
           borderRadius: "10px",
         }}
       >
-        {User && (
+        {User ? (
           <>
             <div className="Title BottomLine">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
@@ -163,6 +159,8 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
               </div>
             )}
           </>
+        ) : (
+          <>找不到 ID 為 {UserID} 的用戶資料</>
         )}
       </div>
     </section>
