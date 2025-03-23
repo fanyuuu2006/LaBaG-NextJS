@@ -11,6 +11,7 @@ import { Toast } from "@/components/common/Alert";
 import { CustomSessionUser } from "@/lib/authOptions";
 import { HistoryTable } from "./HistoryTable";
 import { SheetDatas } from "@/lib/Sheet";
+import { useSession } from "next-auth/react";
 
 export type HistoryData = {
   index: number;
@@ -20,12 +21,17 @@ export type HistoryData = {
 
 export const ProfileSection = ({ UserID }: { UserID: string }) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const [User, setUser] = useState<CustomSessionUser | null>(null);
   const { NowMode } = useNowMode();
 
   const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
+    if (UserID === "undefined") {
+      router.push("/Login");
+    }
+
     fetch("/api/Sheet")
       .then(async (res) => {
         if (!res.ok) throw new Error("API 回應錯誤");
@@ -33,6 +39,7 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
       })
       .then((data: SheetDatas) => {
         const userData = data.UserRows.filter((row) => row[1] === UserID)[0];
+        if (!userData) return;
         setUser({
           id: userData[1] ?? "",
           name: userData[2] ?? "",
@@ -41,7 +48,7 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
         });
 
         setHistoryDatas(
-          data.RecordRows.filter((row) => row[1] === UserID).map(
+          data.RecordRows?.filter((row) => row[1] === UserID)?.map(
             (row, index: number) => ({
               index,
               timestamp: row[0] ?? "",
@@ -93,7 +100,6 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
               />
               <div>
                 <div className="Label">{User?.name ?? ""}</div>
-                <div className="Hint">{User?.email ?? ""}</div>
                 <div className="Hint">
                   ID: {User.id ?? ""}
                   <Tooltip title="複製 ID">
@@ -144,16 +150,18 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
                 <HistoryTable HistoryDatas={HistoryDatas} />
               </>
             )}
-            <div className="CenterAlign">
-              <AuthButton
-                type="text"
-                style={{
-                  color: "#FFFFFF",
-                  width: "50%",
-                  backgroundColor: "#FF3333",
-                }}
-              />
-            </div>
+            {session && (session?.user as CustomSessionUser).id === UserID && (
+              <div className="CenterAlign">
+                <AuthButton
+                  type="text"
+                  style={{
+                    color: "#FFFFFF",
+                    width: "50%",
+                    backgroundColor: "#FF3333",
+                  }}
+                />
+              </div>
+            )}
           </>
         )}
       </div>

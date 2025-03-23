@@ -2,7 +2,9 @@
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { CustomSessionUser } from "@/lib/authOptions";
+import { Tooltip } from "antd";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type RankTableProps = {
@@ -99,7 +101,16 @@ export const RankSection = () => {
                   }
                 >
                   <td className="CenterAlign">{data.rank}</td>
-                  <td className="CenterAlign">{data.name}</td>
+                  <td className="CenterAlign">
+                    <Tooltip title="查看其個人檔案">
+                      <Link
+                        href={`/Profile/${data.userId}`}
+                        style={{ color: "#FFFFFF" }}
+                      >
+                        {data.name}
+                      </Link>
+                    </Tooltip>
+                  </td>
                   <td className="RightAlign">{data.score}</td>
                   <td
                     className="Hint CenterAlign"
