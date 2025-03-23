@@ -105,7 +105,7 @@ export const RankSection = () => {
                     <Tooltip title="查看其個人檔案">
                       <Link
                         href={`/Profile/${data.userId}`}
-                        style={{ color: "#FFFFFF" }}
+                        style={{ color: "inherit" }}
                       >
                         {data.name}
                       </Link>
