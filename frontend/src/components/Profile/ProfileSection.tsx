@@ -82,7 +82,11 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
             <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
-                src={User?.image ?? "./DefaultAvator.jpg"}
+                src={
+                  User?.image && User?.image.length > 1
+                    ? User.image
+                    : "/DefaultAvator.jpg"
+                }
                 width={300}
                 height={300}
                 alt="頭像"
