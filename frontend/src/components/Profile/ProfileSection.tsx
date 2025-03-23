@@ -19,7 +19,7 @@ export type HistoryData = {
   score: number;
 };
 
-export const ProfileSection = ({ UserID }: { UserID: string }) => {
+export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const [User, setUser] = useState<CustomSessionUser | null>(null);
@@ -28,7 +28,7 @@ export const ProfileSection = ({ UserID }: { UserID: string }) => {
   const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
 
   useEffect(() => {
-    if (UserID === "undefined") {
+    if (!UserID || UserID === "undefined") {
       router.push("/Login");
     }
 
