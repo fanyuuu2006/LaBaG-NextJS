@@ -1,11 +1,11 @@
 "use client";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
+import { useUser } from "@/context/UserContext";
 import ModeColors from "@/json/ModeColors.json";
-import { CustomSessionUser } from "@/lib/authOptions";
 import { Tooltip } from "antd";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Toast } from "../common/Alert";
 
 type RankTableProps = {
   userId: string;
@@ -16,8 +16,7 @@ type RankTableProps = {
 };
 
 export const RankSection = () => {
-  const { data: session } = useSession();
-  const User = session?.user as CustomSessionUser;
+  const { User } = useUser();
 
   const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
     null
@@ -59,6 +58,10 @@ export const RankSection = () => {
         setRankDataSource(sortedData);
       } catch (error) {
         console.error("無法獲取排行榜數據:", error);
+        Toast.fire({
+                  icon: "error",
+                  text: "載入排行榜數據失敗，請稍後再試。",
+                });
       }
     }
 
@@ -125,14 +128,6 @@ export const RankSection = () => {
                     key={data.userId}
                     className="Note"
                     style={{
-                      // backgroundColor:
-                      //   data.rank === 1
-                      //     ? "rgba(128, 0, 0, 0.5)"
-                      //     : data.rank === 2
-                      //     ? "rgba(128, 64, 0, 0.5)"
-                      //     : data.rank === 3
-                      //     ? "rgba(128, 128, 0, 0.5)"
-                      //     : "transparent",
                       color: User?.id == data.userId ? "#FFFF69" : "#FFFFFF",
                     }}
                   >

@@ -1,4 +1,4 @@
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import { ModeNames } from "@/lib/Mode";
 import { Button } from "antd";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";

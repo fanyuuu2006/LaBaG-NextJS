@@ -3,7 +3,7 @@ import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { CustomModal, Modal } from "../common/Alert";
 import { Button, Space, Table, Tooltip } from "antd";
 import PDatas, { PData } from "@/json/PDatas.json";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 
 import { ColumnsType } from "antd/es/table";

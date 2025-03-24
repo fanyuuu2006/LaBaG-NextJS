@@ -1,4 +1,4 @@
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import { Game } from "@/lib/PlayLaBaG";
 import { Button, Space } from "antd";
 import { useRouter } from "next/navigation";

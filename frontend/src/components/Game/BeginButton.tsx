@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "antd";
 import ModeColors from "@/json/ModeColors.json";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 
 interface BeginButtonProps extends ButtonProps {
   ButtonAble: boolean;

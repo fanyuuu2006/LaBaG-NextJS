@@ -23,10 +23,9 @@ import KachuBG from "@/assets/KachuBG.jpg";
 import { StaticImageData } from "next/image";
 import { Toast } from "../common/Alert";
 import { CommitScore } from "@/lib/CommitScore";
-import { useSession } from "next-auth/react";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
-import { CustomSessionUser } from "@/lib/authOptions";
+import { useUser } from "@/context/UserContext";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -42,8 +41,7 @@ function Sound(src: string) {
 
 export const GameSection = () => {
   const { NowMode, setNowMode } = useNowMode();
-  const { data: session } = useSession();
-  const User = session?.user as CustomSessionUser;
+  const { User } = useUser();
   const router = useRouter();
   const [isClient, setisClient] = useState(false); // 用於確保只在客戶端處理邏輯
   const [BgmRunning, setBgmRunning] = useState<boolean>(false);

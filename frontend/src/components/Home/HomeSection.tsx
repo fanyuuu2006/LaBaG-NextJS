@@ -3,7 +3,7 @@ import { Button, Space, Tooltip } from "antd";
 import Image from "next/image";
 import SuperCircle from "@/assets/SuperCircle.png";
 import { Game } from "@/lib/PlayLaBaG";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 
 export const HomeSection = () => {

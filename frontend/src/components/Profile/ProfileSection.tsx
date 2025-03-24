@@ -1,5 +1,5 @@
 "use client";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Button, Input, Space, Tooltip } from "antd";
 import { AuthButton } from "@/components/common/AuthButton";
@@ -8,60 +8,42 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
 import { Toast } from "@/components/common/Alert";
-import { CustomSessionUser } from "@/lib/authOptions";
 import { HistoryTable } from "./HistoryTable";
-import { SheetDatas } from "@/lib/Sheet";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-
-export type HistoryData = {
-  index: number;
-  timestamp: string;
-  score: number;
-};
+import { HistoryRecordData, useUser } from "@/context/UserContext";
 
 export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const router = useRouter();
-  const { data: session } = useSession();
-  const [User, setUser] = useState<CustomSessionUser | null>(null);
   const { NowMode } = useNowMode();
-  const [HistoryDatas, setHistoryDatas] = useState<HistoryData[]>([]);
+  const { User, Loading } = useUser(UserID as string);
 
+  const [HistoryScore, setHistoryScore] = useState<number | null>(null);
+  const [HistoryRecord, setHistoryRecord] = useState<HistoryRecordData[]>([]);
   const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {
-    if (UserID === "undefined"|| UserID ==="null") {
+    if (UserID === "undefined" || UserID === "null") {
       router.push("/Login");
       return;
     }
-
-    fetch("/api/Sheet")
-      .then(async (res) => {
-        if (!res.ok) throw new Error("API 回應錯誤");
-        return await res.json();
-      })
-      .then((data: SheetDatas) => {
-        const userData = data.UserRows.find((row) => row[1] === UserID);
-        if (!userData) return;
-        setUser({
-          id: userData[1] ?? "",
-          name: userData[2] ?? "",
-          email: userData[3] ?? "",
-          image: userData[4] ?? "",
+    const fetchHistory = async () => {
+      try {
+        await User?.getHistoryRecord().then((res) => {
+          setHistoryRecord(res ?? []);
+          setHistoryScore(User.historyScore());
         });
+      } catch (error) {
+        console.error("Error fetching history records:", error);
+        Toast.fire({
+          icon: "error",
+          text: "載入歷史紀錄失敗，請稍後再試。",
+        });
+      }
+    };
 
-        setHistoryDatas(
-          data.RecordRows?.filter((row) => row[1] === UserID)?.map(
-            (row, index: number) => ({
-              index,
-              timestamp: row[0] ?? "",
-              score: parseInt(row[3] ?? "0"),
-            })
-          )
-        );
-      })
-      .catch((error) => console.error("無法獲取資料: ", error));
-  }, [UserID, router]);
+    fetchHistory();
+    console.log(User?.historyRecord);
+  }, [User, UserID, router]);
 
   return (
     <section>
@@ -77,10 +59,12 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           border: `${ModeColors[NowMode].dark} solid 3px`,
           borderRadius: "10px",
-          transition: "ease-in-out 0.5s"
+          transition: "ease-in-out 0.5s",
         }}
       >
-        {User ? (
+        {Loading ? (
+          <>資料載入中</>
+        ) : User ? (
           <>
             <div className="Title BottomLine">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
@@ -130,27 +114,21 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
                 </div>
               </div>
             </Space>
-            {HistoryDatas.length > 0 && (
+            {HistoryScore && (
               <>
                 <div className="Note CenterAlign">
                   歷史最高分數:{" "}
                   <span className="Label">
                     {/*補空格*/}
-                    {String(
-                      HistoryDatas?.length
-                        ? Math.max(
-                            ...HistoryDatas.map((h: HistoryData) => h.score)
-                          )
-                        : 0
-                    ).padStart(8, "\u00A0")}
+                    {HistoryScore?.toString().padStart(8, "\u00A0")}
                   </span>{" "}
                   分
                 </div>
 
-                <HistoryTable HistoryDatas={HistoryDatas} />
+                <HistoryTable HistoryRecord={HistoryRecord} />
               </>
             )}
-            {session && (session?.user as CustomSessionUser).id === UserID && (
+            {User && User.id === UserID && (
               <div className="CenterAlign">
                 <AuthButton
                   type="text"

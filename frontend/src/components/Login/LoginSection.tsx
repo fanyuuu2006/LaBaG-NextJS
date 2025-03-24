@@ -1,24 +1,23 @@
 "use client";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Space } from "antd";
-import { useSession } from "next-auth/react";
 import { AuthButton } from "../common/AuthButton";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CustomSessionUser } from "@/lib/authOptions";
+import { useUser } from "@/context/UserContext";
 
 export const LoginSection = () => {
-  const { data: session } = useSession();
+  const { User } = useUser();
   const router = useRouter();
 
   const { NowMode } = useNowMode();
 
   useEffect(() => {
-    if (session) {
-      router.push(`/Profile/${(session.user as CustomSessionUser).id}`);
+    if (User) {
+      router.push(`/Profile/${User.id}`);
     }
-  }, [session, router]);
+  }, [User, router]);
 
   return (
     <section>
@@ -35,7 +34,7 @@ export const LoginSection = () => {
           border: `${ModeColors[NowMode].light} solid 3px`,
         }}
       >
-        {!session ? (
+        {!User ? (
           <>
             <div className="Label" style={{ color: "#FFFFFF" }}>
               選擇登入方式

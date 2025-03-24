@@ -4,11 +4,11 @@ import Link from "next/link";
 import ModeColors from "@/json/ModeColors.json";
 import { ReactNode, useMemo } from "react";
 import { usePathname } from "next/navigation";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { MenuOutlined } from "@ant-design/icons";
-import { signOut, useSession } from "next-auth/react";
-import { CustomSessionUser } from "@/lib/authOptions";
+import { signOut } from "next-auth/react";
+import { useUser } from "@/context/UserContext";
 type NavItem = {
   key: string;
   label: ReactNode;
@@ -16,29 +16,28 @@ type NavItem = {
 };
 
 export const Header = () => {
+  const { User } = useUser();
   const pathName = usePathname();
   const { NowMode } = useNowMode();
-  const { data: session } = useSession();
 
   const NavItems: NavItem[] = useMemo(() => {
-    const user = session?.user as CustomSessionUser | undefined;
     return [
       { key: "Home", label: <>首頁</>, href: "/" },
       { key: "Rank", label: <>排行榜</>, href: "/Rank" },
       {
         key: "Profile",
-        label: <>{user?.name ?? "個人檔案"}</>,
-        href: `/Profile/${user?.id}`,
+        label: <>{User?.name ?? "個人檔案"}</>,
+        href: `/Profile/${User?.id}`,
       },
       {
         key: "Sign",
         label: (
-          <div onClick={() => user && signOut()}>{user ? "登出" : "登入"}</div>
+          <div onClick={() => User && signOut()}>{User ? "登出" : "登入"}</div>
         ),
-        href: user ? "#" : "/Login",
+        href: User ? "#" : "/Login",
       },
     ];
-  }, [session?.user]); // 只依赖必要的字段
+  }, [User]); // 只依赖必要的字段
 
   return (
     <Navbar

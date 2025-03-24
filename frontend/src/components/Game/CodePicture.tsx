@@ -18,7 +18,7 @@ import greenwei from "@/assets/green_wei.jpg";
 import pikachu from "@/assets/pikachu.jpg";
 import { ModeNames, Modes } from "@/lib/Mode";
 import { P } from "@/lib/P";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 
 const QSTs: Record<ModeNames, StaticImageData> = {
   Normal: QST,

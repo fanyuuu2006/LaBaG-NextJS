@@ -1,9 +1,9 @@
-import { HistoryData } from "./ProfileSection";
+import { HistoryRecordData } from "@/context/UserContext";
 
 export const HistoryTable = ({
-  HistoryDatas,
+  HistoryRecord,
 }: {
-  HistoryDatas: HistoryData[];
+  HistoryRecord: HistoryRecordData[];
 }) => {
   return (
     <>
@@ -38,9 +38,9 @@ export const HistoryTable = ({
             </tr>
           </thead>
           <tbody>
-            {HistoryDatas?.sort((a, b) => b.index - a.index)
+            {HistoryRecord?.sort((a, b) => b.index - a.index)
               .slice(0, 20)
-              .map((data: HistoryData, i: number) => (
+              .map((data: HistoryRecordData, i: number) => (
                 <tr key={i} className="Note CenterAlign">
                   <td>{data.timestamp}</td>
 

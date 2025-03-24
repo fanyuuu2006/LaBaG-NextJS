@@ -5,7 +5,7 @@ import Title from "@/assets/Title.png";
 import SuperTitle from "@/assets/SuperTitle.png";
 import GreenTitle from "@/assets/GreenTitle.png";
 import KachuTitle from "@/assets/KachuTitle.png";
-import { useNowMode } from "@/app/NowModeContext";
+import { useNowMode } from "@/context/NowModeContext";
 import { useRouter } from "next/navigation";
 
 const ModeTitle: Record<ModeNames, StaticImageData> = {

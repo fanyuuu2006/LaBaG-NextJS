@@ -1,9 +1,9 @@
 import "@/style/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from "next";
-import { ClientSessionProvider } from "@/components/common/ClientSessionProvider";
-import { NowModeProvider } from "./NowModeContext";
+import { NowModeProvider } from "../context/NowModeContext";
 import { Header } from "@/components/common/Header";
+import { UserProvider } from "@/context/UserContext";
 
 export const metadata: Metadata = {
   title: "啦八機 LaBaG",
@@ -19,12 +19,12 @@ export default function RootLayout({
   return (
     <html lang="zh-TW">
       <body>
-        <ClientSessionProvider>
+        <UserProvider>
           <NowModeProvider>
             <Header/>
             {children}
           </NowModeProvider>
-        </ClientSessionProvider>
+        </UserProvider>
       </body>
     </html>
   );
