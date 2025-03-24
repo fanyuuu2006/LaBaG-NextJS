@@ -2,7 +2,6 @@
 import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Button, Input, Space, Tooltip } from "antd";
-import { AuthButton } from "@/components/common/AuthButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -128,18 +127,6 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
                 <HistoryTable HistoryRecord={HistoryRecord} />
               </>
             )}
-            {User && User.id === UserID && (
-              <div className="CenterAlign">
-                <AuthButton
-                  type="text"
-                  style={{
-                    color: "#FFFFFF",
-                    width: "50%",
-                    backgroundColor: "#FF3333",
-                  }}
-                />
-              </div>
-            )}
           </>
         ) : (
           <>
@@ -150,7 +137,9 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
               className="Content"
               styles={{
                 affixWrapper: {
+                  color: "#FFFFFF",
                   backgroundColor: "transparent",
+                  border: `${ModeColors[NowMode].dark} solid 1px`,
                 },
               }}
               suffix={
