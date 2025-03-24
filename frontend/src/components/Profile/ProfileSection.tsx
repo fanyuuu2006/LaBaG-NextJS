@@ -32,6 +32,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   useEffect(() => {
     if (UserID === "undefined") {
       router.push("/Login");
+      return;
     }
 
     fetch("/api/Sheet")
@@ -167,7 +168,6 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
           </>
         ) : (
           <>
-            {" "}
             {UserID && <div className="Note">找不到 ID 為 {UserID} 的玩家</div>}
             <div
               className="Content"
@@ -184,7 +184,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
                 }}
               />
               <Link href={`/Profile/${searchID}`}>
-                <SearchOutlined />
+                <SearchOutlined/>
               </Link>
             </div>
           </>

@@ -22,7 +22,7 @@ export const RankSection = () => {
   const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
     null
   );
-  const UserRank = RankDataSource?.find((data) => data.userId === User.id);
+  const UserRank = RankDataSource?.find((data) => User&& data.userId === User.id);
 
   const { NowMode } = useNowMode();
 
