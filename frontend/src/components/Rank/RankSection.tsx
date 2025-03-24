@@ -22,7 +22,9 @@ export const RankSection = () => {
   const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
     null
   );
-  const UserRank = RankDataSource?.find((data) => User&& data.userId === User.id);
+  const UserRank = RankDataSource?.find(
+    (data) => User && data.userId === User.id
+  );
 
   const { NowMode } = useNowMode();
 
@@ -122,7 +124,17 @@ export const RankSection = () => {
                   <tr
                     key={data.userId}
                     className="Note"
-                    style={User?.id == data.userId ? { color: "#FFFF69" } : {}}
+                    style={{
+                      // backgroundColor:
+                      //   data.rank === 1
+                      //     ? "rgba(128, 0, 0, 0.5)"
+                      //     : data.rank === 2
+                      //     ? "rgba(128, 64, 0, 0.5)"
+                      //     : data.rank === 3
+                      //     ? "rgba(128, 128, 0, 0.5)"
+                      //     : "transparent",
+                      color: User?.id == data.userId ? "#FFFF69" : "#FFFFFF",
+                    }}
                   >
                     <td className="CenterAlign">{data.rank}</td>
                     <td className="CenterAlign">
@@ -145,7 +157,7 @@ export const RankSection = () => {
                   </tr>
                 ))}
               </tbody>
-              {User && UserRank && (
+              {UserRank && (
                 <tfoot
                   style={{
                     position: "sticky",

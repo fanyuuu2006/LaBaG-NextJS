@@ -1,7 +1,7 @@
 "use client";
 import { useNowMode } from "@/app/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
-import { Button, Space, Tooltip } from "antd";
+import { Button, Input, Space, Tooltip } from "antd";
 import { AuthButton } from "@/components/common/AuthButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -25,12 +25,12 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const { data: session } = useSession();
   const [User, setUser] = useState<CustomSessionUser | null>(null);
   const { NowMode } = useNowMode();
-  const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
+  const [HistoryDatas, setHistoryDatas] = useState<HistoryData[]>([]);
 
   const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {
-    if (UserID === "undefined") {
+    if (UserID === "undefined"|| UserID ==="null") {
       router.push("/Login");
       return;
     }
@@ -41,7 +41,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
         return await res.json();
       })
       .then((data: SheetDatas) => {
-        const userData = data.UserRows.filter((row) => row[1] === UserID)[0];
+        const userData = data.UserRows.find((row) => row[1] === UserID);
         if (!userData) return;
         setUser({
           id: userData[1] ?? "",
@@ -77,6 +77,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           border: `${ModeColors[NowMode].dark} solid 3px`,
           borderRadius: "10px",
+          transition: "ease-in-out 0.5s"
         }}
       >
         {User ? (
@@ -109,22 +110,18 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
                     <Button
                       type="text"
                       onClick={() => {
-                        if (User.id)
-                          navigator.clipboard
-                            .writeText(User.id)
-                            .then(() => {
-                              Toast.fire({
-                                icon: "success",
-                                text: "已複製到剪貼簿",
-                              });
+                        if (!User?.id) return;
+                        navigator.clipboard
+                          .writeText(User.id)
+                          .then(() =>
+                            Toast.fire({
+                              icon: "success",
+                              text: "已複製到剪貼簿",
                             })
-                            .catch((error) => {
-                              console.error("複製失敗: ", error);
-                              Toast.fire({
-                                icon: "error",
-                                text: "複製失敗",
-                              });
-                            });
+                          )
+                          .catch(() =>
+                            Toast.fire({ icon: "error", text: "複製失敗" })
+                          );
                       }}
                       icon={<CopyOutlined />}
                       style={{ color: "#FFFFFF" }}
@@ -133,7 +130,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
                 </div>
               </div>
             </Space>
-            {HistoryDatas && (
+            {HistoryDatas.length > 0 && (
               <>
                 <div className="Note CenterAlign">
                   歷史最高分數:{" "}
@@ -169,24 +166,24 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
         ) : (
           <>
             {UserID && <div className="Note">找不到 ID 為 {UserID} 的玩家</div>}
-            <div
+            <Input
+              type="text"
+              placeholder="請輸入玩家 ID"
               className="Content"
-              style={{
-                padding: "0.5em",
-                border: `2px solid ${ModeColors[NowMode].dark}`,
+              styles={{
+                affixWrapper: {
+                  backgroundColor: "transparent",
+                },
               }}
-            >
-              <input
-                type="text"
-                placeholder="請輸入玩家 ID"
-                onChange={(e) => {
-                  setSearchID(e.target.value);
-                }}
-              />
-              <Link href={`/Profile/${searchID}`}>
-                <SearchOutlined/>
-              </Link>
-            </div>
+              suffix={
+                <Link href={searchID ? `/Profile/${searchID}` : "#"}>
+                  <SearchOutlined />
+                </Link>
+              }
+              onChange={(e) => {
+                setSearchID(e.target.value.trim());
+              }}
+            />
           </>
         )}
       </div>

@@ -91,14 +91,14 @@ tbody > tr:hover {
 }
 
 input {
-  background-color: #000000;
+  background-color: transparent;
   border: none;
-  color: inherit; /* 讓文字是白色的 */
+  color: inherit; 
   outline: none; /* 防止點擊時出現藍色外框 */
 }
 
 input::placeholder {
-  color: gray; /* 調整 placeholder 顏色 */
+  color: #ffffff !important; 
   opacity: 0.7;
 }
 
