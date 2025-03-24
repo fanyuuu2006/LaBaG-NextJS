@@ -59,9 +59,9 @@ export const RankSection = () => {
       } catch (error) {
         console.error("無法獲取排行榜數據:", error);
         Toast.fire({
-                  icon: "error",
-                  text: "載入排行榜數據失敗，請稍後再試。",
-                });
+          icon: "error",
+          text: "載入排行榜數據失敗，請稍後再試。",
+        });
       }
     }
 
@@ -157,7 +157,7 @@ export const RankSection = () => {
                   style={{
                     position: "sticky",
                     bottom: 0,
-                    backgroundColor: "rgba(0, 81, 255, 0.5)",
+                    backgroundColor: ModeColors[NowMode].dark,
                     backdropFilter: "blur(2px)",
                     zIndex: 1,
                     border: "#FFFFFF solid 1px",
