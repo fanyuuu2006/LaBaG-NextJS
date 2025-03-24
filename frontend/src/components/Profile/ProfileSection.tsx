@@ -168,7 +168,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
         ) : (
           <>
             {" "}
-            {UserID && <div className="Note">找不到 ID 為 {UserID} 的用戶</div>}
+            {UserID && <div className="Note">找不到 ID 為 {UserID} 的玩家</div>}
             <div
               className="Content"
               style={{
@@ -178,7 +178,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
             >
               <input
                 type="text"
-                placeholder="請輸入用戶 ID"
+                placeholder="請輸入玩家 ID"
                 onChange={(e) => {
                   setSearchID(e.target.value);
                 }}
