@@ -14,18 +14,6 @@ const POPs: Record<ModeNames, StaticImageData> = {
   PiKaChu: KachuPOP,
 };
 
-// const PopText: Record<ModeNames, { title: ReactNode; content: ReactNode }> = {
-//   Normal: {
-//     title: <div className="Title">??????</div>,
-//     content: <>正常不會出現這個</>,
-//   },
-//   SuperHHH: { title: <div className="Title">超級阿禾出現！</div>, content: <div className="Label">皮卡丘、館長 機率大提升~</div> },
-//   GreenWei: { title: <div className="Title">綠光阿瑋出現！</div>, content: "" },
-//   PiKaChu: {
-//     title: <div className="Title">皮卡丘為你充電！</div>,
-//     content: "",
-//   },
-// };
 
 export const PopPicture = (NowMode: ModeNames) => {
   Modal.fire({

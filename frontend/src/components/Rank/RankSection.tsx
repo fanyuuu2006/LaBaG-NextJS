@@ -17,9 +17,13 @@ type RankTableProps = {
 
 export const RankSection = () => {
   const { data: session } = useSession();
+  const User = session?.user as CustomSessionUser;
+
   const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
     null
   );
+  const UserRank = RankDataSource?.find((data) => data.userId === User.id);
+
   const { NowMode } = useNowMode();
 
   useEffect(() => {
@@ -69,61 +73,115 @@ export const RankSection = () => {
           backdropFilter: "blur(2px)",
           border: `${ModeColors[NowMode].dark} solid 5px`,
           borderRadius: "10px",
-          padding: "1.5em 0.5em",
+          padding: "1.5em 1em",
         }}
       >
+        <div
+          className="Title CenterAlign"
+          style={{ color: "#FFFFFF", paddingBottom: "0.5em" }}
+        >
+          排行榜
+        </div>
+
         {RankDataSource ? (
-          <table
+          <div
             style={{
-              borderCollapse: "collapse",
-              whiteSpace: "nowrap",
-              color: "#FFFFFF",
-              width: "100%",
+              maxHeight: "80vh",
+              overflowY: "auto",
+              border: "#FFFFFF solid 1px",
             }}
           >
-            <thead>
-              <tr className="Content CenterAlign">
-                <th>名次</th>
-                <th>名稱</th>
-                <th>分數</th>
-                <th>時間</th>
-              </tr>
-            </thead>
-            <tbody>
-              {RankDataSource.map((data) => (
-                <tr
-                  key={data.userId}
-                  className="Note"
-                  style={
-                    (session?.user as CustomSessionUser)?.id == data.userId
-                      ? { color: "#FFFF69" }
-                      : {}
-                  }
-                >
-                  <td className="CenterAlign">{data.rank}</td>
-                  <td className="CenterAlign">
-                    <Tooltip title="查看其個人檔案">
-                      <Link
-                        href={`/Profile/${data.userId}`}
-                        style={{ color: "inherit" }}
-                      >
-                        {data.name}
-                      </Link>
-                    </Tooltip>
-                  </td>
-                  <td className="RightAlign">{data.score}</td>
-                  <td
-                    className="Hint CenterAlign"
-                    style={{ whiteSpace: "wrap" }}
-                  >
-                    {data.timeStamp}
-                  </td>
+            <table
+              style={{
+                borderCollapse: "collapse",
+                whiteSpace: "nowrap",
+                color: "#FFFFFF",
+                width: "100%",
+              }}
+            >
+              <thead
+                style={{
+                  position: "sticky",
+                  top: 0,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  backdropFilter: "blur(2px)",
+                  zIndex: 1,
+
+                  border: "#FFFFFF solid 1px",
+                }}
+              >
+                <tr className="Content CenterAlign">
+                  <th>名次</th>
+                  <th>名稱</th>
+                  <th>分數</th>
+                  <th>時間</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {RankDataSource.map((data) => (
+                  <tr
+                    key={data.userId}
+                    className="Note"
+                    style={User?.id == data.userId ? { color: "#FFFF69" } : {}}
+                  >
+                    <td className="CenterAlign">{data.rank}</td>
+                    <td className="CenterAlign">
+                      <Tooltip title="查看個人檔案">
+                        <Link
+                          href={`/Profile/${data.userId}`}
+                          style={{ color: "inherit" }}
+                        >
+                          {data.name}
+                        </Link>
+                      </Tooltip>
+                    </td>
+                    <td className="RightAlign">{data.score}</td>
+                    <td
+                      className="Hint CenterAlign"
+                      style={{ whiteSpace: "wrap" }}
+                    >
+                      {data.timeStamp}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              {User && UserRank && (
+                <tfoot
+                  style={{
+                    position: "sticky",
+                    bottom: 0,
+                    backgroundColor: "rgba(0, 81, 255, 0.5)",
+                    backdropFilter: "blur(2px)",
+                    zIndex: 1,
+                    border: "#FFFFFF solid 1px",
+                  }}
+                >
+                  <tr className="Note">
+                    <td className="CenterAlign">{UserRank.rank}</td>
+                    <td className="CenterAlign">
+                      <Tooltip title="查看個人檔案">
+                        <Link
+                          href={`/Profile/${UserRank.userId}`}
+                          style={{ color: "inherit" }}
+                        >
+                          {UserRank.name}
+                        </Link>
+                      </Tooltip>
+                    </td>
+                    <td className="RightAlign">{UserRank.score}</td>
+                    <td
+                      className="Hint CenterAlign"
+                      style={{ whiteSpace: "wrap" }}
+                    >
+                      {UserRank.timeStamp}
+                    </td>
+                  </tr>
+                </tfoot>
+              )}
+            </table>
+          </div>
         ) : (
-          <div className="Content" style={{ color: "#FFFFFF" }}>
+          <div className="Content CenterAlign" style={{ color: "#FFFFFF" }}>
             資料載入中...
           </div>
         )}

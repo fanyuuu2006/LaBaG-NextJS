@@ -21,6 +21,7 @@ export const Logo = () => {
   return (
     // <Tooltip title="點擊返回首頁">
     <Image
+      priority
       style={{
         height: "100%",
         maxHeight: "100px",

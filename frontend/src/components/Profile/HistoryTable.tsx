@@ -10,7 +10,7 @@ export const HistoryTable = ({
       <div className="Content CenterAlign">歷史紀錄</div>
       <div
         style={{
-          maxHeight: "400px", // 限制表格的最大高度
+          maxHeight: "50vh", // 限制表格的最大高度
           overflowY: "auto", 
           width: "100%",
           border: "#FFFFFF solid 1px",

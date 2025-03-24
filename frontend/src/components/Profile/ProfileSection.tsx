@@ -6,12 +6,13 @@ import { AuthButton } from "@/components/common/AuthButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { CopyOutlined } from "@ant-design/icons";
+import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
 import { Toast } from "@/components/common/Alert";
 import { CustomSessionUser } from "@/lib/authOptions";
 import { HistoryTable } from "./HistoryTable";
 import { SheetDatas } from "@/lib/Sheet";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export type HistoryData = {
   index: number;
@@ -19,13 +20,14 @@ export type HistoryData = {
   score: number;
 };
 
-export const ProfileSection = ({ UserID }: { UserID: string}) => {
+export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const [User, setUser] = useState<CustomSessionUser | null>(null);
   const { NowMode } = useNowMode();
-
   const [HistoryDatas, setHistoryDatas] = useState<HistoryData[] | null>(null);
+
+  const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {
     if (UserID === "undefined") {
@@ -164,7 +166,28 @@ export const ProfileSection = ({ UserID }: { UserID: string}) => {
             )}
           </>
         ) : (
-          <>載入中</>
+          <>
+            {" "}
+            {UserID && <div className="Note">找不到 ID 為 {UserID} 的用戶</div>}
+            <div
+              className="Content"
+              style={{
+                padding: "0.5em",
+                border: `2px solid ${ModeColors[NowMode].dark}`,
+              }}
+            >
+              <input
+                type="text"
+                placeholder="請輸入用戶 ID"
+                onChange={(e) => {
+                  setSearchID(e.target.value);
+                }}
+              />
+              <Link href={`/Profile/${searchID}`}>
+                <SearchOutlined />
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </section>
