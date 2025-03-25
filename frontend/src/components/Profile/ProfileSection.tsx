@@ -25,22 +25,20 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
       router.push("/Login");
       return;
     }
-    const fetchHistory = async () => {
-      try {
-        await User?.getHistoryRecord().then((res) => {
-          setHistoryRecord(res ?? []);
-          setHistoryScore(User.historyScore());
-        });
-      } catch (error) {
-        console.error("Error fetching history records:", error);
-        Toast.fire({
-          icon: "error",
-          text: "載入歷史紀錄失敗，請稍後再試。",
-        });
-      }
-    };
 
-    fetchHistory();
+    try {
+      User?.getHistoryRecord().then((res) => {
+        setHistoryRecord(res ?? []);
+        setHistoryScore(User.historyScore());
+      });
+    } catch (error) {
+      console.error("Error fetching history records:", error);
+      Toast.fire({
+        icon: "error",
+        text: "載入歷史紀錄失敗，請稍後再試。",
+      });
+    }
+
     console.log(User?.historyRecord);
   }, [User, UserID, router]);
 

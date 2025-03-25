@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -77,7 +76,6 @@ const LaBaGUserContext = createContext<
 export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
   const [User, setUser] = useState<LaBaGUser | undefined>(undefined);
   const [Loading, setLoading] = useState<boolean>(true);
-  const router = useRouter();
   const signIn = (signBy: string) => {
     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${signBy}`;
   };
@@ -85,7 +83,6 @@ export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
   const signOut = () => {
     localStorage.removeItem("authToken");
     setUser(undefined);
-    router.push("/Login");
   };
 
   useEffect(() => {
