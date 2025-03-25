@@ -42,7 +42,7 @@ app.get("/test", (_, res) => {
 app.use("/auth", authRouter);
 
 // 獲取試算表資料
-app.use("/Sheet", sheetRouter);
+app.use("/sheet", sheetRouter);
 
 // 提交遊玩分數至表單
 app.use("/commitScore", commitScoreRouter);
