@@ -17,10 +17,13 @@ export const GetSheetDatas = async (_: Request, res: Response) => {
     const RecordRows = RecordResponse.data.values?.slice(1) as string[][];
 
     if (UserRows && RecordRows) {
-      return res.status(200).json({ UserRows, RecordRows });
+      res.status(200).json({ UserRows, RecordRows });
+      return;
     }
-    return res.status(400).json({ message: `獲取試算表錯誤` });
+    res.status(400).json({ message: `獲取試算表錯誤` });
+    return;
   } catch (error: unknown) {
-    return res.status(500).json({ message: `伺服器錯誤: ${error}` });
+    res.status(500).json({ message: `伺服器錯誤: ${error}` });
+    return;
   }
 };
