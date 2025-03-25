@@ -112,7 +112,8 @@ export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setLoading(false);
     }
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStorage.getItem("authToken")]);
 
   return (
     <LaBaGUserContext.Provider value={{ User, Loading, signIn, signOut }}>
