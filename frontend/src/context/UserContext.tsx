@@ -88,6 +88,7 @@ export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
   const [Loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (typeof window === "undefined") return; // 避免伺服器端執行
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
@@ -112,8 +113,7 @@ export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStorage.getItem("authToken")]);
+  }, []);
 
   return (
     <LaBaGUserContext.Provider value={{ User, Loading, signIn, signOut }}>
