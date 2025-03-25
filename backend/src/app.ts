@@ -6,7 +6,7 @@ import "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
 import { router as commitScoreRouter } from "./routes/commitScore";
-import { router as sheetRouter } from "./routes/Sheet";
+import { router as sheetRouter } from "./routes/sheet";
 
 export const app = express();
 
