@@ -1,5 +1,5 @@
 "use client";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -78,14 +78,14 @@ const signIn = (signBy: string) => {
   window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${signBy}`;
 };
 
-const signOut = () => {
-  localStorage.removeItem("authToken");
-  router.push("/Login");
-};
-
 export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
   const [User, setUser] = useState<LaBaGUser | undefined>(undefined);
   const [Loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
+  const signOut = () => {
+    localStorage.removeItem("authToken");
+    router.push("/Login");
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return; // 避免伺服器端執行
@@ -130,6 +130,11 @@ export const useUser = (id?: string) => {
   if (!context) {
     throw new Error("useUser 必須在 LaBaGUserProvider 內使用");
   }
+  const router = useRouter();
+  const signOut = () => {
+    localStorage.removeItem("authToken");
+    router.push("/Login");
+  };
 
   const { User, Loading } = context;
   const [FetchedUser, setFetchedUser] = useState<LaBaGUser | undefined>(
