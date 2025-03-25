@@ -27,7 +27,7 @@ export const AuthButton = ({ signBy, style, ...props }: AuthButtonProps) => {
     <></>
   ) : (
     <Button
-      icon={User && signBy ? AuthIcons[signBy] : null} // 確保只有登入按鈕有圖示
+      icon={AuthIcons[signBy]}
       {...props}
       style={style}
       onClick={handleAuth}
