@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from "next";
 import { NowModeProvider } from "../context/NowModeContext";
 import { Header } from "@/components/common/Header";
-import { UserProvider } from "@/context/UserContext";
+import { LaBaGUserProvider } from "@/context/UserContext";
 
 export const metadata: Metadata = {
   title: "啦八機 LaBaG",
@@ -19,12 +19,12 @@ export default function RootLayout({
   return (
     <html lang="zh-TW">
       <body>
-        <UserProvider>
+        <LaBaGUserProvider>
           <NowModeProvider>
-            <Header/>
+            <Header />
             {children}
           </NowModeProvider>
-        </UserProvider>
+        </LaBaGUserProvider>
       </body>
     </html>
   );

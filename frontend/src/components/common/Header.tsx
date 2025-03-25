@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 import { useNowMode } from "@/context/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { MenuOutlined } from "@ant-design/icons";
-import { signOut } from "next-auth/react";
 import { useUser } from "@/context/UserContext";
+
 type NavItem = {
   key: string;
   label: ReactNode;
@@ -16,7 +16,7 @@ type NavItem = {
 };
 
 export const Header = () => {
-  const { User } = useUser();
+  const { User, signOut } = useUser();
   const pathName = usePathname();
   const { NowMode } = useNowMode();
 
@@ -37,7 +37,7 @@ export const Header = () => {
         href: User ? "#" : "/Login",
       },
     ];
-  }, [User]); // 只依赖必要的字段
+  }, [User, signOut]); // 只依赖必要的字段
 
   return (
     <Navbar

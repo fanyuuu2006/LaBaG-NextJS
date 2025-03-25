@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { googleCallback } from "../controllers/authController";
+import { getUserProfile, googleCallback } from "../controllers/authController";
 import passport from "passport";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const router = Router();
+
+// 獲取用戶資料
+router.get("/profile", authMiddleware, getUserProfile);
 
 // Google OAuth 登入
 router.get(
@@ -16,5 +20,3 @@ router.get(
   passport.authenticate("google", { session: false }),
   googleCallback
 );
-
-

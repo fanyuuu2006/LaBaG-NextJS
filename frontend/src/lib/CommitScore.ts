@@ -8,13 +8,17 @@ export type CommitScoreProps = {
 export const CommitScore = async (props: CommitScoreProps) => {
   if (props.UserID && props.Name && props.Score) {
     try {
-      const response = await fetch("/api/CommitScore", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // 指定 JSON 類型
-        },
-        body: JSON.stringify(props),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/commitScore`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            "Content-Type": "application/json", // 指定 JSON 類型
+          },
+          body: JSON.stringify(props),
+        }
+      );
 
       const result = await response.json();
       if (response.ok) {
