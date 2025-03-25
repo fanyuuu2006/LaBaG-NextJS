@@ -23,14 +23,12 @@ app.use(
 
 app.use(
   cors({
-    origin: [process.env.WEBSITE_URL as string], // 確保這裡是你的前端網址
+    origin: [process.env.WEBSITE_URL as string | "http://localhost:3000"], // 確保這裡是你的前端網址
     methods: ["GET", "POST"],
     credentials: true, // 允許 Cookie
-    allowedHeaders: ["Content-Type", "cookie", "referer"], // 允許 Referer 和 Cookies
-    exposedHeaders: ["referer", "Set-Cookie"], // 允許在前端讀取 Referer 和 Cookie
+    allowedHeaders: ["Content-Type", "Cookie", "Referer", "Authorization"], // 允許 Referer 和 Cookies
   })
 );
-
 
 app.use(passport.initialize());
 

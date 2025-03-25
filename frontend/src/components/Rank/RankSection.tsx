@@ -30,9 +30,8 @@ export const RankSection = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/Sheet");
-        const data = await response.json();
-        const RecordRows = data.RecordRows as string[][];
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sheet/getRecords`);
+        const RecordRows = await response.json() as string[][];
 
         // 使用 Map 來存放每位玩家的最高分
         const recordMap = new Map<string, Omit<RankTableProps, "rank">>();
