@@ -16,7 +16,7 @@ router.get(
 
 // Google OAuth 回呼
 router.get(
-  "callback/google",
+  "/callback/google",
   passport.authenticate("google", { session: false }),
   googleCallback
 );
