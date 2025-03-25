@@ -90,7 +90,7 @@ export const LaBaGUserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`, {
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${authToken}`,
