@@ -44,9 +44,12 @@ export class BaseLaBaG implements LaBaG {
 
   Ps: [P | null, P | null, P | null] = [null, null, null];
 
-  RateRanges: Record<ModeNames, number[]> = (
-    ["Normal", "SuperHHH", "GreenWei", "PiKaChu"] as const
-  ).reduce((Ranges: Record<ModeNames, number[]>, mode: ModeNames) => {
+  RateRanges: Record<ModeNames, number[]> = [
+    "Normal",
+    "SuperHHH",
+    "GreenWei",
+    "PiKaChu",
+  ].reduce((Ranges: Record<ModeNames, number[]>, mode: ModeNames) => {
     const res: number[] = [];
     let accRate: number = 0;
     for (const p of Object.values(P.Obj)) {
