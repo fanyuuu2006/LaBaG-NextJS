@@ -21,7 +21,16 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [process.env.WEBSITE_URL as string], // 確保這裡是你的前端網址
+    methods: ["GET", "POST"],
+    credentials: true, // 允許 Cookie
+    allowedHeaders: ["Content-Type", "cookie", "referer"], // 允許 Referer 和 Cookies
+    exposedHeaders: ["referer", "Set-Cookie"], // 允許在前端讀取 Referer 和 Cookie
+  })
+);
+
 
 app.use(passport.initialize());
 
@@ -29,7 +38,7 @@ app.get("/test", (_, res) => {
   res.send("The server is up and running!");
 });
 
-// 產生 Google 登入 URL
+// 用戶登入
 app.use("/auth", authRouter);
 
 // 獲取試算表資料
