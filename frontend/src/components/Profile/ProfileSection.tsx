@@ -5,7 +5,6 @@ import { Button, Input, Space, Tooltip } from "antd";
 import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
 import { Toast } from "@/components/common/Alert";
 import { HistoryTable } from "./HistoryTable";
@@ -13,7 +12,6 @@ import { useUser } from "@/context/UserContext";
 import { RecordData } from "@/types/Record";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
-  const router = useRouter();
   const { NowMode } = useNowMode();
   const { User, Loading } = useUser(UserID as string);
 
@@ -22,21 +20,24 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      User?.getHistoryRecord().then((res) => {
-        setHistoryRecord(res ?? []);
-        setHistoryScore(User.historyScore());
-      });
-    } catch (error) {
-      console.error("Error fetching history records:", error);
-      Toast.fire({
-        icon: "error",
-        text: "載入歷史紀錄失敗，請稍後再試。",
-      });
-    }
+    if (!User) return;
 
-    console.log(User?.historyRecord);
-  }, [User, UserID, router]);
+    const fetchData = async () => {
+      try {
+        const records = await User.getHistoryRecord();
+        setHistoryRecord(records ?? []);
+        setHistoryScore(User.historyScore());
+      } catch (error) {
+        console.error("Error fetching history records:", error);
+        Toast.fire({
+          icon: "error",
+          text: "載入歷史紀錄失敗，請稍後再試。",
+        });
+      }
+    };
+
+    fetchData();
+  }, [User]); // 依賴 User
 
   return (
     <section>
@@ -81,14 +82,14 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
               />
               <div>
                 <div className="Content">{User?.name ?? ""}</div>
-                <div className="Hint" >
-                  ID: {User.id ?? ""}
+                <div className="Hint">
+                  {User.id ?? ""}
                   <Tooltip title="複製 ID">
                     <Button
                       type="text"
-                      onClick={() => {
+                      onClick={async () => {
                         if (!User?.id) return;
-                        navigator.clipboard
+                        await navigator.clipboard
                           .writeText(User.id)
                           .then(() =>
                             Toast.fire({

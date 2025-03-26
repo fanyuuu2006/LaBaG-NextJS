@@ -146,7 +146,7 @@ export const RankSection = () => {
                     </td>
                     <td className="RightAlign">{data.score}</td>
                     <td
-                      className="Hint CenterAlign"
+                      className="CenterAlign"
                       style={{ whiteSpace: "wrap" }}
                     >
                       {data.timeStamp}
@@ -165,7 +165,7 @@ export const RankSection = () => {
                     border: "#FFFFFF solid 1px",
                   }}
                 >
-                  <tr className="Note">
+                  <tr className="Hint">
                     <td className="CenterAlign">{UserRank.rank}</td>
                     <td className="CenterAlign">
                       <Tooltip title="查看個人檔案">
@@ -179,7 +179,7 @@ export const RankSection = () => {
                     </td>
                     <td className="RightAlign">{UserRank.score}</td>
                     <td
-                      className="Hint CenterAlign"
+                      className="CenterAlign"
                       style={{ whiteSpace: "wrap" }}
                     >
                       {UserRank.timeStamp}
