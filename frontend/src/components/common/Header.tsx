@@ -49,7 +49,7 @@ export const Header = () => {
         key: "Profile",
         label: (
           <>
-            <UserOutlined /> {User?.name ?? "個人檔案"}
+            <UserOutlined /> {"個人檔案"}
           </>
         ),
         href: `/Profile`,

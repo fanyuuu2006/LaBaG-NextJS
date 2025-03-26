@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {
   getUserProfile,
-  githubCallback,
   googleCallback,
+  githubCallback,
 } from "../controllers/authController";
 import passport from "passport";
 import { authMiddleware } from "../middlewares/authMiddleware";
