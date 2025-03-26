@@ -30,6 +30,5 @@ export class P {
 }
 
 Object.values(PDatas).forEach((Pdata: PData) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _: P = new P(Pdata.code, Pdata.scores, Pdata.rates);
+  new P(Pdata.code, Pdata.scores, Pdata.rates);
 });

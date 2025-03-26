@@ -1,4 +1,5 @@
 "use client";
+import { LaBaGUser, User } from "@/types/User";
 import {
   createContext,
   useContext,
@@ -7,60 +8,6 @@ import {
   useEffect,
 } from "react";
 
-export type User = {
-  id?: string;
-  name?: string;
-  email?: string;
-  image?: string;
-};
-
-export type HistoryRecordData = {
-  index: number;
-  timestamp: string;
-  score: number;
-};
-
-export class LaBaGUser implements User {
-  id?: string | undefined;
-  name?: string | undefined;
-  email?: string | undefined;
-  image?: string | undefined;
-  historyRecord?: HistoryRecordData[];
-
-  constructor(user: User) {
-    this.id = user.id;
-    this.name = user.name;
-    this.email = user.email;
-    this.image = user.image;
-    this.getHistoryRecord();
-  }
-
-  // 獲取歷史記錄
-  async getHistoryRecord(): Promise<HistoryRecordData[]> {
-    if (!this.id) return [];
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/sheet/getRecords`
-    );
-    if (!res.ok) throw new Error("API 回應錯誤");
-
-    const data: string[][] = await res.json();
-    this.historyRecord =
-      data
-        .filter((row) => row[1] === this.id)
-        ?.map((row, index) => ({
-          index,
-          timestamp: row[0] ?? "",
-          score: parseInt(row[3] ?? "0"),
-        })) ?? [];
-    return this.historyRecord;
-  }
-
-  // 獲取最高分
-  historyScore(): number {
-    return Math.max(0, ...(this.historyRecord?.map((h) => h.score) ?? []));
-  }
-}
 
 // 建立 Context
 const LaBaGUserContext = createContext<

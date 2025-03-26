@@ -1,15 +1,16 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { Button, Input, Space, Tooltip } from "antd";
 import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
-import { Button, Input, Space, Tooltip } from "antd";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
 import { Toast } from "@/components/common/Alert";
 import { HistoryTable } from "./HistoryTable";
-import Link from "next/link";
-import { HistoryRecordData, useUser } from "@/context/UserContext";
+import { useUser } from "@/context/UserContext";
+import { RecordData } from "@/types/Record";
 
 export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const router = useRouter();
@@ -17,7 +18,7 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const { User, Loading } = useUser(UserID as string);
 
   const [HistoryScore, setHistoryScore] = useState<number | null>(null);
-  const [HistoryRecord, setHistoryRecord] = useState<HistoryRecordData[]>([]);
+  const [HistoryRecord, setHistoryRecord] = useState<RecordData[]>([]);
   const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {
