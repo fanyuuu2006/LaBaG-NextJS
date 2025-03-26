@@ -1,9 +1,4 @@
-export type CommitScoreProps = {
-  UserID: string | null;
-  Name: string | null;
-  Score: number;
-  JsonData: Record<string, Record<string, number>>;
-};
+import { CommitScoreProps } from "@/types/Record";
 
 export const CommitScore = async (props: CommitScoreProps) => {
   if (props.UserID && props.Name && props.Score) {

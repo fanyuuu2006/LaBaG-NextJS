@@ -1,20 +1,22 @@
 import { RecordData } from "./Record";
 
-export type User = {
+export type signOptions = "google";
+
+export interface AuthUser {
   id?: string;
   name?: string;
   email?: string;
   image?: string;
-};
+}
 
-export class LaBaGUser implements User {
+export class LaBaGUser implements AuthUser {
   id?: string | undefined;
   name?: string | undefined;
   email?: string | undefined;
   image?: string | undefined;
   historyRecord?: RecordData[];
 
-  constructor(user: User) {
+  constructor(user: AuthUser) {
     this.id = user.id;
     this.name = user.name;
     this.email = user.email;

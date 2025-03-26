@@ -6,7 +6,7 @@ export const getRecords = async (_: Request, res: Response) => {
   try {
     const RecordResponse = await Sheet.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
-      range: "紀錄!A:E",
+      range: "紀錄!A:D",
     });
 
     const RecordRows = RecordResponse.data.values?.slice(1) as string[][];
@@ -49,7 +49,7 @@ export const addUser = async (req: Request, res: Response) => {
     const userData = req.body as User;
     await Sheet.spreadsheets.values.append({
       spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
-      range: "用戶資料!A:F",
+      range: "用戶資料!A:E",
       valueInputOption: "RAW",
       requestBody: {
         values: [
