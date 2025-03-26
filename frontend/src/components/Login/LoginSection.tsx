@@ -40,16 +40,22 @@ export const LoginSection = () => {
               選擇登入方式
             </div>
             <AuthButton
-              type="primary"
               className="Note"
               signBy="google"
-              style={{ padding: "1em 1.5em" }}
+              style={{
+                color: "#FFFFFF",                
+                backgroundColor: ModeColors[NowMode].dark,
+                border: `${ModeColors[NowMode].light} solid 3px`,
+                padding: "1em 2em" }}
             />
             <AuthButton
-              type="primary"
               className="Note"
               signBy="github"
-              style={{ padding: "1em 1.5em" }}
+              style={{
+                color: "#FFFFFF",                
+                backgroundColor: ModeColors[NowMode].dark,
+                border: `${ModeColors[NowMode].light} solid 3px`,
+                padding: "1em 2em" }}
             />
           </>
         ) : (

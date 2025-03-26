@@ -9,9 +9,9 @@ interface AuthButtonProps extends Omit<ButtonProps, "onClick" | "icon"> {
   signBy: signOptions;
 }
 
-const AuthIcons: Record<signOptions, ReactNode> = {
-  google: <GoogleOutlined />,
-  github: <GithubOutlined/>
+const AuthItems: Record<signOptions, { label: string; icon: ReactNode }> = {
+  google: { label: "Google", icon: <GoogleOutlined /> },
+  github: { label: "GitHub", icon: <GithubOutlined /> },
 };
 
 export const AuthButton = (props: AuthButtonProps) => {
@@ -30,12 +30,12 @@ export const AuthButton = (props: AuthButtonProps) => {
     <></>
   ) : (
     <Button
-      icon={AuthIcons[signBy]}
+      icon={AuthItems[signBy].icon}
       {...rest}
       style={style}
       onClick={handleAuth}
     >
-      {User ? "登出" : "登入"}
+      {AuthItems[signBy].label}
     </Button>
   );
 };
