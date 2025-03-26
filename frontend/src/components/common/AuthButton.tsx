@@ -1,6 +1,6 @@
 "use client";
 import { Button, ButtonProps } from "antd";
-import { GoogleOutlined } from "@ant-design/icons";
+import { GithubOutlined, GoogleOutlined } from "@ant-design/icons";
 import { ReactNode } from "react";
 import { useUser } from "@/context/UserContext";
 import { signOptions } from "@/types/Auth";
@@ -11,6 +11,7 @@ interface AuthButtonProps extends Omit<ButtonProps, "onClick" | "icon"> {
 
 const AuthIcons: Record<signOptions, ReactNode> = {
   google: <GoogleOutlined />,
+  github: <GithubOutlined/>
 };
 
 export const AuthButton = (props: AuthButtonProps) => {

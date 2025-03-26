@@ -1,15 +1,30 @@
 import { Request, Response } from "express";
-import { Profile } from "passport-google-oauth20";
+import { Profile as GoogleProfile } from "passport-google-oauth20";
+import { Profile as GitHubProfile } from "passport-github2";
+
 import { authUser } from "../types/user";
 import { checkAndAddUser, extractUserData } from "../utils/user";
+
+// 獲取用戶資料
+export const getUserProfile = (req: Request, res: Response) => {
+  const user = req.user as authUser;
+
+  if (!user) {
+    console.log("未登入或無效的身份驗證");
+    res.status(401).json({ message: "未登入或無效的身份驗證" });
+    return;
+  }
+
+  res.status(200).json(user);
+};
 
 // Google 登入回調
 export const googleCallback = async (req: Request, res: Response) => {
   try {
-    const user = req.user as Profile;
+    const user = req.user as GoogleProfile;
     const token = await checkAndAddUser(extractUserData(user));
 
-    console.log("登入成功")
+    console.log("登入成功");
     // 將 Token 傳給前端
     res.redirect(`${process.env.WEBSITE_URL}/login-success?token=${token}`);
   } catch (error: unknown) {
@@ -23,15 +38,22 @@ export const googleCallback = async (req: Request, res: Response) => {
   }
 };
 
-// 獲取用戶資料
-export const getUserProfile = (req: Request, res: Response) => {
-  const user = req.user as authUser;
+// GitHub 登入回調
+export const githubCallback = async (req: Request, res: Response) => {
+  try {
+    const user = req.user as GitHubProfile;
+    const token = await checkAndAddUser(extractUserData(user));
 
-  if (!user) {
-    console.log("未登入或無效的身份驗證");
-    res.status(401).json({ message: "未登入或無效的身份驗證" });
-    return;
+    console.log("登入成功");
+    // 將 Token 傳給前端
+    res.redirect(`${process.env.WEBSITE_URL}/login-success?token=${token}`);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤出現錯誤: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    res.redirect(`${process.env.WEBSITE_URL}/Login`);
   }
-
-  res.status(200).json(user);
 };

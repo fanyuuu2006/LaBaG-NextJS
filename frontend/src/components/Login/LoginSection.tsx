@@ -43,7 +43,13 @@ export const LoginSection = () => {
               type="primary"
               className="Note"
               signBy="google"
-              style={{ padding: "1em" }}
+              style={{ padding: "1em 1.5em" }}
+            />
+            <AuthButton
+              type="primary"
+              className="Note"
+              signBy="github"
+              style={{ padding: "1em 1.5em" }}
             />
           </>
         ) : (

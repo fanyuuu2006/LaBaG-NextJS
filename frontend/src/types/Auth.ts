@@ -1,6 +1,6 @@
 import { RecordData } from "./Record";
 
-export type signOptions = "google";
+export type signOptions = "google"| "github";
 
 export interface AuthUser {
   id?: string;

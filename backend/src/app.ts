@@ -2,8 +2,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
 import morgan from "morgan";
-import passport from "passport";
-import "./config/passport"; // 初始化 Passport 設定
+import passport from "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
 import { router as commitScoreRouter } from "./routes/commitScore";
