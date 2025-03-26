@@ -147,7 +147,7 @@ export const RankSection = () => {
                     <td className="RightAlign">{data.score}</td>
                     <td
                       className="CenterAlign"
-                      style={{ whiteSpace: "wrap" }}
+                      style={{fontSize: "0.8em" , whiteSpace: "wrap" }}
                     >
                       {data.timeStamp}
                     </td>
