@@ -43,19 +43,19 @@ export const LoginSection = () => {
               className="Note"
               signBy="google"
               style={{
-                color: "#FFFFFF",                
+                color: "#FFFFFF",
                 backgroundColor: ModeColors[NowMode].dark,
                 border: `${ModeColors[NowMode].light} solid 3px`,
-                padding: "1em 2em" }}
+              }}
             />
             <AuthButton
               className="Note"
               signBy="github"
               style={{
-                color: "#FFFFFF",                
+                color: "#FFFFFF",
                 backgroundColor: ModeColors[NowMode].dark,
                 border: `${ModeColors[NowMode].light} solid 3px`,
-                padding: "1em 2em" }}
+              }}
             />
           </>
         ) : (

@@ -1,12 +1,17 @@
 "use client";
 import { Button, ButtonProps } from "antd";
 import { GithubOutlined, GoogleOutlined } from "@ant-design/icons";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { useUser } from "@/context/UserContext";
 import { signOptions } from "@/types/Auth";
 
-interface AuthButtonProps extends Omit<ButtonProps, "onClick" | "icon"> {
+interface AuthButtonProps
+  extends Omit<ButtonProps, "onClick" | "icon" | "style"> {
   signBy: signOptions;
+  style?: Omit<
+    CSSProperties,
+    "padding" | "paddingTop" | "paddingBottom" | "paddingLeft" | "paddingRight"
+  >;
 }
 
 const AuthItems: Record<signOptions, { label: string; icon: ReactNode }> = {
@@ -32,7 +37,10 @@ export const AuthButton = (props: AuthButtonProps) => {
     <Button
       icon={AuthItems[signBy].icon}
       {...rest}
-      style={style}
+      style={{
+        ...style,
+        padding: "1em 2em"
+      }}
       onClick={handleAuth}
     >
       {AuthItems[signBy].label}

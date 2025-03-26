@@ -1,4 +1,5 @@
 "use client";
+import { Toast } from "@/components/common/Alert";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -12,10 +13,17 @@ export default function LoginSeccessPage() {
     if (token) {
       // 儲存 token 到 localStorage
       localStorage.setItem("authToken", token);
-
+      Toast.fire({
+        icon: "success",
+        text: "登入成功",
+      });
       router.replace("/Profile");
     } else {
       console.error("未成功取得 Token");
+      Toast.fire({
+        icon: "error",
+        text: "登入失敗",
+      });
       router.replace("/Login"); // 跳回登入頁面
     }
   }, [router]);
