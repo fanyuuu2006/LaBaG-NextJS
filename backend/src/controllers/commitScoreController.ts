@@ -12,7 +12,8 @@ export const commitScore = async (req: Request, res: Response) => {
       typeof Score !== "number" ||
       typeof JsonData !== "object"
     ) {
-      res.status(400).json({ message: "請求數據缺失或是格是錯誤" });
+      console.log("請求數據缺失或是格式錯誤");
+      res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
       return;
     }
 
@@ -29,22 +30,23 @@ export const commitScore = async (req: Request, res: Response) => {
     });
 
     if (response.status === 204 || response.ok) {
+      console.log("成功提交分數");
       res.status(200).json({ message: "成功提交分數" });
       return;
     } else {
+      console.log(`提交失敗，回應狀態: ${response.status}`);
       res.status(response.status).json({
         message: `提交失敗，回應狀態: ${response.status}`,
       });
       return;
     }
   } catch (error: unknown) {
-    res
-      .status(500)
-      .json({
-        message: `伺服器錯誤，無法提交分數: ${
-          error instanceof Error ? error.message : String(error)
-        }`,
-      });
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤，無法提交分數: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
     return;
   }
 };

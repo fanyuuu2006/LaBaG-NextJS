@@ -48,8 +48,8 @@ export const MusicButton = ({
         }}
         className="Note"
         style={{
-          width: "3em",
-          height: "3em",
+          width: "2.5em",
+          height: "2.5em",
           position: "fixed",
           bottom: "0.5em",
           right: "0.5em",

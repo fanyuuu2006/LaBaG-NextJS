@@ -12,7 +12,7 @@ import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { RecordData } from "@/types/Record";
 
-export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
+export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const router = useRouter();
   const { NowMode } = useNowMode();
   const { User, Loading } = useUser(UserID as string);
@@ -22,11 +22,6 @@ export const ProfileSection = ({ UserID }: { UserID: string | null }) => {
   const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {
-    if (UserID === "undefined" || UserID === "null") {
-      router.push("/Login");
-      return;
-    }
-
     try {
       User?.getHistoryRecord().then((res) => {
         setHistoryRecord(res ?? []);

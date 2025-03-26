@@ -52,7 +52,7 @@ export const Header = () => {
             <UserOutlined /> {User?.name ?? "個人檔案"}
           </>
         ),
-        href: `/Profile/${User?.id}`,
+        href: `/Profile`,
       },
       {
         key: "Sign",
@@ -98,6 +98,7 @@ export const Header = () => {
           <Nav
             className="Content ms-auto"
             style={{
+              whiteSpace: "nowrap",
               textAlign: "center",
             }}
           >

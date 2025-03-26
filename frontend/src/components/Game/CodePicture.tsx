@@ -186,12 +186,12 @@ export const CodePicture = ({
         <Popover
           key={index}
           content={
-            <Space className="Note" style={{ color: "white" }}>
+            <Space className="Hint" style={{ color: "white" }}>
               {Pictures[code].content}
             </Space>
           }
           title={
-            <Space className="Content" style={{ color: "white" }}>
+            <Space className="Note" style={{ color: "white" }}>
               {Pictures[code].title}
             </Space>
           }

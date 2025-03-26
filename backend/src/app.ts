@@ -1,6 +1,7 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
+import morgan from "morgan";
 import passport from "passport";
 import "./config/passport"; // 初始化 Passport 設定
 
@@ -14,7 +15,7 @@ export const app = express();
 app.use(express.json());
 
 // 讓 Express 信任 X-Forwarded-For 頭
-app.set('trust proxy', true);
+app.set("trust proxy", true);
 
 app.use(
   rateLimit({
@@ -33,6 +34,9 @@ app.use(
     allowedHeaders: ["Content-Type", "Cookie", "Referer", "Authorization"], // 允許 Referer 和 Cookies
   })
 );
+
+// 打印請求日誌
+app.use(morgan("dev"));
 
 app.use(passport.initialize());
 

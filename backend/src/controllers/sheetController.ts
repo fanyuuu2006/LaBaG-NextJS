@@ -15,9 +15,11 @@ export const getRecords = async (_: Request, res: Response) => {
       res.status(200).json(RecordRows);
       return;
     }
-    res.status(400).json({ message: `獲取試算表錯誤` });
+    console.log("獲取試算表錯誤");
+    res.status(400).json({ message: "獲取試算表錯誤" });
     return;
   } catch (error: unknown) {
+    console.error(error);
     res.status(500).json({
       message: `伺服器錯誤，無法獲取資料: ${
         error instanceof Error ? error.message : String(error)
@@ -43,6 +45,7 @@ export const getUsers = async (_: Request, res: Response) => {
     res.status(400).json({ message: `獲取試算表錯誤` });
     return;
   } catch (error: unknown) {
+    console.error(error);
     res.status(500).json({
       message: `伺服器錯誤，無法獲取資料: ${
         error instanceof Error ? error.message : String(error)
@@ -77,6 +80,7 @@ export const addUser = async (req: Request, res: Response) => {
     res.status(200).json({ message: "添加用戶成功" });
     return;
   } catch (error: unknown) {
+    console.error(error);
     res.status(500).json({
       message: `伺服器錯誤，無法添加用戶: ${
         error instanceof Error ? error.message : String(error)

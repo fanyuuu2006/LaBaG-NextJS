@@ -19,6 +19,7 @@ export const InfoText = ({
   ModeTimes: number | null;
 }) => {
   const { NowMode } = useNowMode();
+
   const ModeText: Record<ModeNames, string> = {
     Normal: "",
     SuperHHH: `超級阿禾剩餘次數: ${ModeTimes}次`,
@@ -34,7 +35,7 @@ export const InfoText = ({
       style={{
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         borderRadius: "5%",
-        padding: "1em 4em",
+        padding: "0.5em 3em",
       }}
       direction="vertical"
       align="center"

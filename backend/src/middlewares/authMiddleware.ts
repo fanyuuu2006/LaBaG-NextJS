@@ -12,7 +12,7 @@ export const authMiddleware = (
   const token = authHeader && authHeader.split(" ")[1]; // Bearer token
 
   if (!token) {
-    res.status(401).json({ message: "未提供 Token" });
+    res.status(401).json({ message: "未授權的存取" });
     return;
   }
 

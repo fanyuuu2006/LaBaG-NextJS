@@ -103,23 +103,23 @@ input::placeholder {
 }
 
 .Title {
-  font-size: 35px;
+  font-size: 40px;
 }
 
 .Label {
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .Content {
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .Note {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .Hint {
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .BottomLine {
@@ -147,23 +147,23 @@ input::placeholder {
     --space-ultra: 24px;
   }
   .Title {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .Label {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .Content {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .Note {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .Hint {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .BottomLine {

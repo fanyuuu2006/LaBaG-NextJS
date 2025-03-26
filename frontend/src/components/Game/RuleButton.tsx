@@ -72,7 +72,7 @@ export const RuleButton = (props: AntdIconProps) => {
                   columns={columns}
                   dataSource={dataSource}
                   className="Hint"
-                  style={{ width: "100%" }}
+                  style={{ whiteSpace: "nowrap", width: "100%" }}
                 />
                 <div className="Note" style={{ textAlign: "start" }}>
                   <mark>三個皆相同</mark>: lv3對應的名稱之分數。
