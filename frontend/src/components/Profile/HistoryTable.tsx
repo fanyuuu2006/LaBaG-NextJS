@@ -17,7 +17,7 @@ export const HistoryTable = ({
         }}
       >
         <table
-          className="Note CenterAlign"
+          className="Hint CenterAlign"
           style={{
             borderCollapse: "collapse",
             color: "#FFFFFF",

@@ -29,13 +29,19 @@ export const GameOverSection = () => {
             gap: "5px",
           }}
         >
-          最終分數為: <span className="Content">{Game.Score}</span>
+          最終分數為:{" "}
+          <span className="Content">
+            {Game.Score.toString().padStart(8, "\u00A0")}
+          </span>
           <span className="Hint" style={{ color: "#FF3333" }}>
             {User && Game.Score > User.historyScore() && "新紀錄"}
           </span>
         </div>
         <Button
-          className="Content"
+          className="Note"
+          style={{
+            padding: "1em",
+          }}
           type="primary"
           onClick={() => {
             Game.Reset();

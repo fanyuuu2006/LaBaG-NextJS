@@ -117,7 +117,7 @@ export const RankSection = () => {
                   border: "#FFFFFF solid 1px",
                 }}
               >
-                <tr className="Content CenterAlign">
+                <tr className="Note CenterAlign">
                   <th>名次</th>
                   <th>名稱</th>
                   <th>分數</th>
@@ -128,7 +128,7 @@ export const RankSection = () => {
                 {RankDataSource.map((data) => (
                   <tr
                     key={data.userId}
-                    className="Note"
+                    className="Hint"
                     style={{
                       color: User?.id == data.userId ? "#FFFF69" : "#FFFFFF",
                     }}

@@ -72,7 +72,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 height={300}
                 alt="頭像"
                 style={{
-                  width: "5em",
+                  width: "4.5em",
                   minWidth: "70px",
                   height: "auto",
                   border: `${ModeColors[NowMode].dark} solid 3px`,
@@ -80,8 +80,8 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 }}
               />
               <div>
-                <div className="Label">{User?.name ?? ""}</div>
-                <div className="Hint">
+                <div className="Content">{User?.name ?? ""}</div>
+                <div className="Hint" >
                   ID: {User.id ?? ""}
                   <Tooltip title="複製 ID">
                     <Button
