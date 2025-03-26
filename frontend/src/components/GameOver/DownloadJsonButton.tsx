@@ -21,17 +21,17 @@ export const DownloadJsonButton = () => {
   };
 
   return (
-    <>
-      <Button
-        onClick={JsonFile}
-        style={{
-          color: "#000000",
-          border: "#878700 solid 2px",
-          backgroundColor: "#FFFF00 ",
-        }}
-      >
-        保存本次紀錄檔案(.json)
-      </Button>
-    </>
+    <Button
+      onClick={JsonFile}
+      style={{
+        position: "fixed",
+        bottom: "1em",
+        color: "#000000",
+        border: "#878700 solid 2px",
+        backgroundColor: "#FFFF00 ",
+      }}
+    >
+      保存本次紀錄檔案(.json)
+    </Button>
   );
 };

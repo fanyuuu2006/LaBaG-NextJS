@@ -3,29 +3,38 @@ import { Game } from "@/lib/PlayLaBaG";
 import { Button, Space } from "antd";
 import { useRouter } from "next/navigation";
 import { DownloadJsonButton } from "./DownloadJsonButton";
+import { useUser } from "@/context/UserContext";
 
 export const GameOverSection = () => {
+  const { User } = useUser();
   const router = useRouter();
   const { setNowMode } = useNowMode();
   return (
     <section>
-      <Space direction="vertical" align="center">
+      <Space direction="vertical" align="center" size="middle">
         <div
           className="Title"
           style={{
             color: "red",
-            textShadow:
-              "-2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white",
           }}
         >
-          <b>遊戲結束！</b>
+          遊戲結束！
         </div>
         <div
-          className="Label"
-          style={{ color: "white" }}
-        >{`最終分數為: ${Game.Score}`}</div>
+          className="Note"
+          style={{
+            color: "white",
+            display: "flex",
+            alignItems: "end",
+            gap: "5px",
+          }}
+        >
+          最終分數為: <span className="Content">{Game.Score}</span>
+          <span className="Hint" style={{ color: "#FF3333" }}>
+            {User && Game.Score > User.historyScore() && "新紀錄"}
+          </span>
+        </div>
         <Button
-          size="large"
           className="Content"
           type="primary"
           onClick={() => {
@@ -36,8 +45,8 @@ export const GameOverSection = () => {
         >
           再玩一次
         </Button>
-        <DownloadJsonButton/>
       </Space>
+      <DownloadJsonButton />
     </section>
   );
 };
