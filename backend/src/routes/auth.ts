@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getUserProfile, githubCallback, googleCallback } from "../controllers/authController";
+import {
+  getUserProfile,
+  githubCallback,
+  googleCallback,
+} from "../controllers/authController";
 import passport from "passport";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
@@ -22,8 +26,10 @@ router.get(
 );
 
 // GitHub 登入
-router.get("/github", passport.authenticate("github", { scope: ["profile", "email"] }));
-
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user", "user:email"] })
+);
 
 // GitHub 回呼
 router.get(
@@ -31,4 +37,3 @@ router.get(
   passport.authenticate("github", { session: false }),
   githubCallback
 );
-
