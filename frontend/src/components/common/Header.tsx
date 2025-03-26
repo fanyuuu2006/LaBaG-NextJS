@@ -6,7 +6,12 @@ import { ReactNode, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { useNowMode } from "@/context/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { MenuOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  MenuOutlined,
+  TrophyOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useUser } from "@/context/UserContext";
 
 type NavItem = {
@@ -22,11 +27,31 @@ export const Header = () => {
 
   const NavItems: NavItem[] = useMemo(() => {
     return [
-      { key: "Home", label: <>首頁</>, href: "/" },
-      { key: "Rank", label: <>排行榜</>, href: "/Rank" },
+      {
+        key: "Home",
+        label: (
+          <>
+            <HomeOutlined /> 首頁
+          </>
+        ),
+        href: "/",
+      },
+      {
+        key: "Rank",
+        label: (
+          <>
+            <TrophyOutlined /> 排行榜
+          </>
+        ),
+        href: "/Rank",
+      },
       {
         key: "Profile",
-        label: <>{User?.name ?? "個人檔案"}</>,
+        label: (
+          <>
+            <UserOutlined /> {User?.name ?? "個人檔案"}
+          </>
+        ),
         href: `/Profile/${User?.id}`,
       },
       {
