@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
+import { authUser } from "../types/user";
 
 export const commitScore = async (req: Request, res: Response) => {
   try {
-    const { UserID, Name, Score, JsonData } = req.body;
+    const { id: UserID, name: Name } = req.user as authUser;
+    const { Score, JsonData } = req.body;
     if (
       !UserID ||
       !Name ||
@@ -36,7 +38,13 @@ export const commitScore = async (req: Request, res: Response) => {
       return;
     }
   } catch (error: unknown) {
-    res.status(500).json({ message: `伺服器錯誤，無法提交分數: ${error}` });
+    res
+      .status(500)
+      .json({
+        message: `伺服器錯誤，無法提交分數: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      });
     return;
   }
 };

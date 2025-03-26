@@ -25,7 +25,6 @@ import { Toast } from "../common/Alert";
 import { CommitScore } from "@/lib/CommitScore";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
-import { useUser } from "@/context/UserContext";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -41,7 +40,6 @@ function Sound(src: string) {
 
 export const GameSection = () => {
   const { NowMode, setNowMode } = useNowMode();
-  const { User } = useUser();
   const router = useRouter();
   const [isClient, setisClient] = useState(false); // 用於確保只在客戶端處理邏輯
   const [BgmRunning, setBgmRunning] = useState<boolean>(false);
@@ -180,8 +178,6 @@ export const GameSection = () => {
       setTimeout(() => {
         if (!Game.GameRunning()) {
           CommitScore({
-            UserID: User?.id ?? null,
-            Name: User?.name ?? null,
             Score: Game.Score,
             JsonData: Game.AllData,
           });
