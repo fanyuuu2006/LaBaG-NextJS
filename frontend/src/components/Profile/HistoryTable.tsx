@@ -39,15 +39,21 @@ export const HistoryTable = ({
             </tr>
           </thead>
           <tbody>
-            {HistoryRecord?.sort((a, b) => b.index - a.index)
-              .slice(0, 20)
-              .map((data: RecordData, i: number) => (
-                <tr key={i}>
-                  <td>{data.timestamp}</td>
+            {HistoryRecord.length > 0 ? (
+              HistoryRecord.sort((a, b) => b.index - a.index)
+                .slice(0, 20)
+                .map((data: RecordData, i: number) => (
+                  <tr key={i}>
+                    <td>{data.timestamp}</td>
 
-                  <td style={{ whiteSpace: "nowrap" }}>{data.score}</td>
-                </tr>
-              ))}
+                    <td style={{ whiteSpace: "nowrap" }}>{data.score}</td>
+                  </tr>
+                ))
+            ) : (
+              <tr>
+                <td colSpan={2}>暫無資料</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

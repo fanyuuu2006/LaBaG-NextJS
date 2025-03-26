@@ -108,7 +108,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 </div>
               </div>
             </Space>
-            {HistoryScore && (
+            {User && (
               <>
                 <div className="Note CenterAlign">
                   歷史最高分數:{" "}
