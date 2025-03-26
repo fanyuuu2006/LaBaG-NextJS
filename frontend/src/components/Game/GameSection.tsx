@@ -22,7 +22,7 @@ import GreenBG from "@/assets/GreenBG.jpg";
 import KachuBG from "@/assets/KachuBG.jpg";
 import { StaticImageData } from "next/image";
 import { Toast } from "../common/Alert";
-import { CommitScore } from "@/lib/CommitScore";
+import { CommitScore } from "@/utils/CommitScore";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 
