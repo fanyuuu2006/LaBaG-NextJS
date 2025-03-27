@@ -15,7 +15,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
   const { User, Loading } = useUser(UserID as string);
 
-  const [HistoryScore, setHistoryScore] = useState<number | null>(null);
+  const [HistoryScore, setHistoryScore] = useState<number>(0);
   const [HistoryRecord, setHistoryRecord] = useState<RecordData[]>([]);
   const [searchID, setSearchID] = useState<string | null>(null);
 
@@ -108,24 +108,21 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 </div>
               </div>
             </Space>
-            {User && (
-              <>
-                <div className="Note CenterAlign">
-                  歷史最高分數:{" "}
-                  <span className="Label">
-                    {/*補空格*/}
-                    {HistoryScore?.toString().padStart(8, "\u00A0")}
-                  </span>{" "}
-                  分
-                </div>
 
-                <HistoryTable HistoryRecord={HistoryRecord} />
-              </>
-            )}
+            <div className="Note CenterAlign">
+              歷史最高分數:{" "}
+              <span className="Label">
+                {/*補空格*/}
+                {HistoryScore?.toString().padStart(8, "\u00A0")}
+              </span>{" "}
+              分
+            </div>
+
+            <HistoryTable HistoryRecord={HistoryRecord} />
           </>
         ) : (
           <>
-            {UserID && <div className="Note">找不到 ID 為 {UserID} 的玩家</div>}
+            <div className="Label CenterAlign BottomLine">查詢玩家個人檔案</div>
             <Input
               type="text"
               placeholder="請輸入玩家 ID"
@@ -146,6 +143,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 setSearchID(e.target.value.trim());
               }}
             />
+            {UserID && <div className="Hint">找不到 ID 為 {UserID} 的玩家</div>}
           </>
         )}
       </div>

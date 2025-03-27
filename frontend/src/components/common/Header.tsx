@@ -67,7 +67,7 @@ export const Header = () => {
   return (
     <Navbar
       className="sticky-top"
-      expand="md" // medium
+      expand="lg"
       style={{
         zIndex: 1050,
         width: "100%",
