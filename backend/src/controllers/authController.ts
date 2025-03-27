@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import { Profile as GoogleProfile } from "passport-google-oauth20";
-import { Profile as GitHubProfile } from "passport-github2";
 
-import { authUser } from "../types/user";
+import { authUser, signOptions, signProfiles } from "../types/auth";
 import { checkAndAddUser, extractUserData } from "../utils/user";
 
 // 獲取用戶資料
@@ -18,42 +16,21 @@ export const getUserProfile = (req: Request, res: Response) => {
   res.status(200).json(user);
 };
 
-// Google 登入回調
-export const googleCallback = async (req: Request, res: Response) => {
+export const signCallBack = async (req: Request, res: Response) => {
   try {
-    const user = req.user as GoogleProfile;
+    const signBy = req.params.signBy as signOptions;
+    if (!req.user) {
+      console.log(`${signBy.toUpperCase()} 登入失敗：未取得用戶資訊`);
+      return res.redirect(`${process.env.WEBSITE_URL}/Login`);
+    }
+    const user = req.user as signProfiles;
     const token = await checkAndAddUser(extractUserData(user));
 
-    console.log("登入成功");
+    console.log(`${signBy.toUpperCase()}登入成功`);
     // 將 Token 傳給前端
     res.redirect(`${process.env.WEBSITE_URL}/login-success?token=${token}`);
   } catch (error: unknown) {
     console.error(error);
-    res.status(500).json({
-      message: `伺服器錯誤出現錯誤: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
-    });
-    res.redirect(`${process.env.WEBSITE_URL}/Login`);
-  }
-};
-
-// GitHub 登入回調
-export const githubCallback = async (req: Request, res: Response) => {
-  try {
-    const user = req.user as GitHubProfile;
-    const token = await checkAndAddUser(extractUserData(user));
-
-    console.log("登入成功");
-    // 將 Token 傳給前端
-    res.redirect(`${process.env.WEBSITE_URL}/login-success?token=${token}`);
-  } catch (error: unknown) {
-    console.error(error);
-    res.status(500).json({
-      message: `伺服器錯誤出現錯誤: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
-    });
     res.redirect(`${process.env.WEBSITE_URL}/Login`);
   }
 };

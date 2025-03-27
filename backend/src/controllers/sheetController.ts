@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Sheet } from "../config/googleapi";
-import { authUser } from "../types/user";
+import { authUser } from "../types/auth";
 
 export const getRecords = async (_: Request, res: Response) => {
   try {

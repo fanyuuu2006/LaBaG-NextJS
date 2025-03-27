@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { authUser } from "../types/user";
+import { authUser } from "../types/auth";
 
 // 驗證 JWT Token
 export const authMiddleware = (

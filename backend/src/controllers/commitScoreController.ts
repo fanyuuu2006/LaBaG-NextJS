@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { authUser } from "../types/user";
+import { authUser } from "../types/auth";
 
 export const commitScore = async (req: Request, res: Response) => {
   try {

@@ -1,11 +1,7 @@
-import { Profile as GoogleProfile } from "passport-google-oauth20";
-import { Profile as GitHubProfile } from "passport-github2";
-import { authUser } from "../types/user";
+import { authUser, signProfiles } from "../types/auth";
 import { generateToken } from "./jwt";
 
-export const extractUserData = (
-  user: GitHubProfile | GoogleProfile
-): authUser => ({
+export const extractUserData = (user: signProfiles): authUser => ({
   id: user.id,
   name: user.displayName,
   email: user.emails?.[0].value || "",
