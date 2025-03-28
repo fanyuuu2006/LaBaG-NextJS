@@ -6,7 +6,7 @@ import passport from "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
 import { router as commitScoreRouter } from "./routes/commitScore";
-import { router as sheetRouter } from "./routes/sheet";
+import { router as dataRouter } from "./routes/data";
 
 export const app = express();
 
@@ -47,7 +47,7 @@ app.get("/test", (_, res) => {
 app.use("/auth", authRouter);
 
 // 獲取試算表資料
-app.use("/sheet", sheetRouter);
+app.use("/data", dataRouter);
 
 // 提交遊玩分數至表單
 app.use("/commitScore", commitScoreRouter);

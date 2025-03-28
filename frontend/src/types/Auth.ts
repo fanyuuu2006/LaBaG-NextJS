@@ -29,7 +29,7 @@ export class LaBaGUser implements AuthUser {
     if (!this.id) return [];
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/sheet/getRecords`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/getRecords`
     );
     if (!res.ok) throw new Error("API 回應錯誤");
 

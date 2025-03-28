@@ -31,7 +31,7 @@ export const RankSection = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/sheet/getRecords`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/getRecords`
         );
         const RecordRows = (await response.json()) as string[][];
 

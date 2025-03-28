@@ -85,7 +85,7 @@ export const useUser = (id?: string) => {
   useEffect(() => {
     if (id) {
       setFetching(true);
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sheet/getUsers`)
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/getUsers`)
         .then(async (res) => {
           if (!res.ok) throw new Error("API 回應錯誤");
           return await res.json();

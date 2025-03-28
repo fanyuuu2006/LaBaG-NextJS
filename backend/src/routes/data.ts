@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addUser, getRecords, getUsers } from "../controllers/sheetController";
+import { addUser, getRecords, getUsers } from "../controllers/dataController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const router = Router();
