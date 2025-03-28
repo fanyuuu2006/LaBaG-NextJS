@@ -178,8 +178,8 @@ export const GameSection = () => {
       setTimeout(() => {
         if (!Game.GameRunning()) {
           CommitScore({
-            Score: Game.Score,
-            JsonData: Game.AllData,
+            score: Game.Score,
+            jsonData: Game.AllData,
           });
           Sound("/audio/Ding.mp3");
           router.replace("./GameOver");

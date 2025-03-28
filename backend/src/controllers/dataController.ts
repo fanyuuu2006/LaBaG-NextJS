@@ -89,3 +89,51 @@ export const addUser = async (req: Request, res: Response) => {
     return;
   }
 };
+
+export const addRecord = async (req: Request, res: Response) => {
+  try {
+    const { id, name } = req.user as authUser;
+    const { score, jsonData } = req.body;
+    if (
+      !id ||
+      !name ||
+      !score ||
+      typeof score !== "number" ||
+      typeof jsonData !== "object"
+    ) {
+      console.log("請求數據缺失或是格式錯誤");
+      res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
+      return;
+    }
+
+    await Sheet.spreadsheets.values.append({
+      spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
+      range: "紀錄!A:D",
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [
+          [
+            new Date().toLocaleString("zh-TW", {
+              timeZone: "Asia/Taipei",
+            }),
+            id,
+            name,
+            score,
+            jsonData,
+          ],
+        ],
+      },
+    });
+    console.log("用戶資料添加成功: ", id, name, score, jsonData);
+    res.status(200).json({ message: "添加提交分數" });
+    return;
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤，無法提交分數: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
+  }
+};

@@ -5,7 +5,6 @@ import morgan from "morgan";
 import passport from "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
-import { router as commitScoreRouter } from "./routes/commitScore";
 import { router as dataRouter } from "./routes/data";
 
 export const app = express();
@@ -46,8 +45,6 @@ app.get("/test", (_, res) => {
 // 用戶登入
 app.use("/auth", authRouter);
 
-// 獲取試算表資料
+// 資料庫
 app.use("/data", dataRouter);
 
-// 提交遊玩分數至表單
-app.use("/commitScore", commitScoreRouter);

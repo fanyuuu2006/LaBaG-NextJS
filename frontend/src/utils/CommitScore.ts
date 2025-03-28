@@ -3,7 +3,7 @@ import { CommitScoreProps } from "@/types/Record";
 export const CommitScore = async (props: CommitScoreProps) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/commitScore`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/addRecord`,
       {
         method: "POST",
         headers: {

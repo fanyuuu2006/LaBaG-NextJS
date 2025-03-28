@@ -5,7 +5,7 @@ export type RecordData = {
 };
 
 export type CommitScoreProps = {
-    Score: number;
-    JsonData: Record<string, Record<string, number>>;
+    score: number;
+    jsonData: Record<string, Record<string, number>>;
   };
   
