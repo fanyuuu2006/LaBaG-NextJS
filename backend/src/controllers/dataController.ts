@@ -119,7 +119,7 @@ export const addRecord = async (req: Request, res: Response) => {
             id,
             name,
             score,
-            jsonData,
+            JSON.stringify(jsonData),
           ],
         ],
       },
