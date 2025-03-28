@@ -158,7 +158,7 @@ export class BaseLaBaG implements LaBaG {
         } else if (this.Ps[2]?.Code === this.Ps[0]?.Code) {
           this.MarginScore += this.Ps[2]?.Scores?.[1] as number;
           this.MarginScore += this.Ps[1]?.Scores?.[2] as number;
-          this.MarginScore = Math.round(this.MarginScore / 1.3);
+          this.MarginScore = Math.round(this.MarginScore / 1.5);
         }
         break;
       case 3: // 三個不一樣
