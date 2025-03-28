@@ -26,7 +26,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
       try {
         const records = await User.getHistoryRecord();
         setHistoryRecord(records ?? []);
-        setHistoryScore(User.historyScore());
+        setHistoryScore(await User.historyScore());
       } catch (error) {
         console.error("Error fetching history records:", error);
         Toast.fire({

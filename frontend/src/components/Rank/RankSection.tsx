@@ -31,32 +31,12 @@ export const RankSection = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/getRecords`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/getRanking`
         );
-        const RecordRows = (await response.json()) as string[][];
 
-        // 使用 Map 來存放每位玩家的最高分
-        const recordMap = new Map<string, Omit<RankTableProps, "rank">>();
+        if (!response.ok) throw new Error(await response.json());
 
-        for (const row of RecordRows) {
-          const [timeStamp, userId, name, scoreStr] = row;
-          const score = parseInt(scoreStr);
-
-          // 如果 ID 不存在於 Map，或新分數更高，則更新
-          if (!recordMap.has(userId) || score > recordMap.get(userId)!.score) {
-            recordMap.set(userId, { timeStamp, userId, name, score });
-          }
-        }
-
-        // 轉換為陣列並排序
-        const sortedData = Array.from(recordMap.values())
-          .sort((a, b) => b.score - a.score)
-          .map((value, index) => ({
-            rank: index + 1,
-            ...value,
-          }));
-        console.log(sortedData);
-        setRankDataSource(sortedData);
+        setRankDataSource(await response.json());
       } catch (error) {
         console.error("無法獲取排行榜數據:", error);
         Toast.fire({

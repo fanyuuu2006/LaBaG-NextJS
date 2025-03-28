@@ -137,3 +137,56 @@ export const addRecord = async (req: Request, res: Response) => {
     return;
   }
 };
+
+export const getRanking = async (_: Request, res: Response) => {
+  try {
+    const recordsResponse = await fetch(
+      `${process.env.BACKEND_URL}/data/getRecords`
+    );
+    if (!recordsResponse.ok) {
+      const errorResponse = await recordsResponse.json();
+      throw new Error(errorResponse.message || "獲取數據失敗");
+    }
+
+    const recordRows = (await recordsResponse.json()) as string[][];
+    const recordMap = new Map<
+      string,
+      {
+        userId: string;
+        name: string;
+        score: number;
+        time: string;
+      }
+    >();
+
+    recordRows.forEach((row) => {
+      const [time, userId, name, scoreStr] = row;
+      const score: number = parseInt(scoreStr);
+
+      if (
+        !recordMap.has(userId) ||
+        score > (recordMap.get(userId)?.score ?? 0)
+      ) {
+        recordMap.set(userId, { userId, name, score, time });
+      }
+    });
+    const sortedData = Array.from(recordMap.values())
+      .sort((a, b) => b.score - a.score)
+      .map((value, index) => ({
+        rank: index + 1,
+        ...value,
+      }));
+
+    console.log(sortedData);
+    console.log("成功獲取排行榜數據");
+    res.status(200).json(sortedData);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
+  }
+};
