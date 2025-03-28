@@ -165,7 +165,7 @@ export class BaseLaBaG implements LaBaG {
         this.MarginScore += this.Ps[0]?.Scores?.[2] as number;
         this.MarginScore += this.Ps[1]?.Scores?.[2] as number;
         this.MarginScore += this.Ps[2]?.Scores?.[2] as number;
-        this.MarginScore = Math.round(this.MarginScore / 3);
+        this.MarginScore = Math.round(this.MarginScore *5 /2);
         break;
     }
 

@@ -80,7 +80,7 @@ export const RuleButton = (props: AntdIconProps) => {
                   <mark>僅兩個相同</mark>: lv2對應的兩個相同的名稱之分數 +
                   lv1對應的一個不同的名稱之分數 / 1.3。
                   <br />
-                  <mark>三個皆不同</mark>: 加總lv1對應的名稱之分數後平均。
+                  <mark>三個皆不同</mark>: 加總lv1對應的名稱之分數 / 2.5。
                 </div>
                 <Button
                   type="primary"

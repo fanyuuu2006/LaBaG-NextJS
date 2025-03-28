@@ -160,7 +160,7 @@ export const GameSection = () => {
         title: "遊戲已結束",
       });
       Sound("/audio/Ding.mp3");
-      router.push("./GameOver");
+      router.replace("./GameOver");
     } else {
       reset_qst_and_marginscore();
       Game.Logic();
@@ -182,7 +182,7 @@ export const GameSection = () => {
             JsonData: Game.AllData,
           });
           Sound("/audio/Ding.mp3");
-          router.push("./GameOver");
+          router.replace("./GameOver");
         }
         if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
           PopPicture(Game.NowMode());
