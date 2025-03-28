@@ -150,15 +150,15 @@ export class BaseLaBaG implements LaBaG {
         if (this.Ps[0]?.Code === this.Ps[1]?.Code) {
           this.MarginScore += this.Ps[0]?.Scores?.[1] as number;
           this.MarginScore += this.Ps[2]?.Scores?.[2] as number;
-          this.MarginScore = Math.round(this.MarginScore / 1.3);
+          this.MarginScore = Math.round(this.MarginScore / 1.4);
         } else if (this.Ps[1]?.Code === this.Ps[2]?.Code) {
           this.MarginScore += this.Ps[1]?.Scores?.[1] as number;
           this.MarginScore += this.Ps[0]?.Scores?.[2] as number;
-          this.MarginScore = Math.round(this.MarginScore / 1.3);
+          this.MarginScore = Math.round(this.MarginScore / 1.4);
         } else if (this.Ps[2]?.Code === this.Ps[0]?.Code) {
           this.MarginScore += this.Ps[2]?.Scores?.[1] as number;
           this.MarginScore += this.Ps[1]?.Scores?.[2] as number;
-          this.MarginScore = Math.round(this.MarginScore / 1.5);
+          this.MarginScore = Math.round(this.MarginScore / 1.4);
         }
         break;
       case 3: // 三個不一樣
