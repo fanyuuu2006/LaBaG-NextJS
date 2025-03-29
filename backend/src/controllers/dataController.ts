@@ -54,7 +54,6 @@ export const getUsers = async (_: Request, res: Response) => {
     const userDatas: authUser[] = userRows.map((row) => ({
       id: row[1],
       name: row[2],
-      email: row[3],
       image: row[4],
     }));
 

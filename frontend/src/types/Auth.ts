@@ -5,20 +5,17 @@ export type signOptions = "google" | "github";
 export interface authUser {
   id?: string;
   name?: string;
-  email?: string;
   image?: string;
 }
 
 export class LaBaGUser implements authUser {
   id?: authUser["id"] | undefined;
   name?: authUser["name"] | undefined;
-  email?: authUser["email"] | undefined;
   image?: authUser["image"] | undefined;
 
   constructor(user: authUser) {
     this.id = user.id;
     this.name = user.name;
-    this.email = user.email;
     this.image = user.image;
   }
 
