@@ -11,7 +11,7 @@ import { authMiddleware } from "../../middlewares/authMiddleware";
 export const router = Router();
 
 router.get("/", getRecords);
-router.get("/:id", getRecordsById);
 router.get("/ranking", getRanking);
+router.get("/:id", getRecordsById);
 
 router.post("/", authMiddleware, addRecord);

@@ -190,7 +190,6 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
-
 export const getRecordsById = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id as authUser["id"];
@@ -207,7 +206,8 @@ export const getRecordsById = async (req: Request, res: Response) => {
 
     const recordDatass = (await response.json()) as gameRecord[];
 
-    const userRecords = recordDatass.filter((record) => record.id === userId) ?? [];
+    const userRecords =
+      recordDatass.filter((record) => record.id === userId) ?? [];
 
     res.status(200).json(userRecords);
   } catch (error: unknown) {
@@ -227,15 +227,16 @@ export const getRanking = async (_: Request, res: Response) => {
       `${process.env.BACKEND_URL}/data/records`
     );
     if (!recordsResponse.ok) {
-      const errorResponse = await recordsResponse.json();
-      throw new Error(errorResponse.message || "獲取數據失敗");
+      console.log("獲取紀錄資料失敗")
+      throw new Error(await recordsResponse.json());
     }
 
     const recordDatas = (await recordsResponse.json()) as gameRecord[];
     const recordMap = new Map<authUser["id"], gameRecord>();
 
     recordDatas.forEach((record) => {
-      const { id , score } = record;
+      const { id, score } = record;
+      console.log(id, score)
 
       if (!recordMap.has(id) || score > (recordMap.get(id)?.score ?? 0)) {
         recordMap.set(id, record);
