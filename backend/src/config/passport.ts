@@ -8,9 +8,7 @@ import {
   Profile as GitHubProfile,
 } from "passport-github2";
 
-interface DoneCallback {
-  (err: any, user?: any): void;
-}
+import { VerifyCallback } from "passport-oauth2";
 
 passport.use(
   new GoogleStrategy(
@@ -23,7 +21,7 @@ passport.use(
       accessToken: string,
       refreshToken: string,
       profile: GoogleProfile,
-      done: DoneCallback
+      done: VerifyCallback
     ) => {
       return done(null, profile);
     }
@@ -41,7 +39,7 @@ passport.use(
       accessToken: string,
       refreshToken: string,
       profile: GitHubProfile,
-      done: DoneCallback
+      done: VerifyCallback
     ) => {
       return done(null, profile);
     }

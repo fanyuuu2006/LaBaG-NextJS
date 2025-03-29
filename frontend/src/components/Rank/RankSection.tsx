@@ -22,7 +22,7 @@ export const RankSection = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/ranking`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records/ranking`
         );
 
         if (!response.ok) throw new Error(await response.json());
