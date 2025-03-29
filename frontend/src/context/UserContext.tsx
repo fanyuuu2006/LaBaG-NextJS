@@ -85,22 +85,14 @@ export const useUser = (id?: string) => {
   useEffect(() => {
     if (id) {
       setFetching(true);
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/getUsers`)
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users/${id}`)
         .then(async (res) => {
           if (!res.ok) throw new Error("API 回應錯誤");
           return await res.json();
         })
-        .then((data: string[][]) => {
-          const userData = data.find((row) => row[1] === id);
-          if (userData) {
-            setFetchedUser(
-              new LaBaGUser({
-                id: userData[1] ?? "",
-                name: userData[2] ?? "",
-                email: userData[3] ?? "",
-                image: userData[4] ?? "",
-              })
-            );
+        .then((data: AuthUser) => {
+          if (data) {
+            setFetchedUser(new LaBaGUser(data));
           }
           setFetching(false);
         })

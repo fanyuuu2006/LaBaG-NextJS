@@ -9,7 +9,7 @@ export const extractUserData = (user: signProfiles): authUser => ({
 });
 
 export const checkAndAddUser = async (user: authUser): Promise<string> => {
-  const response = await fetch(`${process.env.BACKEND_URL}/data/getUsers`);
+  const response = await fetch(`${process.env.BACKEND_URL}/data/users`);
   if (!response.ok) throw new Error("獲取用戶列表失敗");
 
   const userRows: string[][] = await response.json();
@@ -26,7 +26,7 @@ export const checkAndAddUser = async (user: authUser): Promise<string> => {
 
   if (!existingUser) {
     const addUserResponse = await fetch(
-      `${process.env.BACKEND_URL}/data/addUser`,
+      `${process.env.BACKEND_URL}/data/users`,
       {
         method: "POST",
         headers: {

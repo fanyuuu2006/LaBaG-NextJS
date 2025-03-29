@@ -18,7 +18,7 @@ app.set("trust proxy", true);
 app.use(
   rateLimit({
     windowMs: 60 * 1000, // 1 分鐘
-    max: 20, // 最多請求 20次
+    max: 50, // 最多請求 50次
     message: { message: "請求過於頻繁，請稍後再試" },
     keyGenerator: (req) => req?.ip ?? "", // 使用來自每個請求的 req.ip（即客戶端的 IP 地址）來生成唯一的識別鍵 這樣系統就會對每個 IP 地址進行獨立的限流控制
   })

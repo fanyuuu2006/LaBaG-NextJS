@@ -98,6 +98,7 @@ export const addRecord = async (req: Request, res: Response) => {
       !id ||
       !name ||
       !score ||
+      !jsonData ||
       typeof score !== "number" ||
       typeof jsonData !== "object"
     ) {
@@ -138,10 +139,52 @@ export const addRecord = async (req: Request, res: Response) => {
   }
 };
 
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id as authUser["id"];
+    if (!userId) {
+      console.log("請求數據缺失或是格式錯誤");
+      res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
+      return;
+    }
+
+    const response = await fetch(`${process.env.BACKEND_URL}/data/users`);
+    if (!response.ok) {
+      throw new Error(await response.json());
+    }
+
+    const userRows = (await response.json()) as string[][];
+
+    const userData = userRows.find((row) => row[1] === userId);
+
+    if (!userData) {
+      console.log("查詢不到該用戶資料");
+      res.status(400).json({ message: "查詢不到該用戶資料" });
+      return;
+    }
+
+    const user: authUser = {
+      id: userId,
+      name: userData[2],
+      email: userData[3],
+      image: userData[4],
+    };
+    res.status(200).json(user);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
+  }
+};
+
 export const getRanking = async (_: Request, res: Response) => {
   try {
     const recordsResponse = await fetch(
-      `${process.env.BACKEND_URL}/data/getRecords`
+      `${process.env.BACKEND_URL}/data/records`
     );
     if (!recordsResponse.ok) {
       const errorResponse = await recordsResponse.json();
