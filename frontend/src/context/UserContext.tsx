@@ -1,5 +1,5 @@
 "use client";
-import { AuthUser, signOptions, LaBaGUser } from "@/types/Auth";
+import { authUser, signOptions, LaBaGUser } from "@/types/Auth";
 import {
   createContext,
   useContext,
@@ -46,7 +46,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     })
       .then((res) => {
         if (!res.ok) throw new Error("API 回應錯誤");
-        return res.json() as AuthUser;
+        return res.json() as authUser;
       })
       .then((user) => {
         setUser(new LaBaGUser(user));
@@ -90,7 +90,7 @@ export const useUser = (id?: string) => {
           if (!res.ok) throw new Error("API 回應錯誤");
           return await res.json();
         })
-        .then((data: AuthUser) => {
+        .then((data: authUser) => {
           if (data) {
             setFetchedUser(new LaBaGUser(data));
           }
@@ -100,9 +100,9 @@ export const useUser = (id?: string) => {
     }
   }, [id]);
 
-  // 如果沒有 id，則使用 Context 中的 AuthUser
+  // 如果沒有 id，則使用 Context 中的 authUser
   return {
-    User: id ? FetchedUser : User, // 如果有 id，則返回查詢到的 User，否則返回 Context 中的 AuthUser
+    User: id ? FetchedUser : User, // 如果有 id，則返回查詢到的 User，否則返回 Context 中的 authUser
     Loading: Loading || Fetching, // 如果登入狀態是 loading 或者在獲取資料時，則為 loading
     signIn,
     signOut,

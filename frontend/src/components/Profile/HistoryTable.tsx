@@ -1,9 +1,9 @@
-import { RecordData } from "@/types/Record";
+import { gameRecord } from "@/types/Record";
 
 export const HistoryTable = ({
   HistoryRecord,
 }: {
-  HistoryRecord: RecordData[];
+  HistoryRecord: gameRecord[];
 }) => {
   return (
     <>
@@ -40,11 +40,15 @@ export const HistoryTable = ({
           </thead>
           <tbody>
             {HistoryRecord.length > 0 ? (
-              HistoryRecord.sort((a, b) => b.index - a.index)
+              HistoryRecord.map((record: gameRecord, index: number) => ({
+                index,
+                ...record,
+              }))
+                .sort((a, b) => b.index - a.index)
                 .slice(0, 20)
-                .map((data: RecordData, i: number) => (
+                .map((data: gameRecord, i: number) => (
                   <tr key={i}>
-                    <td>{data.timestamp}</td>
+                    <td>{data.time}</td>
 
                     <td style={{ whiteSpace: "nowrap" }}>{data.score}</td>
                   </tr>

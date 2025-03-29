@@ -1,11 +1,17 @@
-export type RecordData = {
-    index: number;
-    timestamp: string;
-    score: number;
+import { authUser } from "./Auth";
+
+export type gameRecord = {
+  time?: string;
+  id: authUser["id"];
+  name?: string;
+  score: number;
 };
 
+export interface RankedGameRecord extends gameRecord {
+  rank: number;
+}
+
 export type CommitScoreProps = {
-    score: number;
-    jsonData: Record<string, Record<string, number>>;
-  };
-  
+  score: number;
+  jsonData: Record<string, Record<string, number>>;
+};

@@ -1,22 +1,30 @@
 import { Request, Response } from "express";
 import { Sheet } from "../config/googleapi";
 import { authUser } from "../types/auth";
+import { gameRecord } from "../types/record";
 
 export const getRecords = async (_: Request, res: Response) => {
   try {
-    const RecordResponse = await Sheet.spreadsheets.values.get({
+    const recordResponse = await Sheet.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
       range: "紀錄!A:D",
     });
 
-    const RecordRows = RecordResponse.data.values?.slice(1) as string[][];
-
-    if (RecordRows) {
-      res.status(200).json(RecordRows);
+    const recordRows = recordResponse.data.values?.slice(1) as string[][];
+    if (!recordRows) {
+      console.log("獲取試算表錯誤");
+      res.status(400).json({ message: "獲取試算表錯誤" });
       return;
     }
-    console.log("獲取試算表錯誤");
-    res.status(400).json({ message: "獲取試算表錯誤" });
+
+    const recordDatas: gameRecord[] = recordRows.map((row) => ({
+      time: row[0],
+      id: row[1],
+      name: row[2],
+      score: parseInt(row[3]),
+    }));
+
+    res.status(200).json(recordDatas);
     return;
   } catch (error: unknown) {
     console.error(error);
@@ -31,18 +39,25 @@ export const getRecords = async (_: Request, res: Response) => {
 
 export const getUsers = async (_: Request, res: Response) => {
   try {
-    const UserResponse = await Sheet.spreadsheets.values.get({
+    const userResponse = await Sheet.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
       range: "用戶資料!A:E",
     });
-
-    const UserRows = UserResponse.data.values?.slice(1) as string[][];
-
-    if (UserRows) {
-      res.status(200).json(UserRows);
+    const userRows = userResponse.data.values?.slice(1) as string[][];
+    if (!userRows) {
+      console.log("獲取試算表錯誤");
+      res.status(400).json({ message: "獲取試算表錯誤" });
       return;
     }
-    res.status(400).json({ message: `獲取試算表錯誤` });
+
+    const userDatas: authUser[] = userRows.map((row) => ({
+      id: row[1],
+      name: row[2],
+      email: row[3],
+      image: row[4],
+    }));
+
+    res.status(200).json(userDatas);
     return;
   } catch (error: unknown) {
     console.error(error);
@@ -153,23 +168,48 @@ export const getUserById = async (req: Request, res: Response) => {
       throw new Error(await response.json());
     }
 
-    const userRows = (await response.json()) as string[][];
+    const userRows = (await response.json()) as authUser[];
 
-    const userData = userRows.find((row) => row[1] === userId);
+    const user = userRows.find((user) => user.id === userId);
 
-    if (!userData) {
+    if (!user) {
       console.log("查詢不到該用戶資料");
-      res.status(400).json({ message: "查詢不到該用戶資料" });
+      res.status(404).json({ message: "查詢不到該用戶資料" });
       return;
     }
 
-    const user: authUser = {
-      id: userId,
-      name: userData[2],
-      email: userData[3],
-      image: userData[4],
-    };
     res.status(200).json(user);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
+  }
+};
+
+
+export const getRecordsById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id as authUser["id"];
+    if (!userId) {
+      console.log("請求數據缺失或是格式錯誤");
+      res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
+      return;
+    }
+
+    const response = await fetch(`${process.env.BACKEND_URL}/data/records`);
+    if (!response.ok) {
+      throw new Error(await response.json());
+    }
+
+    const recordDatass = (await response.json()) as gameRecord[];
+
+    const userRecords = recordDatass.filter((record) => record.id === userId) ?? [];
+
+    res.status(200).json(userRecords);
   } catch (error: unknown) {
     console.error(error);
     res.status(500).json({
@@ -191,26 +231,14 @@ export const getRanking = async (_: Request, res: Response) => {
       throw new Error(errorResponse.message || "獲取數據失敗");
     }
 
-    const recordRows = (await recordsResponse.json()) as string[][];
-    const recordMap = new Map<
-      string,
-      {
-        userId: string;
-        name: string;
-        score: number;
-        time: string;
-      }
-    >();
+    const recordDatas = (await recordsResponse.json()) as gameRecord[];
+    const recordMap = new Map<authUser["id"], gameRecord>();
 
-    recordRows.forEach((row) => {
-      const [time, userId, name, scoreStr] = row;
-      const score: number = parseInt(scoreStr);
+    recordDatas.forEach((record) => {
+      const { id , score } = record;
 
-      if (
-        !recordMap.has(userId) ||
-        score > (recordMap.get(userId)?.score ?? 0)
-      ) {
-        recordMap.set(userId, { userId, name, score, time });
+      if (!recordMap.has(id) || score > (recordMap.get(id)?.score ?? 0)) {
+        recordMap.set(id, record);
       }
     });
     const sortedData = Array.from(recordMap.values())

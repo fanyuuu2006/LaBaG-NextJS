@@ -9,14 +9,14 @@ import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
 import { Toast } from "@/components/common/Alert";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
-import { RecordData } from "@/types/Record";
+import { gameRecord } from "@/types/Record";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
   const { User, Loading } = useUser(UserID as string);
 
   const [HistoryScore, setHistoryScore] = useState<number>(0);
-  const [HistoryRecord, setHistoryRecord] = useState<RecordData[]>([]);
+  const [HistoryRecord, setHistoryRecord] = useState<gameRecord[]>([]);
   const [searchID, setSearchID] = useState<string | null>(null);
 
   useEffect(() => {

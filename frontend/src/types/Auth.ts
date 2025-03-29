@@ -1,21 +1,21 @@
-import { RecordData } from "./Record";
+import { gameRecord } from "./Record";
 
 export type signOptions = "google" | "github";
 
-export interface AuthUser {
+export interface authUser {
   id?: string;
   name?: string;
   email?: string;
   image?: string;
 }
 
-export class LaBaGUser implements AuthUser {
-  id?: string | undefined;
-  name?: string | undefined;
-  email?: string | undefined;
-  image?: string | undefined;
+export class LaBaGUser implements authUser {
+  id?: authUser["id"] | undefined;
+  name?: authUser["name"] | undefined;
+  email?: authUser["email"] | undefined;
+  image?: authUser["image"] | undefined;
 
-  constructor(user: AuthUser) {
+  constructor(user: authUser) {
     this.id = user.id;
     this.name = user.name;
     this.email = user.email;
@@ -23,32 +23,19 @@ export class LaBaGUser implements AuthUser {
   }
 
   // 獲取歷史記錄
-  async getHistoryRecord(): Promise<RecordData[]> {
+  async getHistoryRecord(): Promise<gameRecord[]> {
     if (!this.id) return [];
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records/${this.id}`
     );
     if (!res.ok) throw new Error("API 回應錯誤");
 
-    const data: string[][] = await res.json();
-
-    return (
-      data
-        .filter((row) => row[1] === this.id)
-        ?.map((row, index) => ({
-          index,
-          timestamp: row[0] ?? "",
-          score: parseInt(row[3] ?? "0"),
-        })) ?? []
-    );
+    return await res.json();
   }
 
   // 獲取最高分
-  async historyScore(): Promise<number> {
-    return Math.max(
-      0,
-      ...((await this.getHistoryRecord()).map((h) => h.score) ?? [])
-    );
+  async historyScore(): Promise<gameRecord["score"]> {
+    return Math.max(0, ...(await this.getHistoryRecord()).map((h) => h.score));
   }
 }

@@ -6,24 +6,15 @@ import { Tooltip } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Toast } from "../common/Alert";
-
-type RankTableProps = {
-  userId: string;
-  rank: number;
-  name: string;
-  score: number;
-  timeStamp: string;
-};
+import { RankedGameRecord } from "@/types/Record";
 
 export const RankSection = () => {
   const { User } = useUser();
 
-  const [RankDataSource, setRankDataSource] = useState<RankTableProps[] | null>(
-    null
-  );
-  const UserRank = RankDataSource?.find(
-    (data) => User && data.userId === User.id
-  );
+  const [RankDataSource, setRankDataSource] = useState<
+    RankedGameRecord[] | null
+  >(null);
+  const UserRank = RankDataSource?.find((data) => User && data.id === User.id);
 
   const { NowMode } = useNowMode();
 
@@ -107,17 +98,17 @@ export const RankSection = () => {
               <tbody>
                 {RankDataSource.map((data) => (
                   <tr
-                    key={data.userId}
+                    key={data.id}
                     className="Hint"
                     style={{
-                      color: User?.id == data.userId ? "#FFFF69" : "#FFFFFF",
+                      color: User?.id == data.id ? "#FFFF69" : "#FFFFFF",
                     }}
                   >
                     <td className="CenterAlign">{data.rank}</td>
                     <td className="CenterAlign">
                       <Tooltip title="查看個人檔案">
                         <Link
-                          href={`/Profile/${data.userId}`}
+                          href={`/Profile/${data.id}`}
                           style={{ color: "inherit" }}
                         >
                           {data.name}
@@ -129,7 +120,7 @@ export const RankSection = () => {
                       className="CenterAlign"
                       style={{ fontSize: "0.8em", whiteSpace: "wrap" }}
                     >
-                      {data.timeStamp}
+                      {data.time}
                     </td>
                   </tr>
                 ))}
@@ -150,7 +141,7 @@ export const RankSection = () => {
                     <td className="CenterAlign">
                       <Tooltip title="查看個人檔案">
                         <Link
-                          href={`/Profile/${UserRank.userId}`}
+                          href={`/Profile/${UserRank.id}`}
                           style={{ color: "inherit" }}
                         >
                           {UserRank.name}
@@ -162,7 +153,7 @@ export const RankSection = () => {
                       className="CenterAlign"
                       style={{ fontSize: "0.8em", whiteSpace: "wrap" }}
                     >
-                      {UserRank.timeStamp}
+                      {UserRank.time}
                     </td>
                   </tr>
                 </tfoot>

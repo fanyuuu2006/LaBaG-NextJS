@@ -9,22 +9,23 @@ export const extractUserData = (user: signProfiles): authUser => ({
 });
 
 export const checkAndAddUser = async (user: authUser): Promise<string> => {
-  const response = await fetch(`${process.env.BACKEND_URL}/data/users`);
-  if (!response.ok) throw new Error("獲取用戶列表失敗");
+  try {
+    // 直接檢查特定 ID，而不是取得整個列表
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/data/users/${user.id}`
+    );
 
-  const userRows: string[][] = await response.json();
-  const existingUser = userRows.find((row) => row?.[1] === user.id);
+    if (response.ok) {
+      const existingUser = (await response.json()) as authUser;
+      return generateToken(existingUser);
+    }
 
-  const userData: authUser = {
-    id: user.id,
-    name: existingUser?.[2] || user.name,
-    email: existingUser?.[3] || user.email,
-    image: existingUser?.[4] || user.image,
-  };
+    if (response.status !== 404) {
+      throw new Error(await response.json());
+    }
 
-  const token = generateToken(userData);
-
-  if (!existingUser) {
+    // 如果用戶不存在，新增用戶
+    const token = generateToken(user);
     const addUserResponse = await fetch(
       `${process.env.BACKEND_URL}/data/users`,
       {
@@ -33,12 +34,20 @@ export const checkAndAddUser = async (user: authUser): Promise<string> => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(user),
       }
     );
 
-    if (!addUserResponse.ok) throw new Error(await addUserResponse.json());
-  }
+    if (!addUserResponse.ok) {
+      const errorResponse = await addUserResponse.json();
+      throw new Error(errorResponse.message || "新增用戶失敗");
+    }
 
-  return token;
+    return token;
+  } catch (error: unknown) {
+    console.error(error);
+    throw new Error(
+      `${error instanceof Error ? error.message : String(error)}`
+    );
+  }
 };
