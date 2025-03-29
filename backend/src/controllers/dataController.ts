@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Sheet } from "../config/googleapi";
 import { authUser } from "../types/auth";
 import { gameRecord } from "../types/record";
+import { createUser } from "../utils/user";
 
 export const getRecords = async (_: Request, res: Response) => {
   try {
@@ -72,32 +73,21 @@ export const getUsers = async (_: Request, res: Response) => {
 
 export const addUser = async (req: Request, res: Response) => {
   try {
-    const { id, name, email, image } = req.body as authUser;
-    await Sheet.spreadsheets.values.append({
-      spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
-      range: "用戶資料!A:E",
-      valueInputOption: "RAW",
-      requestBody: {
-        values: [
-          [
-            new Date().toLocaleString("zh-TW", {
-              timeZone: "Asia/Taipei",
-            }),
-            id,
-            name,
-            email,
-            image,
-          ],
-        ],
-      },
-    });
-    console.log("用戶資料添加成功: ", id, name, email, image);
-    res.status(200).json({ message: "添加用戶成功" });
+    const user = req.body as authUser;
+
+    // 確保 createUser 執行成功
+    const newUser = await createUser(user);
+    if (!newUser) {
+      res.status(500).json({ message: "❌ 無法添加用戶" });
+      return;
+    }
+
+    res.status(201).json({ message: "✅ 添加用戶成功", user: newUser });
     return;
-  } catch (error: unknown) {
-    console.error(error);
+  } catch (error) {
+    console.error("❌ 伺服器錯誤:", error);
     res.status(500).json({
-      message: `伺服器錯誤，無法添加用戶: ${
+      message: `❌ 伺服器錯誤，無法添加用戶: ${
         error instanceof Error ? error.message : String(error)
       }`,
     });
@@ -227,7 +217,7 @@ export const getRanking = async (_: Request, res: Response) => {
       `${process.env.BACKEND_URL}/data/records`
     );
     if (!recordsResponse.ok) {
-      console.log("獲取紀錄資料失敗")
+      console.log("獲取紀錄資料失敗");
       throw new Error(await recordsResponse.json());
     }
 
