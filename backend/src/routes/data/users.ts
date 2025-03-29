@@ -9,6 +9,6 @@ import { authMiddleware } from "../../middlewares/authMiddleware";
 export const router = Router();
 
 router.get("/", getUsers);
-router.get("/:id", getUserById);
+router.get("/:id(\\d+)", getUserById);
 
 router.post("/", authMiddleware, addUser);

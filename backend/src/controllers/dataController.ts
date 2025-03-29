@@ -236,7 +236,6 @@ export const getRanking = async (_: Request, res: Response) => {
 
     recordDatas.forEach((record) => {
       const { id, score } = record;
-      console.log(id, score)
 
       if (!recordMap.has(id) || score > (recordMap.get(id)?.score ?? 0)) {
         recordMap.set(id, record);
