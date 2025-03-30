@@ -20,7 +20,7 @@ export const LoginSection = () => {
   }, [User, router]);
 
   return (
-    <section style={{height: "auto"}}>
+    <section style={{height: "100%"}}>
       <Space
         direction="vertical"
         align="center"

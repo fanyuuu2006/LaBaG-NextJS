@@ -19,16 +19,22 @@ const AuthItems: Record<signOptions, { label: string; icon: ReactNode }> = {
   github: { label: "GitHub", icon: <GithubOutlined /> },
 };
 
+/**
+ * 登入身分驗證按鈕組件
+ * @component
+ * @param {signOptions} props.signBy - 指定登入方式
+ */
+
 export const AuthButton = (props: AuthButtonProps) => {
   const { signBy, style, ...rest } = props;
   const { User, Loading, signIn, signOut } = useUser();
 
   const handleAuth = User ? signOut : () => signIn(signBy);
-  
+  const authItem = AuthItems[signBy];
   if (Loading) return null;
   return (
     <Button
-      icon={AuthItems[signBy].icon}
+      icon={authItem.icon}
       {...rest}
       style={{
         ...style,
@@ -36,7 +42,7 @@ export const AuthButton = (props: AuthButtonProps) => {
       }}
       onClick={handleAuth}
     >
-      {AuthItems[signBy].label}
+      {authItem.label}
     </Button>
   );
 };
