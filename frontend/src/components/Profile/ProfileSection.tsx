@@ -25,7 +25,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
     const fetchData = async () => {
       try {
         const records = await User.getHistoryRecord();
-        setHistoryRecord(records ?? []);
+        setHistoryRecord(records);
         setHistoryScore(await User.historyScore());
       } catch (error) {
         console.error("Error fetching history records:", error);
