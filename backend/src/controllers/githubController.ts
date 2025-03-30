@@ -2,16 +2,16 @@ import { Request, Response } from "express";
 
 export const getFIleContent = async (req: Request, res: Response) => {
   try {
-    const file = req.params.file;
+    const path = typeof req.query.path === "string" ? req.query.path : null;
 
-    // 檢查參數
-    if (!file) {
-      res.status(400).json({ error: "未提供有效的文件名稱" });
+    // 檢查參數是否有效
+    if (!path) {
+      res.status(400).json({ error: "未提供有效的路徑名稱" });
       return;
     }
 
     const response = await fetch(
-      `https://api.github.com/repos/fanyuuu2006/LaBaG-NextJS/contents/${file}`,
+      `https://api.github.com/repos/fanyuuu2006/LaBaG-NextJS/contents/${path}`,
       {
         headers: {
           Authorization: `token ${process.env.GITHUB_API_TOKEN}`,

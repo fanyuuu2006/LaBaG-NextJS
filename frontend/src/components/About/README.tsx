@@ -10,7 +10,7 @@ export const README = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/github/README.md`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/github?path=README.md`
         );
 
         if (!response.ok) throw new Error(await response.json());
