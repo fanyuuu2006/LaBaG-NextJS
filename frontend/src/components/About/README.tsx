@@ -29,11 +29,15 @@ export const README = () => {
   }, []);
 
   return readmeContent ? (
-    <>
+    <div
+      style={{
+        textAlign: "justify",
+      }}
+    >
       <ReactMarkdown remarkPlugins={[remarkGfm]}>
         {readmeContent!}
       </ReactMarkdown>
-    </>
+    </div>
   ) : (
     <>加載中</>
   );
