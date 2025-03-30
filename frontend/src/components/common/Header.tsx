@@ -2,17 +2,19 @@
 import { Logo } from "./Logo";
 import Link from "next/link";
 import ModeColors from "@/json/ModeColors.json";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useNowMode } from "@/context/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import {
+  GithubOutlined,
   HomeOutlined,
   MenuOutlined,
   TrophyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useUser } from "@/context/UserContext";
+import { OutsideLink } from "./OutsideLink";
 
 type NavItem = {
   key: string;
@@ -25,44 +27,57 @@ export const Header = () => {
   const pathName = usePathname();
   const { NowMode } = useNowMode();
 
-  const NavItems: NavItem[] = useMemo(() => {
-    return [
-      {
-        key: "Home",
-        label: (
-          <>
-            <HomeOutlined /> 首頁
-          </>
-        ),
-        href: "/",
-      },
-      {
-        key: "Rank",
-        label: (
-          <>
-            <TrophyOutlined /> 排行榜
-          </>
-        ),
-        href: "/Rank",
-      },
-      {
-        key: "Profile",
-        label: (
-          <>
-            <UserOutlined /> {"個人檔案"}
-          </>
-        ),
-        href: `/Profile`,
-      },
-      {
-        key: "Sign",
-        label: (
-          <div onClick={() => User && signOut()}>{User ? "登出" : "登入"}</div>
-        ),
-        href: User ? "#" : "/Login",
-      },
-    ];
-  }, [User, signOut]); // 只依赖必要的字段
+  const NavItems: NavItem[] = [
+    {
+      key: "Home",
+      label: (
+        <>
+          <HomeOutlined /> 首頁
+        </>
+      ),
+      href: "/",
+    },
+    {
+      key: "Rank",
+      label: (
+        <>
+          <TrophyOutlined /> 排行榜
+        </>
+      ),
+      href: "/Rank",
+    },
+    {
+      key: "Profile",
+      label: (
+        <>
+          <UserOutlined /> 個人檔案
+        </>
+      ),
+      href: "/Profile",
+    },
+    {
+      key: "Repository",
+      label: (
+        <>
+          <GithubOutlined /> 原始碼庫
+        </>
+      ),
+      href: "https://github.com/fanyuuu2006/LaBaG-NextJS.git",
+    },
+    {
+      key: "Sign",
+      label: (
+        <div
+          onClick={() => {
+            if (User) signOut();
+          }}
+        >
+          {User ? "登出" : "登入"}
+        </div>
+      ),
+      href: "/Login",
+    },
+  ];
 
   return (
     <Navbar
@@ -86,7 +101,6 @@ export const Header = () => {
           aria-controls="navbar-nav"
           style={{
             backgroundColor: "transparent", // 透明背景
-            border: "none", // 移除框線
             boxShadow: "none", // 移除陰影
           }}
         >
@@ -110,7 +124,7 @@ export const Header = () => {
 
               return (
                 <Nav.Link
-                  as={Link}
+                  as={item.href.startsWith("http") ? OutsideLink : Link}
                   href={item.href}
                   key={item.key}
                   style={{

@@ -23,23 +23,16 @@ export const AuthButton = (props: AuthButtonProps) => {
   const { signBy, style, ...rest } = props;
   const { User, Loading, signIn, signOut } = useUser();
 
-  const handleAuth = () => {
-    if (User) {
-      signOut();
-    } else {
-      signIn(signBy);
-    }
-  };
-
-  return Loading ? (
-    <></>
-  ) : (
+  const handleAuth = User ? signOut : () => signIn(signBy);
+  
+  if (Loading) return null;
+  return (
     <Button
       icon={AuthItems[signBy].icon}
       {...rest}
       style={{
         ...style,
-        padding: "1em 2em"
+        padding: "1em 2em",
       }}
       onClick={handleAuth}
     >
