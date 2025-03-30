@@ -1,23 +1,18 @@
 "use client";
 import { Button, ButtonProps } from "antd";
 import { GithubOutlined, GoogleOutlined } from "@ant-design/icons";
-import { CSSProperties, ReactNode } from "react";
 import { useUser } from "@/context/UserContext";
 import { signOptions } from "@/types/Auth";
 
-interface AuthButtonProps
-  extends Omit<ButtonProps, "onClick" | "icon" | "style"> {
+interface AuthButtonProps extends Omit<ButtonProps, "onClick" | "icon"> {
   signBy: signOptions;
-  style?: Omit<
-    CSSProperties,
-    "padding" | "paddingTop" | "paddingBottom" | "paddingLeft" | "paddingRight"
-  >;
 }
 
-const AuthItems: Record<signOptions, { label: string; icon: ReactNode }> = {
-  google: { label: "Google", icon: <GoogleOutlined /> },
-  github: { label: "GitHub", icon: <GithubOutlined /> },
-};
+const AuthItems: Record<signOptions, { label: string; icon: React.ReactNode }> =
+  {
+    google: { label: "Google", icon: <GoogleOutlined /> },
+    github: { label: "GitHub", icon: <GithubOutlined /> },
+  };
 
 /**
  * 登入身分驗證按鈕組件
@@ -31,15 +26,12 @@ export const AuthButton = (props: AuthButtonProps) => {
 
   const handleAuth = User ? signOut : () => signIn(signBy);
   const authItem = AuthItems[signBy];
-  if (Loading) return null;
   return (
     <Button
+      disabled={Loading}
       icon={authItem.icon}
       {...rest}
-      style={{
-        ...style,
-        padding: "1em 2em",
-      }}
+      style={{ padding: "1em 2em", ...style }}
       onClick={handleAuth}
     >
       {authItem.label}

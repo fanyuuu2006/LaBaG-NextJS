@@ -1,5 +1,5 @@
 import { ModeNames } from "./Mode";
-
+import PDatas, { PData } from "@/json/PDatas.json";
 
 export const DefaultRates: Record<ModeNames, number> = {
   Normal: 0,
@@ -28,3 +28,7 @@ export class P {
     }
   }
 }
+
+Object.values(PDatas).forEach((Pdata: PData) => {
+  new P(Pdata.code, Pdata.scores, Pdata.rates);
+});
