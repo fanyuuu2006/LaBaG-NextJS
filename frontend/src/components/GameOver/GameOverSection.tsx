@@ -10,16 +10,18 @@ export const GameOverSection = () => {
   const { User } = useUser();
   const router = useRouter();
   const { setNowMode } = useNowMode();
-  const [historyScore, setHistoryScore] = useState<number | null>(null);
+  const [historyScore, setHistoryScore] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchHistoryScore = async () => {
       if (User) {
         const score = await User.historyScore();
-        setHistoryScore(score ?? 0);
+        setHistoryScore(score);
       }
     };
     fetchHistoryScore();
+    setLoading(false);
   }, [User]);
 
   return (
@@ -47,7 +49,7 @@ export const GameOverSection = () => {
             {Game.Score.toString().padStart(8, "\u00A0")}
           </span>
           <span className="Hint" style={{ color: "#FF3333" }}>
-            {User && historyScore && Game.Score > historyScore && "新紀錄"}
+            {User && !loading && Game.Score > historyScore && "新紀錄"}
           </span>
         </div>
         <Button
