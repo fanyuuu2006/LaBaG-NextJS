@@ -5,6 +5,7 @@ export type OutsideLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 /**
  * 外部連結組件
+ * @param {OutsideLinkProps} props
  */
 
 export const OutsideLink: React.FC<OutsideLinkProps> = (
