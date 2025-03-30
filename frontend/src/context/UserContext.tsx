@@ -22,10 +22,18 @@ const UserContext = createContext<
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [User, setUser] = useState<LaBaGUser | undefined>(undefined);
   const [Loading, setLoading] = useState<boolean>(true);
+
+  /**
+   * 登入
+   * @param signBy - 登入方式
+   */
   const signIn = (signBy: signOptions) => {
     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/${signBy}`;
   };
 
+  /**
+   * 登出
+   */
   const signOut = () => {
     localStorage.removeItem("authToken");
     setUser(undefined);
