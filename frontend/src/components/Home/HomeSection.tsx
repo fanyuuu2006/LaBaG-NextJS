@@ -10,7 +10,7 @@ export const HomeSection = () => {
   const router = useRouter();
   const { NowMode, setNowMode } = useNowMode();
   return (
-    <section>
+    <section style={{height: "100%"}}>
       <Space
         className="Home-Div"
         direction="vertical"

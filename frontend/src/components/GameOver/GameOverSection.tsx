@@ -23,7 +23,7 @@ export const GameOverSection = () => {
   }, [User]);
 
   return (
-    <section>
+    <section style={{height: "100%"}}>
       <Space direction="vertical" align="center" size="middle">
         <div
           className="Title"

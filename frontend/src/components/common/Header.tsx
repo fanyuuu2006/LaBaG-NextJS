@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useNowMode } from "@/context/NowModeContext";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import {
-  GithubOutlined,
+  BookOutlined,
   HomeOutlined,
   MenuOutlined,
   TrophyOutlined,
@@ -59,10 +59,10 @@ export const Header = () => {
       key: "Repository",
       label: (
         <>
-          <GithubOutlined /> 原始碼庫
+          <BookOutlined /> 關於
         </>
       ),
-      href: "https://github.com/fanyuuu2006/LaBaG-NextJS.git",
+      href: "/About",
     },
     {
       key: "Sign",

@@ -14,6 +14,7 @@ export const RankSection = () => {
   const [RankDataSource, setRankDataSource] = useState<
     RankedGameRecord[] | null
   >(null);
+
   const UserRank = RankDataSource?.find((data) => User && data.id === User.id);
 
   const { NowMode } = useNowMode();

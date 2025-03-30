@@ -193,7 +193,7 @@ export const GameSection = () => {
   };
 
   return (
-    <section>
+    <section style={{ height: "100%" }}>
       <CodePicture LCode={LCode} MCode={MCode} RCode={RCode} />
       <InfoText
         Score={Score}
