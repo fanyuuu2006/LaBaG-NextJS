@@ -10,7 +10,7 @@ export const GameOverSection = () => {
   const { User } = useUser();
   const router = useRouter();
   const { setNowMode } = useNowMode();
-  const [ historyScore, setHistoryScore ] = useState<number>(0);
+  const [historyScore, setHistoryScore] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchHistoryScore = async () => {
@@ -23,7 +23,7 @@ export const GameOverSection = () => {
   }, [User]);
 
   return (
-    <section style={{height: "100%"}}>
+    <section style={{ height: "100%" }}>
       <Space direction="vertical" align="center" size="middle">
         <div
           className="Title"
@@ -47,7 +47,7 @@ export const GameOverSection = () => {
             {Game.Score.toString().padStart(8, "\u00A0")}
           </span>
           <span className="Hint" style={{ color: "#FF3333" }}>
-            {User && Game.Score >  historyScore && "新紀錄"}
+            {User && historyScore && Game.Score > historyScore && "新紀錄"}
           </span>
         </div>
         <Button
