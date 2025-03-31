@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { NowModeProvider } from "../context/NowModeContext";
 import { Header } from "@/components/common/Header";
 import { UserProvider } from "@/context/UserContext";
+import { MusicProvider } from "@/context/MusicContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://labag.vercel.app"),
@@ -73,8 +74,10 @@ export default function RootLayout({
       <body>
         <UserProvider>
           <NowModeProvider>
-            <Header />
-            {children}
+            <MusicProvider>
+              <Header />
+              {children}
+            </MusicProvider>
           </NowModeProvider>
         </UserProvider>
       </body>

@@ -106,7 +106,7 @@ export const RankSection = () => {
                     }}
                   >
                     <td className="CenterAlign">{data.rank}</td>
-                    <td className="CenterAlign">
+                    <td className="CenterAlign" style={{ maxWidth: "8ch", overflowX: "hidden",textOverflow: "ellipsis", }}>
                       <Tooltip title="查看個人檔案">
                         <Link
                           href={`/Profile/${data.id}`}

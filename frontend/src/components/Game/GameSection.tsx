@@ -7,14 +7,6 @@ import { CodePicture } from "./CodePicture";
 import { BeginButton } from "./BeginButton";
 import { InfoText } from "./InfoText";
 import { PopPicture } from "./PopPicture";
-// 使用 dynamic import 禁用 SSR (伺服器端渲染)
-import dynamic from "next/dynamic";
-const MusicButton = dynamic(
-  () => import("@/components/Game/MusicButton").then((mod) => mod.MusicButton),
-  {
-    ssr: false, // 禁用伺服器端渲染
-  }
-);
 
 import BG from "@/assets/BG.jpg";
 import SuperBG from "@/assets/SuperBG.jpg";
@@ -25,6 +17,7 @@ import { Toast } from "../common/Alert";
 import { CommitScore } from "@/utils/CommitScore";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
+import { useMusic } from "@/context/MusicContext";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -41,20 +34,8 @@ function Sound(src: string) {
 export const GameSection = () => {
   const { NowMode, setNowMode } = useNowMode();
   const router = useRouter();
-  const [isClient, setisClient] = useState(false); // 用於確保只在客戶端處理邏輯
-  const [BgmRunning, setBgmRunning] = useState<boolean>(false);
   const [ButtonAble, setButtonAble] = useState<boolean>(true);
-
-  // 設置只在客戶端載入頁面時運行
-  useEffect(() => {
-    setisClient(true);
-    setBgmRunning(true);
-
-    return () => {
-      setisClient(false);
-      setBgmRunning(false);
-    };
-  }, []);
+  const { MusicButton, setBgmRunning } = useMusic();
 
   const [LCode, setLCode] = useState<string>("QST");
   const [MCode, setMCode] = useState<string>("QST");
@@ -69,6 +50,13 @@ export const GameSection = () => {
   const [RestTimes, setRestTimes] = useState<number>(Game.Times - Game.Played);
   const [ModeTimes, setModeTimes] = useState<number | null>(null);
   const [GssNum, setGssNum] = useState<number>(Modes.GreenWei?.Score ?? 0);
+
+  useEffect(() => {
+    setBgmRunning(true);
+    return () => {
+      setBgmRunning(false);
+    };
+  }, [setBgmRunning]);
 
   // 使用 useEffect 來更新背景
   useEffect(() => {
@@ -205,9 +193,8 @@ export const GameSection = () => {
       />
       <BeginButton onClick={Begin} ButtonAble={ButtonAble} />
       <MusicButton
-        isClient={isClient}
-        BgmRunning={BgmRunning}
-        setBgmRunning={setBgmRunning}
+        className="Note"
+        style={{ position: "fixed", bottom: "0.5em", right: "0.5em" }}
       />
       <RuleButton />
     </section>
