@@ -36,30 +36,28 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    // 才會被執行
     if (bgmRunning) {
-      // 確保清理舊的音樂物件
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
+      if (!audioRef.current) {
+        audioRef.current = new Audio(musicSources[NowMode]);
+        audioRef.current.loop = true;
       }
 
-      // 創建新的音樂對象
-      const audio = new Audio(musicSources[NowMode]);
-      audio.loop = true;
-      audioRef.current = audio;
-
-      // 嘗試播放音樂
+      if (audioRef.current.src !== musicSources[NowMode]) {
+        audioRef.current.src = musicSources[NowMode];
+        audioRef.current.load(); // 確保新音樂載入
+      }
       setTimeout(() => {
-        audio.play().catch((err) => console.error("播放音樂錯誤:", err));
+        audioRef.current
+          ?.play()
+          .catch((err) => console.error("播放音樂錯誤:", err));
       }, 100);
-    } else {
-      audioRef.current?.pause();
-      audioRef.current = null; // 清除引用，防止記憶體洩漏
     }
 
     return () => {
+      //這都會先被執行
       audioRef.current?.pause();
-      audioRef.current = null;
+      audioRef.current = null; // 清理音樂物件，避免記憶體洩漏
     };
   }, [bgmRunning, NowMode]);
 
@@ -69,8 +67,8 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
       <Button
         {...rest}
         onClick={() => {
+          console.log(`音樂${!bgmRunning ? "開啟" : "關閉"}`);
           setBgmRunning(!bgmRunning);
-          console.log(`音樂${bgmRunning ? "開啟" : "關閉"}`);
         }}
         style={{
           width: "2.5em",
