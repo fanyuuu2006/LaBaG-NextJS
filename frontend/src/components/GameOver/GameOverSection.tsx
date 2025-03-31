@@ -14,14 +14,17 @@ export const GameOverSection = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!User) return; // 若沒有 User 則不進行請求
+    if (!User) {
+      setLoading(false);
+      return;
+    } // 若沒有 User 則不進行請求
     const fetchHistoryScore = async () => {
       const score = await User.historyScore();
       setHistoryScore(score);
-      setLoading(false); // 完成後設為 false
+      setLoading(false);
     };
     fetchHistoryScore();
-  }, [User]);  // 只有 User 改變時才會觸發
+  }, [User]);
 
   return (
     <section style={{ height: "100%" }}>
