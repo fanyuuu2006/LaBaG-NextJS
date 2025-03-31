@@ -51,7 +51,7 @@ export const RankSection = () => {
           backdropFilter: "blur(2px)",
           border: `${ModeColors[NowMode].dark} solid 5px`,
           borderRadius: "10px",
-          padding: "1.5em 1em",
+          padding: "1em",
           marginTop: "0.5em",
         }}
       >
@@ -65,7 +65,7 @@ export const RankSection = () => {
         {RankDataSource ? (
           <div
             style={{
-              maxHeight: "80vh",
+              maxHeight: "60vh",
               overflowY: "auto",
               border: "#FFFFFF solid 1px",
             }}
