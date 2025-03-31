@@ -106,7 +106,14 @@ export const RankSection = () => {
                     }}
                   >
                     <td className="CenterAlign">{data.rank}</td>
-                    <td className="CenterAlign" style={{ maxWidth: "8ch", overflowX: "hidden",textOverflow: "ellipsis", }}>
+                    <td
+                      className="CenterAlign"
+                      style={{
+                        width: "20%",
+                        overflowX: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
                       <Tooltip title="查看個人檔案">
                         <Link
                           href={`/Profile/${data.id}`}
@@ -139,7 +146,14 @@ export const RankSection = () => {
                 >
                   <tr className="Hint">
                     <td className="CenterAlign">{UserRank.rank}</td>
-                    <td className="CenterAlign">
+                    <td
+                      className="CenterAlign"
+                      style={{
+                        width: "20%",
+                        overflowX: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
                       <Tooltip title="查看個人檔案">
                         <Link
                           href={`/Profile/${UserRank.id}`}
