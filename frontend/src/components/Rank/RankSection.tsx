@@ -109,7 +109,7 @@ export const RankSection = () => {
                     <td
                       className="CenterAlign"
                       style={{
-                        maxWidth: "20%",
+                        maxWidth: "8ch",
                         overflowX: "hidden",
                         textOverflow: "ellipsis",
                       }}
@@ -149,7 +149,7 @@ export const RankSection = () => {
                     <td
                       className="CenterAlign"
                       style={{
-                        maxWidth: "20%",
+                        maxWidth: "8ch",
                         overflowX: "hidden",
                         textOverflow: "ellipsis",
                       }}
