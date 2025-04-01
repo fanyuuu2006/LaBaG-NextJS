@@ -45,7 +45,6 @@ export const HistoryTable = ({
                 ...record,
               }))
                 .sort((a, b) => b.index - a.index)
-                .slice(0, 20)
                 .map((data: gameRecord, i: number) => (
                   <tr key={i}>
                     <td>{data.time}</td>

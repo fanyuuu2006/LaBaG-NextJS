@@ -182,6 +182,7 @@ export const getUserById = async (req: Request, res: Response) => {
 export const getRecordsById = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id as authUser["id"];
+    const size = parseInt(req.query["size"] as string);
     if (!userId) {
       console.log("請求數據缺失或是格式錯誤");
       res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
@@ -196,7 +197,9 @@ export const getRecordsById = async (req: Request, res: Response) => {
     const recordDatass = (await response.json()) as gameRecord[];
 
     const userRecords =
-      recordDatass.filter((record) => record.id === userId) ?? [];
+      recordDatass
+        .filter((record) => record.id === userId)
+        .slice(size ? -size : 0) ?? [];
 
     res.status(200).json(userRecords);
   } catch (error: unknown) {
