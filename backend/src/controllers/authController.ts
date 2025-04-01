@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { authUser, signOptions, signProfiles } from "../types/auth";
 import { createUser, extractUserData, findUser } from "../utils/user";
 import { generateToken } from "../utils/jwt";
+import { extractDomain } from "../utils/url";
 
 // 獲取用戶資料
 export const getUserProfile = (req: Request, res: Response) => {
