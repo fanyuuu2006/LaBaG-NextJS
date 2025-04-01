@@ -37,7 +37,8 @@ export const signCallBack = async (req: Request, res: Response) => {
 
     console.log(`${signBy.toUpperCase()}登入成功`);
     // 將 Token 傳給前端
-    res.redirect(`${process.env.WEBSITE_URL}/login-success?token=${token}`);
+    res.cookie("token", token, { httpOnly: true });
+    res.redirect(`${process.env.WEBSITE_URL}/Profile`);
   } catch (error: unknown) {
     console.error(error);
     res.redirect(`${process.env.WEBSITE_URL}/Login`);

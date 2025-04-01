@@ -46,4 +46,8 @@ passport.use(
   )
 );
 
+// 初始化 session
+passport.serializeUser((user: Express.User, done) => done(null, user));
+passport.deserializeUser((user: Express.User, done) => done(null, user));
+
 export default passport;
