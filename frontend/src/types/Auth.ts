@@ -24,7 +24,7 @@ export class LaBaGUser implements authUser {
     if (!this.id) return [];
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records/${this.id}?size=20`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records/${this.id}`
     );
     if (!res.ok) throw new Error("API 回應錯誤");
 

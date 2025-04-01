@@ -6,7 +6,6 @@ import passport from "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
 import { router as dataRouter } from "./routes/data";
-import { router as githubRouter } from "./routes/github";
 
 export const app = express();
 
@@ -48,4 +47,3 @@ app.use("/auth", authRouter);
 
 // 資料庫
 app.use("/data", dataRouter);
-app.use("/github", githubRouter);
