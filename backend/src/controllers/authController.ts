@@ -42,7 +42,7 @@ export const signCallBack = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "none", // 允許跨域
-      domain: extractDomain(process.env?.WEBSITE_URL ?? ""),
+      ...(process.env.NODE_ENV === "production"? {domain: extractDomain(process.env?.WEBSITE_URL ?? "")}:{}),
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     });
     res.redirect(`${process.env.WEBSITE_URL}/Profile`);

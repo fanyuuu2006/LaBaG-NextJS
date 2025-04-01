@@ -11,6 +11,7 @@ export const authMiddleware = (
   const token = req.cookies?.token; // 取得 Cookie 內的 Token
   if (!token) {
     console.log("未授權的存取");
+    console.log(req.cookies);
     res.status(401).json({ message: "未授權的存取" });
     return;
   }

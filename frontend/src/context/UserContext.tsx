@@ -44,7 +44,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (typeof window === "undefined") return; // 避免伺服器端執行
 
-    console.log(document.cookie);
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
       method: "GET",
       credentials: "include",
