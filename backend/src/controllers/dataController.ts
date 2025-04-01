@@ -97,15 +97,8 @@ export const addUser = async (req: Request, res: Response) => {
 export const addRecord = async (req: Request, res: Response) => {
   try {
     const { id, name } = req.user as authUser;
-    const { score, jsonData } = req.body;
-    if (
-      !id ||
-      !name ||
-      !score ||
-      !jsonData ||
-      typeof score !== "number" ||
-      typeof jsonData !== "object"
-    ) {
+    const { score } = req.body;
+    if (!id || !name || !score || typeof score !== "number") {
       console.log("請求數據缺失或是格式錯誤");
       res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
       return;
@@ -124,12 +117,11 @@ export const addRecord = async (req: Request, res: Response) => {
             id,
             name,
             score,
-            JSON.stringify(jsonData),
           ],
         ],
       },
     });
-    console.log("用戶資料添加成功: ", id, name, score, jsonData);
+    console.log("用戶資料添加成功: ", id, name, score);
     res.status(200).json({ message: "添加提交分數" });
     return;
   } catch (error: unknown) {

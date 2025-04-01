@@ -167,7 +167,6 @@ export const GameSection = () => {
         if (!Game.GameRunning()) {
           CommitScore({
             score: Game.Score,
-            jsonData: Game.AllData,
           });
           Sound("/audio/Ding.mp3");
           router.replace("./GameOver");

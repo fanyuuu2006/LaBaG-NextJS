@@ -13,5 +13,4 @@ export interface RankedGameRecord extends gameRecord {
 
 export type CommitScoreProps = {
   score: number;
-  jsonData: Record<string, Record<string, number>>;
 };
