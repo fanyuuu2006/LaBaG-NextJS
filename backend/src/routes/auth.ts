@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUserProfile, signCallBack, signOut } from "../controllers/authController";
+import { getUserProfile, signCallBack } from "../controllers/authController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import {
   signCallBackMiddleware,
@@ -15,6 +15,3 @@ router.get("/profile", authMiddleware, getUserProfile);
 router.get("/callback/:signBy", signCallBackMiddleware, signCallBack);
 
 router.get("/:signBy", signInMiddleware);
-
-router.get("/signOut", authMiddleware, signOut);
-

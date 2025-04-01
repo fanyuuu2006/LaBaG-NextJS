@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { authUser, signOptions, signProfiles } from "../types/auth";
 import { createUser, extractUserData, findUser } from "../utils/user";
 import { generateToken } from "../utils/jwt";
-import { extractDomain } from "../utils/url";
 
 // 獲取用戶資料
 export const getUserProfile = (req: Request, res: Response) => {
@@ -36,31 +35,11 @@ export const signCallBack = async (req: Request, res: Response) => {
 
     const token = generateToken(existingUser);
 
-    console.log(`${signBy.toUpperCase()} 登入成功`);
-    // 將 Token 傳給前端 存入 Cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none", // 允許跨域
-      ...(process.env.NODE_ENV === "production"? {domain: extractDomain(process.env?.WEBSITE_URL ?? "")}:{}),
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
-    });
-    res.redirect(`${process.env.WEBSITE_URL}/Profile`);
+    console.log(`${signBy.toUpperCase()}登入成功`);
+    // 將 Token 傳給前端
+    res.redirect(`${process.env.WEBSITE_URL}/login-success?token=${token}`);
   } catch (error: unknown) {
     console.error(error);
     res.redirect(`${process.env.WEBSITE_URL}/Login`);
-  }
-};
-
-export const signOut = async (_: Request, res: Response) => {
-  try {
-    // 移除 Cookie
-    res.clearCookie("token", {
-      httpOnly: true,
-    });
-    res.status(200).json({ message: "登出成功" });
-  } catch (error: unknown) {
-    console.error(error);
-    res.status(500).json({ message: "登出失敗" });
   }
 };
