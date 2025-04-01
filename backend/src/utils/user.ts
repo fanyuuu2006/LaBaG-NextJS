@@ -42,7 +42,7 @@ export const createUser = async (
     if (!id ){throw new Error("缺少必要資料")}
     const response = await Sheet.spreadsheets.values.append({
       spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
-      range: "用戶資料!A:E",
+      range: `用戶資料!A:E`,
       valueInputOption: "RAW",
       requestBody: {
         values: [
