@@ -34,27 +34,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   /**
    * 登出
    */
-  const signOut = () => {
-    localStorage.removeItem("authToken");
+  const signOut = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signOut`, {
+      method: "GET",
+      credentials: "include", // 確保 Cookie 會附帶在請求中
+    });
     setUser(undefined);
   };
-
   useEffect(() => {
     if (typeof window === "undefined") return; // 避免伺服器端執行
-    const authToken = localStorage.getItem("authToken");
-    if (!authToken) {
-      setLoading(false);
-      return;
-    }
+
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+      credentials: "include",
     })
       .then((res) => {
         if (!res.ok) throw new Error("API 回應錯誤");
-        return res.json() as authUser;
+        return res.json();
       })
       .then((user) => {
         setUser(new LaBaGUser(user));
@@ -63,7 +59,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         console.log(error);
       })
       .finally(() => {
-        setLoading(false); // 無論成功還是錯誤，都應該結束 loading 狀態
+        setLoading(false);
       });
   }, []);
 

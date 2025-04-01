@@ -36,11 +36,29 @@ export const signCallBack = async (req: Request, res: Response) => {
     const token = generateToken(existingUser);
 
     console.log(`${signBy.toUpperCase()}登入成功`);
-    // 將 Token 傳給前端
-    res.cookie("token", token, { httpOnly: true });
+    // 將 Token 傳給前端 存入 Cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production" ? true : false ,  // 確保 Cookie 只能透過 HTTPS 傳輸
+      sameSite: "none",  // 允許跨域
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
+    });
     res.redirect(`${process.env.WEBSITE_URL}/Profile`);
   } catch (error: unknown) {
     console.error(error);
     res.redirect(`${process.env.WEBSITE_URL}/Login`);
+  }
+};
+
+export const signOut = async (_: Request, res: Response) => {
+  try {
+    // 移除 Cookie
+    res.clearCookie("token", {
+      httpOnly: true,
+    });
+    res.status(200).json({ message: "登出成功" });
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({ message: "登出失敗" });
   }
 };

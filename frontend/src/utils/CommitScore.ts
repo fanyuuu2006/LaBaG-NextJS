@@ -6,9 +6,9 @@ export const CommitScore = async (props: CommitScoreProps) => {
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          "Content-Type": "application/json", // 指定 JSON 類型
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(props),
       }
