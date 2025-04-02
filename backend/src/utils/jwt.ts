@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
-import { authUser } from "../types/auth";
+import ms from "ms";
 
-export const generateToken = (user: authUser) =>
-  jwt.sign(user, process.env.JWT_KEY as string, { expiresIn: "12h" });
+export const generateToken = (
+  data: string | Buffer | object,
+  JWT_KEY: jwt.Secret | jwt.PrivateKey,
+  expiresIn: number | ms.StringValue | undefined = "1h"
+) => jwt.sign(data, JWT_KEY, { expiresIn });

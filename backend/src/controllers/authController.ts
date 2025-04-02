@@ -33,7 +33,11 @@ export const signCallBack = async (req: Request, res: Response) => {
       if (!existingUser) throw new Error("❌ 無法創建使用者");
     }
 
-    const token = generateToken(existingUser);
+    const token = generateToken(
+      existingUser,
+      process.env.JWT_KEY as string,
+      "12h"
+    );
 
     console.log(`${signBy.toUpperCase()}登入成功`);
     // 將 Token 傳給前端

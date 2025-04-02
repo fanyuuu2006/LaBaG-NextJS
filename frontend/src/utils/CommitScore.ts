@@ -8,6 +8,7 @@ export const CommitScore = async (props: CommitScoreProps) => {
         method: "POST",
         credentials: "include",
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(props),

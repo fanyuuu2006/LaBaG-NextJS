@@ -3,6 +3,7 @@ import { Sheet } from "../config/googleapi";
 import { authUser } from "../types/auth";
 import { gameRecord } from "../types/record";
 import { createUser } from "../utils/user";
+import jwt from "jsonwebtoken";
 
 export const getRecords = async (_: Request, res: Response) => {
   try {
@@ -98,31 +99,41 @@ export const addRecord = async (req: Request, res: Response) => {
   try {
     const { id, name } = req.user as authUser;
     const { score } = req.body;
-    if (!id || !name || !score || typeof score !== "number") {
+
+    // 检查请求数据是否完整
+    if (!id || !name || !score || !(typeof score === "number")) {
       console.log("請求數據缺失或是格式錯誤");
       res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
       return;
     }
 
-    await Sheet.spreadsheets.values.append({
-      spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
-      range: "紀錄!A:D",
-      valueInputOption: "RAW",
-      requestBody: {
-        values: [
-          [
-            new Date().toLocaleString("zh-TW", {
-              timeZone: "Asia/Taipei",
-            }),
-            id,
-            name,
-            score,
+    try {
+      // 将数据添加到 Google 表格中
+      await Sheet.spreadsheets.values.append({
+        spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
+        range: "紀錄!A:D",
+        valueInputOption: "RAW",
+        requestBody: {
+          values: [
+            [
+              new Date().toLocaleString("zh-TW", {
+                timeZone: "Asia/Taipei",
+              }),
+              id,
+              name,
+              score, // 提交分数
+            ],
           ],
-        ],
-      },
-    });
-    console.log("用戶資料添加成功: ", id, name, score);
-    res.status(200).json({ message: "添加提交分數" });
+        },
+      });
+
+      console.log("分數提交成功: ", id, name, score);
+      res.status(200).json({ message: "添加提交分數" });
+    } catch (verifyError) {
+      console.error("❌ 驗證  失败:", verifyError);
+      res.status(400).json({ message: "❌ 無效的 token" });
+    }
+
     return;
   } catch (error: unknown) {
     console.error(error);
@@ -134,7 +145,6 @@ export const addRecord = async (req: Request, res: Response) => {
     return;
   }
 };
-
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id as authUser["id"];
