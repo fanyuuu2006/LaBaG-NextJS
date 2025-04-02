@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { authUser, signOptions, signProfiles } from "../types/auth";
 import { createUser, extractUserData, findUser } from "../utils/user";
 import { generateToken } from "../utils/jwt";
+import { generateNonce } from "../utils/nonce";
 
 // 獲取用戶資料
 export const getUserProfile = (req: Request, res: Response) => {
@@ -33,11 +34,7 @@ export const signCallBack = async (req: Request, res: Response) => {
       if (!existingUser) throw new Error("❌ 無法創建使用者");
     }
 
-    const token = generateToken(
-      existingUser,
-      process.env.JWT_KEY as string,
-      "12h"
-    );
+    const token = generateToken(existingUser, "12h");
 
     console.log(`${signBy.toUpperCase()}登入成功`);
     // 將 Token 傳給前端
@@ -45,5 +42,28 @@ export const signCallBack = async (req: Request, res: Response) => {
   } catch (error: unknown) {
     console.error(error);
     res.redirect(`${process.env.WEBSITE_URL}/Login`);
+  }
+};
+
+export const getNonce = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user as authUser;
+    if (!id) {
+      console.log("請求數據缺失或是格式錯誤");
+      res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
+      return;
+    }
+
+    const nonce = generateNonce(id, 1 * 60 * 1000);
+
+    res.status(200).json(nonce);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
   }
 };

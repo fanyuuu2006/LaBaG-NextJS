@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
 import { authUser } from "../types/auth";
+import { verifyToken } from "../utils/jwt";
 
 // 驗證 JWT Token
 export const authMiddleware = (
@@ -9,7 +9,7 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(" ")[1]; 
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     res.status(401).json({ message: "未授權的存取" });
@@ -17,7 +17,7 @@ export const authMiddleware = (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_KEY as string); // 驗證 Token
+    const decoded = verifyToken(token);
     req.user = decoded as authUser; // 存到 req.user，供後續 API 使用
     next();
   } catch (error) {

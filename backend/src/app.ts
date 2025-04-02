@@ -1,7 +1,6 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import passport from "./config/passport"; // 初始化 Passport 設定
 
@@ -12,9 +11,7 @@ export const app = express();
 
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
-app.use(cookieParser()); // 解析 Cookie
-// 讓 Express 信任 X-Forwarded-For 頭
-app.set("trust proxy", true);
+
 
 app.use(
   rateLimit({

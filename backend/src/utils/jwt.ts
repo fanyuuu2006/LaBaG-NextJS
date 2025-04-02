@@ -3,6 +3,9 @@ import ms from "ms";
 
 export const generateToken = (
   data: string | Buffer | object,
-  JWT_KEY: jwt.Secret | jwt.PrivateKey,
   expiresIn: number | ms.StringValue | undefined = "1h"
-) => jwt.sign(data, JWT_KEY, { expiresIn });
+) => jwt.sign(data, process.env.JWT_KEY as string, { expiresIn });
+
+// 驗證 Token
+export const verifyToken = (token: string): any =>
+  jwt.verify(token, process.env.JWT_KEY as string);
