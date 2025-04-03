@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google, sheets_v4 } from "googleapis";
 
 const auth = new google.auth.GoogleAuth({
   credentials: {
@@ -8,7 +8,7 @@ const auth = new google.auth.GoogleAuth({
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
-export const Sheet = google.sheets({
+export const Sheet: sheets_v4.Sheets = google.sheets({
   version: "v4",
   auth,
 });

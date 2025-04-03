@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Sheet } from "../config/googleapi";
-import { authUser } from "../types/auth";
+import { authUser } from "../types/user";
 import { gameRecord } from "../types/record";
 import { createUser } from "../utils/user";
 import jwt from "jsonwebtoken";

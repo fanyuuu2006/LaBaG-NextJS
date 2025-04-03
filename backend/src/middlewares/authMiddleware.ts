@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { authUser } from "../types/auth";
+import { authUser } from "../types/user";
 import { verifyToken } from "../utils/jwt";
 
 // 驗證 JWT Token

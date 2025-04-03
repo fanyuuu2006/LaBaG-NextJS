@@ -1,5 +1,5 @@
 import { Sheet } from "../config/googleapi";
-import { authUser, signProfiles } from "../types/auth";
+import { authUser, dataUserIndex, signProfiles } from "../types/user";
 
 export const extractUserData = (user: signProfiles): authUser => ({
   id: user.id,
@@ -7,6 +7,19 @@ export const extractUserData = (user: signProfiles): authUser => ({
   email: user.emails?.[0]?.value || "",
   image: user.photos?.[0]?.value || "",
 });
+
+export const parseUser = (
+  row: string[],
+  omitColumns: (keyof Omit<authUser, "id">)[] = [] // 指定要排除的欄位
+): authUser => {
+  const user: authUser = { id: row[dataUserIndex.id] };
+
+  if (!omitColumns.includes("name")) user.name = row[dataUserIndex.name];
+  if (!omitColumns.includes("email")) user.email = row[dataUserIndex.email];
+  if (!omitColumns.includes("image")) user.image = row[dataUserIndex.image];
+
+  return user;
+};
 
 export const findUser = async (
   user: authUser
@@ -39,7 +52,9 @@ export const createUser = async (
 ): Promise<authUser | undefined> => {
   try {
     const { id, name, email, image } = user;
-    if (!id ){throw new Error("缺少必要資料")}
+    if (!id) {
+      throw new Error("缺少必要資料");
+    }
     const response = await Sheet.spreadsheets.values.append({
       spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
       range: `用戶資料!A:E`,

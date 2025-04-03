@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { signOptions } from "../types/auth";
+import { signOptions } from "../types/user";
 import passport from "../config/passport";
 
 export const signInMiddleware = (

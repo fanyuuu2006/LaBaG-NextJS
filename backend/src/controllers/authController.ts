@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { authUser, signOptions, signProfiles } from "../types/auth";
+import { authUser, signOptions, signProfiles } from "../types/user";
 import { createUser, extractUserData, findUser } from "../utils/user";
 import { generateToken } from "../utils/jwt";
 
