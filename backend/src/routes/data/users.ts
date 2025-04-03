@@ -1,10 +1,7 @@
 import { Router } from "express";
-import {
-  addUser,
-  getUserById,
-  getUsers,
-} from "../../controllers/dataController";
+
 import { authMiddleware } from "../../middlewares/authMiddleware";
+import { addUser, getUserById, getUsers } from "../../controllers/data/userController";
 
 export const router = Router();
 
