@@ -25,7 +25,7 @@ app.use(
 app.use(
   cors({
     origin: [process.env.WEBSITE_URL as string, "http://localhost:3001"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PATCH"],
     credentials: true, // 允許跨域請求攜帶 Cookie
     allowedHeaders: ["Content-Type", "Authorization"], // `Cookie` 不是標準的請求標頭
   })

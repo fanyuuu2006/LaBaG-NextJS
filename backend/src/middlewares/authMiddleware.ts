@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { authUser } from "../types/user";
 import { verifyToken } from "../utils/jwt";
+import { findUser } from "../utils/user";
 
 // 驗證 JWT Token
-export const authMiddleware = (
+export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -17,8 +18,9 @@ export const authMiddleware = (
   }
 
   try {
-    const decoded = verifyToken(token);
-    req.user = decoded as authUser; // 存到 req.user，供後續 API 使用
+    const { id } = verifyToken(token) as authUser;
+    const { user } = await findUser(id);
+    req.user = user; // 存到 req.user，供後續 API 使用
     next();
   } catch (error) {
     res.status(403).json({ message: "無效的 Token" });

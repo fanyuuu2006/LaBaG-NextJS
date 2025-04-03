@@ -17,12 +17,16 @@ export const Toast = Swal.mixin({
 
 export const Modal = withReactContent(Swal);
 
-export const CustomModal = (props: SweetAlertOptions) => {
+export type CustomModalProps = Omit<
+  SweetAlertOptions,
+  "background" | "showConfirmButton" | "showCancelButton" | "allowOutsideClick"
+>;
+export const CustomModal = (props: CustomModalProps) => {
   Modal.fire({
-    ...props,
     background: "transparent",
     showConfirmButton: false,
     showCancelButton: false,
     allowOutsideClick: true,
+    ...props,
   });
 };

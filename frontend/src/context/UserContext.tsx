@@ -13,6 +13,7 @@ const UserContext = createContext<
   | {
       User: LaBaGUser | undefined;
       Loading: boolean;
+      refreshUser: () => void;
       signIn: (signBy: signOptions) => void;
       signOut: () => void;
     }
@@ -39,8 +40,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser(undefined);
   };
 
-  useEffect(() => {
-    if (typeof window === "undefined") return; // 避免伺服器端執行
+  const refreshUser = () => {
+    setLoading(true);
     const authToken = localStorage.getItem("authToken");
     if (!authToken) {
       setLoading(false);
@@ -65,10 +66,17 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       .finally(() => {
         setLoading(false); // 無論成功還是錯誤，都應該結束 loading 狀態
       });
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return; // 避免伺服器端執行
+    refreshUser();
   }, []);
 
   return (
-    <UserContext.Provider value={{ User, Loading, signIn, signOut }}>
+    <UserContext.Provider
+      value={{ User, Loading, refreshUser, signIn, signOut }}
+    >
       {children}
     </UserContext.Provider>
   );
@@ -83,7 +91,7 @@ export const useUser = (id?: string) => {
     throw new Error("useUser 必須在 UserProvider 內使用");
   }
 
-  const { User, Loading, signIn, signOut } = context;
+  const { User, Loading, ...rest } = context;
   const [FetchedUser, setFetchedUser] = useState<LaBaGUser | undefined>(
     undefined
   );
@@ -112,7 +120,6 @@ export const useUser = (id?: string) => {
   return {
     User: id ? FetchedUser : User, // 如果有 id，則返回查詢到的 User，否則返回 Context 中的 authUser
     Loading: Loading || Fetching, // 如果登入狀態是 loading 或者在獲取資料時，則為 loading
-    signIn,
-    signOut,
+    ...rest,
   };
 };
