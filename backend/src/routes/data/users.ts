@@ -1,7 +1,11 @@
 import { Router } from "express";
 
 import { authMiddleware } from "../../middlewares/authMiddleware";
-import { addUser, getUserById, getUsers } from "../../controllers/data/userController";
+import {
+  addUser,
+  getUserById,
+  getUsers,
+} from "../../controllers/data/userController";
 
 export const router = Router();
 

@@ -27,7 +27,7 @@ export const signCallBack = async (req: Request, res: Response) => {
     const user = extractUserData(req.user as signProfiles);
 
     // 先查找使用者，若不存在則創建
-    let existingUser = await findUser(user);
+    let { user: existingUser } = await findUser(user.id);
     if (!existingUser) {
       existingUser = await createUser(user);
       if (!existingUser) throw new Error("❌ 無法創建使用者");
@@ -43,4 +43,3 @@ export const signCallBack = async (req: Request, res: Response) => {
     res.redirect(`${process.env.WEBSITE_URL}/Login`);
   }
 };
-

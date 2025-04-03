@@ -12,9 +12,9 @@ export type authUser = {
   image?: string;
 };
 
-export type dataUserColumns = keyof authUser | "time";
+export type dataUserFields = keyof authUser | "time";
 
-export const dataUserIndex: Record<dataUserColumns, number> = {
+export const dataUserIndex: Record<dataUserFields, number> = {
   time: 0,
   id: 1,
   name: 2,

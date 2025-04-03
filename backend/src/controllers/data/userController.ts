@@ -1,26 +1,12 @@
 import { Request, Response } from "express";
-import { Sheet } from "../../config/googleapi";
 import { authUser } from "../../types/user";
-import { createUser, parseUser } from "../../utils/user";
+import { createUser, findUser } from "../../utils/user";
+import { getUsers as getUsersUtil } from "../../utils/user";
 
 export const getUsers = async (_: Request, res: Response) => {
   try {
-    const userResponse = await Sheet.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
-      range: "用戶資料!A:E",
-    });
-    const userRows = userResponse.data.values?.slice(1) as string[][];
-    if (!userRows) {
-      console.log("獲取試算表錯誤");
-      res.status(400).json({ message: "獲取試算表錯誤" });
-      return;
-    }
-
-    const userDatas: authUser[] = userRows.map((row) =>
-      parseUser(row, ["email"])
-    );
-
-    res.status(200).json(userDatas);
+    const users = await getUsersUtil();
+    res.status(200).json(users);
     return;
   } catch (error: unknown) {
     console.error(error);
@@ -66,14 +52,7 @@ export const getUserById = async (req: Request, res: Response) => {
       return;
     }
 
-    const response = await fetch(`${process.env.BACKEND_URL}/data/users`);
-    if (!response.ok) {
-      throw new Error(await response.json());
-    }
-
-    const userRows = (await response.json()) as authUser[];
-
-    const user = userRows.find((user) => user.id === userId);
+    const { user } = await findUser(userId);
 
     if (!user) {
       console.log("查詢不到該用戶資料");

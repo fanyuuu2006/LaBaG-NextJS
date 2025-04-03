@@ -1,5 +1,10 @@
 import { Sheet } from "../config/googleapi";
-import { authUser, dataUserIndex, signProfiles } from "../types/user";
+import {
+  authUser,
+  dataUserFields,
+  dataUserIndex,
+  signProfiles,
+} from "../types/user";
 
 export const extractUserData = (user: signProfiles): authUser => ({
   id: user.id,
@@ -7,6 +12,14 @@ export const extractUserData = (user: signProfiles): authUser => ({
   email: user.emails?.[0]?.value || "",
   image: user.photos?.[0]?.value || "",
 });
+
+export const changeUserData = <K extends keyof authUser>(
+  user: authUser,
+  { field, value }: { field: K; value: authUser[K] }
+): authUser => {
+  user[field] = value;
+  return user;
+};
 
 export const parseUser = (
   row: string[],
@@ -21,32 +34,33 @@ export const parseUser = (
   return user;
 };
 
+export const getUsers = async (): Promise<authUser[]> => {
+  const userResponse = await Sheet.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
+    range: "用戶資料!A:E",
+  });
+  const userRows = userResponse.data.values?.slice(1) as string[][];
+  if (!userRows) {
+    throw new Error("獲取用戶資料失敗");
+  }
+  return userRows.map((row) => parseUser(row));
+};
+
 export const findUser = async (
-  user: authUser
-): Promise<authUser | undefined> => {
+  id: authUser["id"]
+): Promise<{ user: authUser | undefined; dataIndex: number }> => {
   try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/data/users/${user.id}`
-    );
+    const users: authUser[] = await getUsers();
+    const index: number = users.findIndex((user) => user.id === id);
+    if (index === -1) return { user: undefined, dataIndex: index };
 
-    if (response.ok) {
-      return (await response.json()) as authUser;
-    }
-
-    if (response.status === 404) {
-      return undefined; // 使用者不存在，正常返回 undefined
-    }
-
-    // 如果是其他錯誤，直接丟出錯誤代碼與訊息
-    const errorMessage = await response.text();
-    throw new Error(
-      `查詢使用者時發生錯誤 (${response.status}): ${errorMessage}`
-    );
+    return { user: users[index], dataIndex: index + 2 };
   } catch (error) {
     console.error("查詢使用者失敗:", error);
-    return undefined;
+    return { user: undefined, dataIndex: -1 };
   }
 };
+
 export const createUser = async (
   user: authUser
 ): Promise<authUser | undefined> => {
@@ -82,5 +96,59 @@ export const createUser = async (
   } catch (error) {
     console.error("創建使用者時發生錯誤:", error);
     return undefined;
+  }
+};
+
+export const updateUser = async (
+  user: authUser
+): Promise<authUser | undefined> => {
+  try {
+    const { id, name, email, image } = user;
+
+    if (!id) {
+      throw new Error("缺少必要資料");
+    }
+
+    const { dataIndex } = await findUser(id);
+
+    const updateResponse = await Sheet.spreadsheets.values.update({
+      spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
+      range: `用戶資料!B${dataIndex}:E${dataIndex}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [[id, name || "", email || "", image || ""]],
+      },
+    });
+
+    if (!updateResponse) {
+      throw new Error("Google Sheets API 回應為空，請檢查 API 設定。");
+    }
+
+    console.log(`用戶資料更新成功: ${id}`);
+    return user;
+  } catch (error) {
+    console.error("更新使用者時發生錯誤:", error);
+    return undefined;
+  }
+};
+
+
+export const deleteUser = async (id: string): Promise<boolean> => {
+  try {
+    const { dataIndex } = await findUser(id);
+    if (dataIndex === -1) throw new Error(`找不到 ID 為 ${id} 的使用者`);
+
+    const clearResponse = await Sheet.spreadsheets.values.clear({
+      spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
+      range: `用戶資料!A${dataIndex}:E${dataIndex}`, // 清空這一行
+    });
+
+    if (!clearResponse) throw new Error("Google Sheets API 回應為空，請檢查 API 設定。");
+
+    console.log(`用戶資料刪除成功: ${id}`);
+    return true;
+  } catch (error) {
+    console.error("刪除使用者時發生錯誤:", error);
+    return false;
   }
 };
