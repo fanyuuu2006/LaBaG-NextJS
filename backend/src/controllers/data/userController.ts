@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
-import { authUser } from "../../types/user";
-import { createUser, findUser } from "../../utils/user";
+import { authUser, dataUserFields } from "../../types/user";
+import {
+  createUser,
+  findUser,
+  updateUser,
+  updateUserField,
+} from "../../utils/user";
 import { getUsers as getUsersUtil } from "../../utils/user";
 
 export const getUsers = async (_: Request, res: Response) => {
@@ -61,6 +66,54 @@ export const getUserById = async (req: Request, res: Response) => {
     }
 
     res.status(200).json(user);
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
+  }
+};
+
+export const changeUserData = async (req: Request, res: Response) => {
+  try {
+    const user = req.user as authUser;
+    const { field, value } = req.body as {
+      field: string;
+      value: string;
+    };
+    if (!user || !field || !value) {
+      res.status(400).json({ error: "缺少必要資料" });
+      return;
+    }
+    const allowedFields: (keyof Omit<authUser, "id">)[] = [
+      "name",
+      "email",
+      "image",
+    ];
+    if (!allowedFields.includes(field as keyof Omit<authUser, "id">)) {
+      res.status(400).json({ error: "無法修改的欄位" });
+      return;
+    }
+
+    const updatedUser = updateUserField(user, {
+      field: field as keyof Omit<authUser, "id">,
+      value,
+    });
+    if (!updatedUser) {
+      res.status(500).json({ error: "更新用戶資料失敗" });
+      return;
+    }
+
+    const savedUser = await updateUser(updatedUser);
+    if (!savedUser) {
+      res.status(500).json({ error: "保存用戶資料失敗" });
+      return;
+    }
+
+    res.status(200).json({ message: `成功修改用戶資料${field}, ${value}` });
   } catch (error: unknown) {
     console.error(error);
     res.status(500).json({

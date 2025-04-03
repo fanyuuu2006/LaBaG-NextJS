@@ -13,18 +13,21 @@ export const extractUserData = (user: signProfiles): authUser => ({
   image: user.photos?.[0]?.value || "",
 });
 
-export const changeUserData = <K extends keyof authUser>(
+export const updateUserField = <K extends keyof Omit<authUser, "id">>(
   user: authUser,
   { field, value }: { field: K; value: authUser[K] }
-): authUser => {
-  user[field] = value;
-  return user;
-};
+): authUser => ({
+  ...user,
+  [field]: value,
+});
 
 export const parseUser = (
   row: string[],
   omitColumns: (keyof Omit<authUser, "id">)[] = [] // 指定要排除的欄位
 ): authUser => {
+  if (row.length <= dataUserIndex.id) {
+    throw new Error("資料列格式錯誤，缺少必要欄位");
+  }
   const user: authUser = { id: row[dataUserIndex.id] };
 
   if (!omitColumns.includes("name")) user.name = row[dataUserIndex.name];
@@ -48,16 +51,16 @@ export const getUsers = async (): Promise<authUser[]> => {
 
 export const findUser = async (
   id: authUser["id"]
-): Promise<{ user: authUser | undefined; dataIndex: number }> => {
+): Promise<{ user?: authUser; dataIndex?: number }> => {
   try {
-    const users: authUser[] = await getUsers();
-    const index: number = users.findIndex((user) => user.id === id);
-    if (index === -1) return { user: undefined, dataIndex: index };
+    const users = await getUsers();
+    const index = users.findIndex((user) => user.id === id);
+    if (index === -1) return {};
 
     return { user: users[index], dataIndex: index + 2 };
   } catch (error) {
     console.error("查詢使用者失敗:", error);
-    return { user: undefined, dataIndex: -1 };
+    return {};
   }
 };
 
@@ -110,6 +113,7 @@ export const updateUser = async (
     }
 
     const { dataIndex } = await findUser(id);
+    if (!dataIndex) throw new Error(`找不到 ID 為 ${id} 的使用者`);
 
     const updateResponse = await Sheet.spreadsheets.values.update({
       spreadsheetId: process?.env?.GOOGLE_LABAG_SHEET_ID,
@@ -132,20 +136,24 @@ export const updateUser = async (
   }
 };
 
-
 export const deleteUser = async (id: string): Promise<boolean> => {
   try {
     const { dataIndex } = await findUser(id);
-    if (dataIndex === -1) throw new Error(`找不到 ID 為 ${id} 的使用者`);
+    if (!dataIndex) throw new Error(`找不到 ID 為 ${id} 的使用者`);
 
-    const clearResponse = await Sheet.spreadsheets.values.clear({
+    const deleteResponse = await Sheet.spreadsheets.values.update({
       spreadsheetId: process.env.GOOGLE_LABAG_SHEET_ID,
-      range: `用戶資料!A${dataIndex}:E${dataIndex}`, // 清空這一行
+      range: `用戶資料!A${dataIndex}:E${dataIndex}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [["(已刪除)", "", "", "", ""]],
+      },
     });
 
-    if (!clearResponse) throw new Error("Google Sheets API 回應為空，請檢查 API 設定。");
+    if (!deleteResponse)
+      throw new Error("Google Sheets API 回應為空，請檢查 API 設定。");
 
-    console.log(`用戶資料刪除成功: ${id}`);
+    console.log(`用戶資料標記刪除成功: ${id}`);
     return true;
   } catch (error) {
     console.error("刪除使用者時發生錯誤:", error);

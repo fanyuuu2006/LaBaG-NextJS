@@ -17,6 +17,7 @@ import { Toast } from "../common/Alert";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
+import { useUser } from "../../context/UserContext";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -31,6 +32,7 @@ function Sound(src: string) {
 }
 
 export const GameSection = () => {
+  const { User } = useUser();
   const { NowMode, setNowMode } = useNowMode();
   const router = useRouter();
   const [ButtonAble, setButtonAble] = useState<boolean>(true);
@@ -164,25 +166,26 @@ export const GameSection = () => {
 
       setTimeout(() => {
         if (!Game.GameRunning()) {
-          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ score: Game.Score }),
-          })
-            .then((res) => {
-              if (!res.ok) throw new Error(res.statusText);
-              return res.json();
+          if (User)
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records`, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ score: Game.Score }),
             })
-            .catch((err) => {
-              Toast.fire({
-                icon: "error",
-                title: "上傳記錄失敗",
-                text: err.message,
+              .then((res) => {
+                if (!res.ok) throw new Error(res.statusText);
+                return res.json();
+              })
+              .catch((err) => {
+                Toast.fire({
+                  icon: "error",
+                  title: "上傳記錄失敗",
+                  text: err.message,
+                });
               });
-            });
 
           Sound("/audio/Ding.mp3");
           router.replace("./GameOver");
