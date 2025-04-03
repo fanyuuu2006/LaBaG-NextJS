@@ -14,7 +14,6 @@ import GreenBG from "@/assets/GreenBG.jpg";
 import KachuBG from "@/assets/KachuBG.jpg";
 import { StaticImageData } from "next/image";
 import { Toast } from "../common/Alert";
-import { CommitScore } from "@/utils/CommitScore";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
@@ -165,9 +164,26 @@ export const GameSection = () => {
 
       setTimeout(() => {
         if (!Game.GameRunning()) {
-          CommitScore({
-            score: Game.Score,
-          });
+          fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ score: Game.Score }),
+          })
+            .then((res) => {
+              if (!res.ok) throw new Error(res.statusText);
+              return res.json();
+            })
+            .catch((err) => {
+              Toast.fire({
+                icon: "error",
+                title: "上傳記錄失敗",
+                text: err.message,
+              });
+            });
+
           Sound("/audio/Ding.mp3");
           router.replace("./GameOver");
         }
