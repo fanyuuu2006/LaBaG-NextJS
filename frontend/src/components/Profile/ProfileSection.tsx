@@ -66,11 +66,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
             <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
-                src={
-                  User?.image && User?.image.length > 1
-                    ? User.image
-                    : "/DefaultAvator.jpg"
-                }
+                src={User?.image ?? "/DefaultAvator.jpg"}
                 width={300}
                 height={300}
                 alt="頭像"
@@ -125,8 +121,11 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                 onClick={async () => {
                                   try {
                                     const newName = nameInputRef.current?.value;
-                                    if (!newName?.trim())
-                                      throw new Error("暱稱不可為空");
+                                    if (!newName || !newName.trim()) {
+                                      throw new Error(
+                                        "暱稱不可為空或只包含空格"
+                                      );
+                                    }
                                     const response = await fetch(
                                       `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
                                       {
