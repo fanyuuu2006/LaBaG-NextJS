@@ -138,7 +138,11 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                         nameInputRef.current?.value;
                                       userDataCondition.name.forEach(
                                         (condition) => {
-                                          if (!condition.checkFunc(newName))
+                                          if (
+                                            !condition.checkFunc({
+                                              name: newName,
+                                            })
+                                          )
                                             throw new Error(
                                               condition.description
                                             );
