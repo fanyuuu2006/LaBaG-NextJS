@@ -10,6 +10,7 @@ import { CustomModal, Toast } from "@/components/common/Alert";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
+import { userDataCondition } from "@/utils/userDataCondition";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
@@ -82,29 +83,29 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 <div className="Content">
                   {User?.name ?? ""}
                   {!UserID && (
-                    <Tooltip title="修改暱稱">
+                    <Tooltip title="修改使用者名稱">
                       <Button
                         type="text"
-                        style={{fontSize:"inherit", color: "inherit"}}  
+                        style={{ fontSize: "inherit", color: "inherit" }}
                         onClick={() => {
                           CustomModal({
                             html: (
-                              <Space
-                                direction="vertical"
-                                size="middle"
-                                align="center"
+                              <div
                                 style={{
+                                  display: "flex",
+                                  flexDirection: "column",
                                   backgroundColor: "rgba(0, 0, 0, 0.5)",
                                   backdropFilter: "blur(2px)",
                                   border: `3px solid ${ModeColors[NowMode].dark}`,
                                   borderRadius: "10px",
                                   padding: "1em",
+                                  gap: "1em",
                                   textAlign: "start",
                                 }}
                               >
                                 <input
                                   type="text"
-                                  placeholder="請輸入新暱稱"
+                                  placeholder="請輸入新使用者名稱"
                                   className="Note"
                                   style={{
                                     color: "#FFFFFF",
@@ -114,6 +115,17 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                   }}
                                   ref={nameInputRef}
                                 />
+                                {userDataCondition.name.map(
+                                  (condition, index) => (
+                                    <div
+                                      key={index}
+                                      className="Hint"
+                                      style={{ color: "#FFFFFF" }}
+                                    >
+                                      ● {condition.description}
+                                    </div>
+                                  )
+                                )}
                                 <Button
                                   type="text"
                                   style={{
@@ -124,11 +136,15 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                     try {
                                       const newName =
                                         nameInputRef.current?.value;
-                                      if (!newName || !newName.trim()) {
-                                        throw new Error(
-                                          "暱稱不可為空或只包含空格"
-                                        );
-                                      }
+                                      userDataCondition.name.forEach(
+                                        (condition) => {
+                                          if (!condition.checkFunc(newName))
+                                            throw new Error(
+                                              condition.description
+                                            );
+                                        }
+                                      );
+
                                       const response = await fetch(
                                         `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
                                         {
@@ -158,13 +174,14 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                       Toast.fire({
                                         icon: "error",
                                         title: "暱稱更新失敗，請稍後再試...",
+                                        text: err as string,
                                       });
                                     }
                                   }}
                                 >
                                   保存
                                 </Button>
-                              </Space>
+                              </div>
                             ),
                           });
                         }}

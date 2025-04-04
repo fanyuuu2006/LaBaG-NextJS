@@ -2,7 +2,7 @@
 import { Button, ButtonProps } from "antd";
 import { GithubOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useUser } from "@/context/UserContext";
-import { signOptions } from "@/types/Auth";
+import { signOptions } from "@/types/user";
 
 interface AuthButtonProps extends Omit<ButtonProps, "onClick" | "icon"> {
   signBy: signOptions;

@@ -1,5 +1,5 @@
 "use client";
-import { authUser, signOptions, LaBaGUser } from "@/types/Auth";
+import { authUser, signOptions, LaBaGUser } from "@/types/user";
 import {
   createContext,
   useContext,
@@ -55,7 +55,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     })
       .then((res) => {
         if (!res.ok) throw new Error("API 回應錯誤");
-        return res.json() as authUser;
+        return res.json() as unknown as authUser;
       })
       .then((user) => {
         setUser(new LaBaGUser(user));

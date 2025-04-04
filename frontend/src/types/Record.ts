@@ -1,4 +1,4 @@
-import { authUser } from "./Auth";
+import { authUser } from "./user";
 
 export type gameRecord = {
   time?: string;

@@ -3,13 +3,14 @@ import { gameRecord } from "./Record";
 export type signOptions = "google" | "github";
 
 export interface authUser {
-  id?: string;
+  id: string;
   name?: string;
+  email?: string;
   image?: string;
 }
 
 export class LaBaGUser implements authUser {
-  id?: authUser["id"] | undefined;
+  id: authUser["id"];
   name?: authUser["name"] | undefined;
   image?: authUser["image"] | undefined;
 
