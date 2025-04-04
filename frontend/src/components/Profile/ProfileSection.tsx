@@ -81,94 +81,97 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
               <div>
                 <div className="Content">
                   {User?.name ?? ""}
-                  <Tooltip title="修改暱稱">
-                    <Button
-                      type="text"
-                      onClick={() => {
-                        CustomModal({
-                          html: (
-                            <Space
-                              direction="vertical"
-                              size="middle"
-                              align="center"
-                              style={{
-                                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                backdropFilter: "blur(2px)",
-                                border: `3px solid ${ModeColors[NowMode].dark}`,
-                                borderRadius: "10px",
-                                padding: "1em",
-                                textAlign: "start",
-                              }}
-                            >
-                              <input
-                                type="text"
-                                placeholder="請輸入新暱稱"
-                                className="Note"
+                  {!UserID && (
+                    <Tooltip title="修改暱稱">
+                      <Button
+                        type="text"
+                        onClick={() => {
+                          CustomModal({
+                            html: (
+                              <Space
+                                direction="vertical"
+                                size="middle"
+                                align="center"
                                 style={{
-                                  color: "#FFFFFF",
-                                  border: `2px solid ${ModeColors[NowMode].dark}`,
-                                  borderRadius: "5px",
-                                  padding: "0.5em",
-                                }}
-                                ref={nameInputRef}
-                              />
-                              <Button
-                                type="text"
-                                style={{
-                                  color: "#FFFFFF",
-                                  border: `1px solid ${ModeColors[NowMode].dark}`,
-                                }}
-                                onClick={async () => {
-                                  try {
-                                    const newName = nameInputRef.current?.value;
-                                    if (!newName || !newName.trim()) {
-                                      throw new Error(
-                                        "暱稱不可為空或只包含空格"
-                                      );
-                                    }
-                                    const response = await fetch(
-                                      `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
-                                      {
-                                        method: "PATCH",
-                                        headers: {
-                                          "Content-Type": "application/json",
-                                          Authorization: `Bearer ${localStorage.getItem(
-                                            "authToken"
-                                          )}`,
-                                        },
-                                        body: JSON.stringify({
-                                          field: "name",
-                                          value: newName,
-                                        }),
-                                      }
-                                    );
-                                    if (!response.ok)
-                                      throw new Error(await response.json());
-
-                                    Toast.fire({
-                                      icon: "success",
-                                      title: "暱稱修改成功",
-                                    });
-                                    setTimeout(refreshUser, 1000);
-                                  } catch (err) {
-                                    console.error(err);
-                                    Toast.fire({
-                                      icon: "error",
-                                      title: "暱稱更新失敗，請稍後再試...",
-                                    });
-                                  }
+                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                  backdropFilter: "blur(2px)",
+                                  border: `3px solid ${ModeColors[NowMode].dark}`,
+                                  borderRadius: "10px",
+                                  padding: "1em",
+                                  textAlign: "start",
                                 }}
                               >
-                                保存
-                              </Button>
-                            </Space>
-                          ),
-                        });
-                      }}
-                      icon={<EditOutlined />}
-                      style={{ color: "inherit" }}
-                    />
-                  </Tooltip>
+                                <input
+                                  type="text"
+                                  placeholder="請輸入新暱稱"
+                                  className="Note"
+                                  style={{
+                                    color: "#FFFFFF",
+                                    border: `2px solid ${ModeColors[NowMode].dark}`,
+                                    borderRadius: "5px",
+                                    padding: "0.5em",
+                                  }}
+                                  ref={nameInputRef}
+                                />
+                                <Button
+                                  type="text"
+                                  style={{
+                                    color: "#FFFFFF",
+                                    border: `1px solid ${ModeColors[NowMode].dark}`,
+                                  }}
+                                  onClick={async () => {
+                                    try {
+                                      const newName =
+                                        nameInputRef.current?.value;
+                                      if (!newName || !newName.trim()) {
+                                        throw new Error(
+                                          "暱稱不可為空或只包含空格"
+                                        );
+                                      }
+                                      const response = await fetch(
+                                        `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
+                                        {
+                                          method: "PATCH",
+                                          headers: {
+                                            "Content-Type": "application/json",
+                                            Authorization: `Bearer ${localStorage.getItem(
+                                              "authToken"
+                                            )}`,
+                                          },
+                                          body: JSON.stringify({
+                                            field: "name",
+                                            value: newName,
+                                          }),
+                                        }
+                                      );
+                                      if (!response.ok)
+                                        throw new Error(await response.json());
+
+                                      Toast.fire({
+                                        icon: "success",
+                                        title: "暱稱修改成功",
+                                      });
+                                      setTimeout(refreshUser, 1000);
+                                    } catch (err) {
+                                      console.error(err);
+                                      Toast.fire({
+                                        icon: "error",
+                                        title: "暱稱更新失敗，請稍後再試...",
+                                      });
+                                    }
+                                  }}
+                                >
+                                  保存
+                                </Button>
+                              </Space>
+                            ),
+                          });
+                        }}
+                        icon={<EditOutlined />}
+                        style={{ color: "inherit" }}
+                      />
+                    </Tooltip>
+                  )}
                 </div>
                 <div className="Hint">
                   {User.id ?? ""}
