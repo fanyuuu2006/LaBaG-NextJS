@@ -9,9 +9,10 @@ import {
 export const router = Router();
 
 // 獲取用戶資料
-router.get("/profile", authMiddleware, getUserProfile);
+router
+  .get("/profile", authMiddleware, getUserProfile)
 
-// Google 回呼
-router.get("/callback/:signBy", signCallBackMiddleware, signCallBack);
+  // Google 回呼
+  .get("/callback/:signBy", signCallBackMiddleware, signCallBack)
 
-router.get("/:signBy", signInMiddleware);
+  .get("/:signBy", signInMiddleware);

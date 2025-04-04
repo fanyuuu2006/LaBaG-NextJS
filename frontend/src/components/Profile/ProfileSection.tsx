@@ -85,6 +85,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                     <Tooltip title="修改暱稱">
                       <Button
                         type="text"
+                        style={{fontSize:"inherit", color: "inherit"}}  
                         onClick={() => {
                           CustomModal({
                             html: (
@@ -168,7 +169,6 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                           });
                         }}
                         icon={<EditOutlined />}
-                        style={{ color: "inherit" }}
                       />
                     </Tooltip>
                   )}

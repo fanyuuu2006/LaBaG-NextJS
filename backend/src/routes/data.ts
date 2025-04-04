@@ -4,5 +4,4 @@ import { router as recordRouter } from "./data/records";
 
 export const router = Router();
 
-router.use("/users", userRouter);
-router.use("/records", recordRouter);
+router.use("/users", userRouter).use("/records", recordRouter);

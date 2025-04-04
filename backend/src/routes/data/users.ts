@@ -10,9 +10,10 @@ import {
 
 export const router = Router();
 
-router.get("/", getUsers);
-router.get("/:id(\\d+)", getUserById);
+router
+  .get("/", getUsers)
+  .get("/:id(\\d+)", getUserById)
 
-router.post("/", authMiddleware, addUser);
+  .post("/", authMiddleware, addUser)
 
-router.patch("/", authMiddleware, changeUserData);
+  .patch("/", authMiddleware, changeUserData);

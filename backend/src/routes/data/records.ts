@@ -10,8 +10,9 @@ import {
 
 export const router = Router();
 
-router.get("/", getRecords);
-router.get("/ranking", getRanking);
-router.get("/:id(\\d+)", getRecordsById);
+router
+  .get("/", getRecords)
+  .get("/ranking", getRanking)
+  .get("/:id(\\d+)", getRecordsById)
 
-router.post("/", authMiddleware, addRecord);
+  .post("/", authMiddleware, addRecord);
