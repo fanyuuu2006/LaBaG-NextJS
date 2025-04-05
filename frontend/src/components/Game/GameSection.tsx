@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { CodePicture } from "./CodePicture";
-import { BeginButton } from "./BeginButton";
 import { InfoText } from "./InfoText";
 import { PopPicture } from "./PopPicture";
 
@@ -18,6 +17,8 @@ import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
 import { useUser } from "../../context/UserContext";
+import { CoolDownButton } from "../common/CoolDownButton";
+import ModeColors from "@/json/ModeColors.json";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -35,8 +36,16 @@ export const GameSection = () => {
   const { User } = useUser();
   const { NowMode, setNowMode } = useNowMode();
   const router = useRouter();
-  const [ButtonAble, setButtonAble] = useState<boolean>(true);
   const { MusicButton, setBgmRunning } = useMusic();
+
+  useEffect(() => {
+    setBgmRunning(true);
+    console.log("背景音樂開始播放");
+    return () => {
+      setBgmRunning(false);
+      console.log("背景音樂停止播放");
+    };
+  }, [setBgmRunning]);
 
   const [LCode, setLCode] = useState<string>("QST");
   const [MCode, setMCode] = useState<string>("QST");
@@ -51,15 +60,6 @@ export const GameSection = () => {
   const [RestTimes, setRestTimes] = useState<number>(Game.Times - Game.Played);
   const [ModeTimes, setModeTimes] = useState<number | null>(null);
   const [GssNum, setGssNum] = useState<number>(Modes.GreenWei?.Score ?? 0);
-
-  useEffect(() => {
-    setBgmRunning(true);
-    console.log("背景音樂開始播放");
-    return () => {
-      setBgmRunning(false);
-      console.log("背景音樂停止播放");
-    };
-  }, [setBgmRunning]);
 
   // 使用 useEffect 來更新背景
   useEffect(() => {
@@ -144,7 +144,6 @@ export const GameSection = () => {
       }
     };
     // 主要執行區段
-    setButtonAble(false);
     if (!Game.GameRunning()) {
       Toast.fire({
         icon: "warning",
@@ -195,7 +194,6 @@ export const GameSection = () => {
         if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
           PopPicture(Game.NowMode());
         }
-        setButtonAble(true);
       }, 3500);
     }
   };
@@ -211,7 +209,22 @@ export const GameSection = () => {
         ModeTimes={ModeTimes}
         GssNum={GssNum}
       />
-      <BeginButton onClick={Begin} ButtonAble={ButtonAble} />
+      <CoolDownButton
+        className="Content"
+        onClick={Begin}
+        enabledStyle={{
+          backgroundColor: "#FFFFFF",
+          borderColor: ModeColors[NowMode].light,
+          color: ModeColors[NowMode].dark,
+        }}
+        disabledStyle={{
+          backgroundColor: "#787878",
+          borderColor: "#000000",
+          color: "#000000",
+        }}
+      >
+        開始
+      </CoolDownButton>
       <MusicButton
         className="Note"
         style={{ position: "fixed", bottom: "0.5em", right: "0.5em" }}
