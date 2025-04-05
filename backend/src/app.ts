@@ -1,26 +1,18 @@
 import express from "express";
-import rateLimit from "express-rate-limit";
 import cors from "cors";
 import morgan from "morgan";
 import passport from "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
 import { router as dataRouter } from "./routes/data";
+import { globalRateLimit } from "./middlewares/rateLimitMiddleware";
 
 export const app = express();
 
 // 設置中介軟體，解析 JSON 請求體
 app.use(express.json());
 
-
-app.use(
-  rateLimit({
-    windowMs: 60 * 1000, // 1 分鐘
-    max: 40, 
-    message: { message: "請求過於頻繁，請稍後再試" },
-    keyGenerator: (req) => req?.ip ?? "", // 使用來自每個請求的 req.ip（即客戶端的 IP 地址）來生成唯一的識別鍵 這樣系統就會對每個 IP 地址進行獨立的限流控制
-  })
-);
+app.use(globalRateLimit);
 
 app.use(
   cors({

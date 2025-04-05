@@ -7,6 +7,7 @@ import {
   getRecords,
   getRecordsById,
 } from "../../controllers/data/recordController";
+import { recordsPostRateLimit } from "../../middlewares/rateLimitMiddleware";
 
 export const router = Router();
 
@@ -15,4 +16,4 @@ router
   .get("/ranking", getRanking)
   .get("/:id(\\d+)", getRecordsById)
 
-  .post("/", authMiddleware, addRecord);
+  .post("/", authMiddleware, recordsPostRateLimit, addRecord);
