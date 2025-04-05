@@ -2,12 +2,6 @@ import { BaseLaBaG } from "./LaBaG";
 import { ModeNames, Modes } from "./Mode";
 
 export class PlayLaBaG extends BaseLaBaG {
-  Name: string = "";
-
-  constructor() {
-    super();
-  }
-
   Reset(): void {
     super.Reset();
     console.log("遊戲已重置");

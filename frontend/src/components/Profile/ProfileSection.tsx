@@ -79,7 +79,13 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                 }}
               />
               <div>
-                <div className="Content">
+                <div
+                  className="Content"
+                  style={{
+                    overflowX: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
                   {User?.name ?? ""}
                   {!UserID && (
                     <Tooltip title="修改使用者名稱">

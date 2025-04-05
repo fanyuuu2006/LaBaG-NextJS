@@ -54,8 +54,10 @@ export const GameSection = () => {
 
   useEffect(() => {
     setBgmRunning(true);
+    console.log("背景音樂開始播放");
     return () => {
       setBgmRunning(false);
+      console.log("背景音樂停止播放");
     };
   }, [setBgmRunning]);
 
