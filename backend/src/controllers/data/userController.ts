@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { authUser, dataUserFields } from "../../types/user";
+import { authUser } from "../../types/user";
 import {
   createUser,
   findUser,
   updateUser,
   updateUserField,
+  userDataCondition,
 } from "../../utils/user";
 import { getUsers as getUsersUtil } from "../../utils/user";
 
@@ -96,6 +97,17 @@ export const changeUserData = async (req: Request, res: Response) => {
     if (!allowedFields.includes(field as keyof Omit<authUser, "id">)) {
       res.status(400).json({ error: "無法修改的欄位" });
       return;
+    }
+
+    for (const condition of userDataCondition[
+      field as keyof Omit<authUser, "id">
+    ]) {
+      if (!condition.checkFunc({ [field]: value })) {
+        res.status(400).json({
+          error: condition.description,
+        });
+        return;
+      }
     }
 
     const updatedUser = updateUserField(user, {

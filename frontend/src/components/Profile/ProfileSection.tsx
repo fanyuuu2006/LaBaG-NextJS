@@ -10,7 +10,6 @@ import { CustomModal, Toast } from "@/components/common/Alert";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
-import { userDataCondition } from "@/utils/userDataCondition";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
@@ -115,17 +114,6 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                   }}
                                   ref={nameInputRef}
                                 />
-                                {userDataCondition.name.map(
-                                  (condition, index) => (
-                                    <div
-                                      key={index}
-                                      className="Hint"
-                                      style={{ color: "#FFFFFF" }}
-                                    >
-                                      ● {condition.description}
-                                    </div>
-                                  )
-                                )}
                                 <Button
                                   type="text"
                                   style={{
@@ -136,18 +124,6 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                     try {
                                       const newName =
                                         nameInputRef.current?.value;
-                                      userDataCondition.name.forEach(
-                                        (condition) => {
-                                          if (
-                                            !condition.checkFunc({
-                                              name: newName,
-                                            })
-                                          )
-                                            throw new Error(
-                                              condition.description
-                                            );
-                                        }
-                                      );
 
                                       const response = await fetch(
                                         `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
@@ -165,9 +141,11 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                                           }),
                                         }
                                       );
-                                      if (!response.ok)
-                                        throw new Error(await response.json());
-
+                                      if (response.status !== 200)
+                                        throw new Error(
+                                          (await response.json()).error ??
+                                            "未知錯誤"
+                                        );
                                       Toast.fire({
                                         icon: "success",
                                         title: "暱稱修改成功",
