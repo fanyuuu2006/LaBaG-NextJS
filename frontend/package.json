@@ -16,7 +16,7 @@
     "bootstrap": "^5.3.3",
     "googleapis": "^146.0.0",
     "jsonwebtoken": "^9.0.2",
-    "labag": "^1.0.5",
+    "labag": "^1.1.13",
     "next": "^15.2.2",
     "next-auth": "^4.24.11",
     "next-transpile-modules": "^10.0.1",

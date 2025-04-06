@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Sheet } from "../../config/googleapi";
 import { authUser } from "../../types/user";
 import { gameRecord } from "../../types/record";
+import { AllDataType, parseScore } from "labag";
 
 export const getRecords = async (_: Request, res: Response) => {
   try {
@@ -30,6 +31,29 @@ export const getRecords = async (_: Request, res: Response) => {
     console.error(error);
     res.status(500).json({
       message: `伺服器錯誤，無法獲取資料: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    });
+    return;
+  }
+};
+
+export const getScoreByAllData = async (req: Request, res: Response) => {
+  try {
+    const allData = req.body as AllDataType;
+    if (!allData) {
+      console.log("請求數據缺失或是格式錯誤");
+      res.status(400).json({ message: "請求數據缺失或是格式錯誤" });
+      return;
+    }
+
+    const score: number = parseScore(allData);
+
+    res.status(200).json({ score });
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: `伺服器錯誤: ${
         error instanceof Error ? error.message : String(error)
       }`,
     });

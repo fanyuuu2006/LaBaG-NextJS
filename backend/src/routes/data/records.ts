@@ -6,6 +6,7 @@ import {
   getRanking,
   getRecords,
   getRecordsById,
+  getScoreByAllData,
 } from "../../controllers/data/recordController";
 import { recordsPostRateLimit } from "../../middlewares/rateLimitMiddleware";
 
@@ -16,4 +17,5 @@ router
   .get("/ranking", getRanking)
   .get("/:id(\\d+)", getRecordsById)
 
-  .post("/", authMiddleware, recordsPostRateLimit, addRecord);
+  .post("/", authMiddleware, recordsPostRateLimit, addRecord)
+  .post("/score", getScoreByAllData);
