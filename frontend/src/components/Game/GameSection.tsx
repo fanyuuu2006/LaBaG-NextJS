@@ -211,6 +211,7 @@ export const GameSection = () => {
         GssNum={GssNum}
       />
       <CoolDownButton
+      coolDownTime={3500}
         className="Content"
         onClick={Begin}
         enabledStyle={{
