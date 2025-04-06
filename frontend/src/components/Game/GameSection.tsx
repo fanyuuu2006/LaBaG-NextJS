@@ -39,6 +39,7 @@ export const GameSection = () => {
   const { MusicButton, setBgmRunning } = useMusic();
 
   useEffect(() => {
+    console.log(Game);
     setBgmRunning(true);
     console.log("背景音樂開始播放");
     return () => {
