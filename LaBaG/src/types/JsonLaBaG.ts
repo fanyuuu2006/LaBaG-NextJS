@@ -1,6 +1,6 @@
-import { Modes } from "./Mode";
 import { P } from "./P";
 import { BaseLaBaG } from "./LaBaG";
+import { Modes } from "..";
 
 export class JsonLaBaG extends BaseLaBaG {
   jsonData: BaseLaBaG["AllData"];
