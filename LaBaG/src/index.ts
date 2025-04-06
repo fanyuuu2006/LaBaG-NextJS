@@ -4,11 +4,12 @@ import { LaBaG } from "./types/LaBaG";
 import { Mode, ModeNames } from "./types/Mode";
 import { RandInt } from "./utils/RandInt";
 import { PlayLaBaG } from "./types/PlayLaBaG";
+import { JsonLaBaG } from "./types/JsonLaBaG";
 
 Object.values(PDatas).forEach((Pdata: PData) => {
   new P(Pdata.code, Pdata.scores, Pdata.rates);
 });
-export const Modes: Record<Exclude<ModeNames, "Normal">, Mode> = {
+const Modes: Record<Exclude<ModeNames, "Normal">, Mode> = {
   // 超級阿禾
   SuperHHH: {
     InMode: false,
@@ -139,5 +140,4 @@ export const Modes: Record<Exclude<ModeNames, "Normal">, Mode> = {
   },
 };
 
-
-export const Game = new PlayLaBaG(); 
+export { LaBaG, PlayLaBaG, JsonLaBaG, Modes, ModeNames, P, PData, PDatas };

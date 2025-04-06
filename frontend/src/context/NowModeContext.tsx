@@ -1,4 +1,6 @@
 "use client";
+import { Game } from "@/utils/game";
+import { ModeNames } from "labag";
 import {
   createContext,
   useContext,
@@ -7,8 +9,7 @@ import {
   SetStateAction,
   Dispatch,
 } from "react";
-import { ModeNames } from "@/lib/Mode";
-import { Game } from "@/lib/PlayLaBaG";
+
 
 // 建立 Context (React 提供的 API，可以建立一個「全域的共享狀態」)
 const NowModeContext = createContext<{

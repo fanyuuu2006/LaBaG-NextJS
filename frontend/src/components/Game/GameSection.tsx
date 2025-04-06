@@ -1,5 +1,3 @@
-import { Game } from "@/lib/PlayLaBaG";
-import { ModeNames, Modes } from "@/lib/Mode";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -19,6 +17,8 @@ import { useMusic } from "@/context/MusicContext";
 import { useUser } from "../../context/UserContext";
 import { CoolDownButton } from "../common/CoolDownButton";
 import ModeColors from "@/json/ModeColors.json";
+import { ModeNames, Modes } from "labag";
+import { Game } from "@/utils/game";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,

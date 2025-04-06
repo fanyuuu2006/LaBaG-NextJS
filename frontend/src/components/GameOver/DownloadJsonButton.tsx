@@ -1,4 +1,4 @@
-import { Game } from "@/lib/PlayLaBaG";
+import { Game } from "@/utils/game";
 import { Button } from "antd";
 
 export const DownloadJsonButton = () => {

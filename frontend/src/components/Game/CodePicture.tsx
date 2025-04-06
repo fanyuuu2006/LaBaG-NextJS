@@ -16,9 +16,8 @@ import Rrr from "@/assets/RRR.jpg";
 import superhhh from "@/assets/super_hhh.jpg";
 import greenwei from "@/assets/green_wei.jpg";
 import pikachu from "@/assets/pikachu.jpg";
-import { ModeNames, Modes } from "@/lib/Mode";
-import { P } from "@/lib/P";
 import { useNowMode } from "@/context/NowModeContext";
+import { ModeNames, Modes, P} from "labag";
 
 const QSTs: Record<ModeNames, StaticImageData> = {
   Normal: QST,

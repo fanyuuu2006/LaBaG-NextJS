@@ -1,6 +1,6 @@
 import { Space } from "antd";
 import ModeColors from "@/json/ModeColors.json";
-import { ModeNames } from "@/lib/Mode";
+import { ModeNames } from "labag";
 import { useNowMode } from "@/context/NowModeContext";
 
 export const InfoText = ({

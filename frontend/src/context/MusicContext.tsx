@@ -9,9 +9,9 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { ModeNames } from "@/lib/Mode";
 import { Button, ButtonProps } from "antd";
 import { useNowMode } from "./NowModeContext";
+import { ModeNames } from "labag";
 
 const musicSources: Record<ModeNames, string> = {
   Normal: "/audio/Bgm.mp3",
