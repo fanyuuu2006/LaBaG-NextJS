@@ -3,19 +3,18 @@ import SuperPOP from "@/assets/SuperPOP.jpg";
 import GreenPOP from "@/assets/GreenPOP.jpg";
 import KachuPOP from "@/assets/KachuPOP.jpg";
 import { StaticImageData } from "next/image";
-import { ModeNames } from "@/lib/Mode";
+import { ModeNames } from "labag";
 // import { Button, Space } from "antd";
 // import ModeColors from "@/json/ModeColors.json";
 // import { ReactNode } from "react";
 
-const POPs: Record<ModeNames, StaticImageData> = {
+const POPs: Record<Exclude<ModeNames, "Normal">, StaticImageData> = {
   SuperHHH: SuperPOP,
   GreenWei: GreenPOP,
   PiKaChu: KachuPOP,
 };
 
-
-export const PopPicture = (NowMode: ModeNames) => {
+export const PopPicture = (NowMode: Exclude<ModeNames, "Normal">) => {
   Modal.fire({
     imageUrl: POPs[NowMode].src,
     imageWidth: "auto",

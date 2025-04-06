@@ -17,7 +17,7 @@ import superhhh from "@/assets/super_hhh.jpg";
 import greenwei from "@/assets/green_wei.jpg";
 import pikachu from "@/assets/pikachu.jpg";
 import { useNowMode } from "@/context/NowModeContext";
-import { ModeNames, Modes, P} from "labag";
+import { ModeNames, Modes, P } from "labag";
 
 const QSTs: Record<ModeNames, StaticImageData> = {
   Normal: QST,
@@ -54,9 +54,9 @@ export const CodePicture = ({
       content: (
         <>
           <div>
-            {`一般模式機率: ${P.Obj["A"].Rates["Normal"]}%`}
+            {`一般模式機率: ${P.Map.get("A")?.rates["Normal"]}%`}
             <br />
-            {`超級阿禾模式機率: ${P.Obj["A"].Rates["SuperHHH"]}%`}
+            {`超級阿禾模式機率: ${P.Map.get("A")?.rates["SuperHHH"]}%`}
           </div>
         </>
       ),
@@ -68,9 +68,9 @@ export const CodePicture = ({
       content: (
         <>
           <div>
-            {`一般模式機率: ${P.Obj["B"].Rates["Normal"]}%`}
+            {`一般模式機率: ${P.Map.get("B")?.rates["Normal"]}%`}
             <br />
-            {`超級阿禾模式機率: ${P.Obj["B"].Rates["SuperHHH"]}%`}
+            {`超級阿禾模式機率: ${P.Map.get("B")?.rates["SuperHHH"]}%`}
           </div>
         </>
       ),
@@ -82,9 +82,9 @@ export const CodePicture = ({
       content: (
         <>
           <div>
-            {`一般模式機率: ${P.Obj["C"].Rates["Normal"]}%`}
+            {`一般模式機率: ${P.Map.get("C")?.rates["Normal"]}%`}
             <br />
-            {`超級阿禾模式機率: ${P.Obj["C"].Rates["SuperHHH"]}%`}
+            {`超級阿禾模式機率: ${P.Map.get("C")?.rates["SuperHHH"]}%`}
           </div>
         </>
       ),
@@ -96,9 +96,9 @@ export const CodePicture = ({
       content: (
         <>
           <div>
-            {`一般模式機率: ${P.Obj["D"].Rates["Normal"]}%`}
+            {`一般模式機率: ${P.Map.get("D")?.rates["Normal"]}%`}
             <br />
-            {`超級阿禾模式機率: ${P.Obj["D"].Rates["SuperHHH"]}%`}
+            {`超級阿禾模式機率: ${P.Map.get("D")?.rates["SuperHHH"]}%`}
           </div>
         </>
       ),
@@ -110,9 +110,9 @@ export const CodePicture = ({
       content: (
         <>
           <div>
-            {`一般模式機率: ${P.Obj["E"].Rates["Normal"]}%`}
+            {`一般模式機率: ${P.Map.get("E")?.rates["Normal"]}%`}
             <br />
-            {`超級阿禾模式機率: ${P.Obj["E"].Rates["SuperHHH"]}%`}
+            {`超級阿禾模式機率: ${P.Map.get("E")?.rates["SuperHHH"]}%`}
           </div>
         </>
       ),
@@ -124,9 +124,9 @@ export const CodePicture = ({
       content: (
         <>
           <div>
-            {`一般模式機率: ${P.Obj["F"].Rates["Normal"]}%`}
+            {`一般模式機率: ${P.Map.get("F")?.rates["Normal"]}%`}
             <br />
-            {`超級阿禾模式機率: ${P.Obj["F"].Rates["SuperHHH"]}%`}
+            {`超級阿禾模式機率: ${P.Map.get("F")?.rates["SuperHHH"]}%`}
           </div>
         </>
       ),

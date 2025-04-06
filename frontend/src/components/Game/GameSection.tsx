@@ -80,7 +80,7 @@ export const GameSection = () => {
     const change_picture_per500ms = (): void => {
       setCodes.forEach((setCode, i) => {
         setTimeout(() => {
-          setCode(Game.Ps[i]?.Code ?? "QST");
+          setCode(Game.Ps[i]?.code ?? "QST");
           console.log(`更新位置 ${i} 的圖片`);
           Sound("/audio/Ding.mp3");
         }, 500 * (i + 1));
@@ -93,16 +93,16 @@ export const GameSection = () => {
           break;
         case "SuperHHH":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i]?.Code === "B") {
+            if (Game.Ps[i]?.code === "B") {
               setCodes[i]("SB");
             }
           }
           Sound("/audio/SuperUP.mp3");
           break;
         case "GreenWei":
-          if (Game.Ps.some((p) => p?.Code === "A")) {
+          if (Game.Ps.some((p) => p?.code === "A")) {
             setCodes.forEach((setCode, i) => {
-              if (Game.Ps[i]?.Code === "A") {
+              if (Game.Ps[i]?.code === "A") {
                 setCode("GW");
               }
             });
@@ -115,7 +115,7 @@ export const GameSection = () => {
           break;
         case "PiKaChu":
           for (let i = 0; i < 3; i++) {
-            if (Game.Ps[i]?.Code === "E") {
+            if (Game.Ps[i]?.code === "E") {
               setCodes[i]("PK");
             }
           }
@@ -192,7 +192,7 @@ export const GameSection = () => {
           router.replace("./GameOver");
         }
         if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-          PopPicture(Game.NowMode());
+          PopPicture(Game.NowMode() as Exclude<ModeNames, "Normal">);
         }
       }, 3500);
     }

@@ -1,10 +1,10 @@
 import { useNowMode } from "@/context/NowModeContext";
-import { Game } from "@/lib/PlayLaBaG";
 import { Button, Space } from "antd";
 import { useRouter } from "next/navigation";
 import { DownloadJsonButton } from "./DownloadJsonButton";
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
+import { Game } from "@/utils/game";
 
 export const GameOverSection = () => {
   const { User } = useUser();
