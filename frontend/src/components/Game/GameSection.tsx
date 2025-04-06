@@ -39,7 +39,6 @@ export const GameSection = () => {
   const { MusicButton, setBgmRunning } = useMusic();
 
   useEffect(() => {
-    console.log(Game);
     setBgmRunning(true);
     console.log("背景音樂開始播放");
     return () => {
@@ -175,7 +174,7 @@ export const GameSection = () => {
                 Authorization: `Bearer ${localStorage.getItem("authToken")}`,
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ score: Game.Score }),
+              body: JSON.stringify(Game),
             })
               .then((res) => {
                 if (!res.ok) throw new Error(res.statusText);
