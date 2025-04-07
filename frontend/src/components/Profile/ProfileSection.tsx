@@ -92,7 +92,8 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                     <Tooltip title="修改使用者名稱">
                       <Button
                         type="text"
-                        style={{ fontSize: "inherit", color: "inherit" }}
+                        className="Note"
+                        style={{ color: "inherit" }}
                         onClick={() => {
                           CustomModal({
                             html: (

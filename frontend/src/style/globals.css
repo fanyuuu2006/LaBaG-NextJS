@@ -50,6 +50,10 @@ body {
   transition: background-image 0.5s;
 }
 
+header{
+  width: 100%;
+}
+
 section {
   width: 100%;
   max-width: 1000px;

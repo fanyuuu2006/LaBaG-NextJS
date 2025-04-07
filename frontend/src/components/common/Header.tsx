@@ -80,67 +80,69 @@ export const Header = () => {
   ];
 
   return (
-    <Navbar
-      className="sticky-top"
-      expand="lg"
-      style={{
-        zIndex: 1050,
-        width: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        backdropFilter: "blur(2px)",
-      }}
-    >
-      <Container>
-        {/* Logo */}
-        <Navbar.Brand as={Link} href="/">
-          <Logo />
-        </Navbar.Brand>
+    <header>
+      <Navbar
+        className="sticky-top"
+        expand="lg"
+        style={{
+          zIndex: 1050,
+          width: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backdropFilter: "blur(2px)",
+        }}
+      >
+        <Container>
+          {/* Logo */}
+          <Navbar.Brand as={Link} href="/">
+            <Logo />
+          </Navbar.Brand>
 
-        {/* 漢堡選單按鈕 */}
-        <Navbar.Toggle
-          aria-controls="navbar-nav"
-          style={{
-            backgroundColor: "transparent", // 透明背景
-            boxShadow: "none", // 移除陰影
-          }}
-        >
-          <MenuOutlined className="Title" style={{ color: "#FFFFFF" }} />
-        </Navbar.Toggle>
-
-        {/* Navbar 選單內容 */}
-        <Navbar.Collapse id="navbar-nav">
-          <Nav
-            className="Content ms-auto"
+          {/* 漢堡選單按鈕 */}
+          <Navbar.Toggle
+            aria-controls="navbar-nav"
             style={{
-              whiteSpace: "nowrap",
-              textAlign: "center",
+              backgroundColor: "transparent", // 透明背景
+              boxShadow: "none", // 移除陰影
             }}
           >
-            {NavItems.map((item) => {
-              const isCurrentPath =
-                pathName === "/"
-                  ? item.href === "/"
-                  : pathName.startsWith(item.href) && item.href !== "/";
+            <MenuOutlined className="Title" style={{ color: "#FFFFFF" }} />
+          </Navbar.Toggle>
 
-              return (
-                <Nav.Link
-                  as={item.href.startsWith("http") ? OutsideLink : Link}
-                  href={item.href}
-                  key={item.key}
-                  style={{
-                    color: isCurrentPath
-                      ? ModeColors[NowMode].light
-                      : "#FFFFFF",
-                  }}
-                  aria-current={isCurrentPath ? "page" : undefined}
-                >
-                  {item.label}
-                </Nav.Link>
-              );
-            })}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          {/* Navbar 選單內容 */}
+          <Navbar.Collapse id="navbar-nav">
+            <Nav
+              className="Content ms-auto"
+              style={{
+                whiteSpace: "nowrap",
+                textAlign: "center",
+              }}
+            >
+              {NavItems.map((item) => {
+                const isCurrentPath =
+                  pathName === "/"
+                    ? item.href === "/"
+                    : pathName.startsWith(item.href) && item.href !== "/";
+
+                return (
+                  <Nav.Link
+                    as={item.href.startsWith("http") ? OutsideLink : Link}
+                    href={item.href}
+                    key={item.key}
+                    style={{
+                      color: isCurrentPath
+                        ? ModeColors[NowMode].light
+                        : "#FFFFFF",
+                    }}
+                    aria-current={isCurrentPath ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Nav.Link>
+                );
+              })}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
   );
 };
