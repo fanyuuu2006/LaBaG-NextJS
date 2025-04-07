@@ -65,21 +65,21 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
     const { style, ...rest } = props;
     return (
       <Button
-        {...rest}
-        onClick={() => {
-          console.log(`音樂${!bgmRunning ? "開啟" : "關閉"}`);
-          setBgmRunning(!bgmRunning);
-        }}
-        style={{
-          width: "2.5em",
-          height: "2.5em",
-          color: "black",
+      onClick={() => {
+        console.log(`音樂${!bgmRunning ? "開啟" : "關閉"}`);
+        setBgmRunning(!bgmRunning);
+      }}
+      style={{
+        width: "2.5em",
+        height: "2.5em",
+        color: "black",
           borderRadius: "100%",
           cursor: "pointer",
           border: `3px solid ${bgmRunning ? "#006900" : "#696969"}`,
           backgroundColor: bgmRunning ? "#00FF00" : "#E0E0E0",
           ...style,
         }}
+        {...rest}
       >
         {bgmRunning ? "開" : "關"}
       </Button>

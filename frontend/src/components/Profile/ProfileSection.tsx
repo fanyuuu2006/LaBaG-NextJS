@@ -48,9 +48,9 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
           color: "white",
           display: "flex",
           flexDirection: "column",
-          gap: "1em",
+          gap: "0.5em",
           padding: "1em 2em",
-          marginTop: "3em",
+          marginTop: "2em",
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           border: `${ModeColors[NowMode].dark} solid 3px`,
           borderRadius: "10px",
@@ -63,7 +63,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
           </div>
         ) : targetUser ? (
           <>
-            <div className="Title BottomLine">個人檔案</div>
+            <div className="Label BottomLine">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
@@ -209,7 +209,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
 
             <div className="Note CenterAlign">
               歷史最高分數:{" "}
-              <span className="Label">
+              <span className="Content">
                 {/*補空格*/}
                 {HistoryScore?.toLocaleString().padStart(10, "\u00A0")}
               </span>{" "}

@@ -10,8 +10,3 @@ export type gameRecord = {
 export interface RankedGameRecord extends gameRecord {
   rank: number;
 }
-
-export type CommitScoreProps = {
-  score: number;
-};
-

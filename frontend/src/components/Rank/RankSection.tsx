@@ -156,7 +156,7 @@ export const RankSection = () => {
                     >
                       <Tooltip title="查看個人檔案">
                         <Link
-                          href={`/Profile/${UserRank.id}`}
+                          href={`/Profile`}
                           style={{ color: "inherit" }}
                         >
                           {UserRank.name}
