@@ -13,20 +13,21 @@ import { gameRecord } from "@/types/Record";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
-  const { User, Loading, refreshUser } = useUser(UserID as string);
+  const { User: targetUser, Loading, refreshUser } = useUser(UserID as string);
+  const { User } = useUser();
 
   const [HistoryScore, setHistoryScore] = useState<number>(0);
   const [HistoryRecord, setHistoryRecord] = useState<gameRecord[]>([]);
   const [searchID, setSearchID] = useState<string | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    if (!User) return;
+    if (!targetUser) return;
 
     const fetchData = async () => {
       try {
-        const records = await User.getHistoryRecord();
+        const records = await targetUser.getHistoryRecord();
         setHistoryRecord(records);
-        setHistoryScore(await User.historyScore());
+        setHistoryScore(await targetUser.historyScore());
       } catch (error) {
         console.error("Error fetching history records:", error);
         Toast.fire({
@@ -37,13 +38,13 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
     };
 
     fetchData();
-  }, [User]); // 依賴 User
+  }, [targetUser]); // 依賴 targetUser
 
   return (
     <section>
       <div
         style={{
-          width: User ? "100%" : "auto",
+          width: targetUser ? "100%" : "auto",
           color: "white",
           display: "flex",
           flexDirection: "column",
@@ -60,13 +61,13 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
           <div className="Title" style={{ color: "white" }}>
             資料載入中...
           </div>
-        ) : User ? (
+        ) : targetUser ? (
           <>
             <div className="Title BottomLine">個人檔案</div>
             <Space direction="horizontal" align="center" size="middle">
               <Image
                 unoptimized={true}
-                src={User?.image ?? "/DefaultAvator.jpg"}
+                src={targetUser?.image ?? "/DefaultAvator.jpg"}
                 width={300}
                 height={300}
                 alt="頭像"
@@ -86,8 +87,8 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                     textOverflow: "ellipsis",
                   }}
                 >
-                  {User?.name ?? ""}
-                  {!UserID && (
+                  {targetUser?.name ?? ""}
+                  {User && User.id == targetUser.id && (
                     <Tooltip title="修改使用者名稱">
                       <Button
                         type="text"
@@ -179,14 +180,14 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                   )}
                 </div>
                 <div className="Hint">
-                  {User.id ?? ""}
+                  {targetUser.id ?? ""}
                   <Tooltip title="複製 ID">
                     <Button
                       type="text"
                       onClick={async () => {
-                        if (!User?.id) return;
+                        if (!targetUser?.id) return;
                         await navigator.clipboard
-                          .writeText(User.id)
+                          .writeText(targetUser.id)
                           .then(() =>
                             Toast.fire({
                               icon: "success",
