@@ -216,6 +216,8 @@ export const GameSection = () => {
           style={{
             height: "100%",
             width: "auto",
+            maxWidth: "100vw",
+            objectFit: "contain",
           }}
           onClick={() => {
             Modal.Close();
