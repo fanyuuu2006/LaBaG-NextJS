@@ -2,13 +2,19 @@ import withPWA from 'next-pwa';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ['lh3.googleusercontent.com'],
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.(mp3|wav|ogg)$/i,
+      type: 'asset/resource',
+      generator: {
+        filename: 'static/media/[name].[hash][ext]',
+      },
+    });
+
+    return config;
   },
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
+  images: {
+    domains: ["lh3.googleusercontent.com"], // 允許 Google 頭像來源
   },
 };
 
