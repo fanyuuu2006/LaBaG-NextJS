@@ -3,6 +3,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React, { useState, useEffect } from "react";
 import ModeColors from "@/json/ModeColors.json";
+import { Toast } from "../common/Alert";
 interface BeforeInstallPromptEvent extends Event {
   prompt?: () => void;
   userChoice?: Promise<{ outcome: string; platform: string }>;
@@ -36,6 +37,10 @@ export const InstallPWAButton = () => {
         (choiceResult: { outcome: string; platform: string }) => {
           if (choiceResult.outcome === "accepted") {
             console.log("用戶安裝了 PWA");
+            Toast.fire({
+              icon: "info",
+              title: "正在開始安裝",
+            });
           } else {
             console.log("用戶拒絕安裝");
           }
