@@ -6,7 +6,7 @@ import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { useEffect, useRef, useState } from "react";
 import { CopyOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
-import { Toast, useModal } from "@/components/common/Alert";
+import { Toast, useModal } from "@/components/common/Modal";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
@@ -202,8 +202,8 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
             }}
             onClick={async () => {
               try {
+                Modal.Close();
                 const newName = nameInputRef.current?.value;
-
                 const response = await fetch(
                   `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
                   {

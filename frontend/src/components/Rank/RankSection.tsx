@@ -5,7 +5,7 @@ import ModeColors from "@/json/ModeColors.json";
 import { Tooltip } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Toast } from "../common/Alert";
+import { Toast } from "../common/Modal";
 import { RankedGameRecord } from "@/types/Record";
 
 export const RankSection = () => {

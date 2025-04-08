@@ -1,6 +1,6 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
-import { useModal } from "../common/Alert";
+import { useModal } from "../common/Modal";
 import { Button, Space, Table, Tooltip } from "antd";
 import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";

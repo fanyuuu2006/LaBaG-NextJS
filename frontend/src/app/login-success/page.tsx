@@ -1,5 +1,5 @@
 "use client";
-import { Toast } from "@/components/common/Alert";
+import { Toast } from "@/components/common/Modal";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

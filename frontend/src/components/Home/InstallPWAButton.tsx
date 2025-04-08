@@ -3,7 +3,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React, { useState, useEffect } from "react";
 import ModeColors from "@/json/ModeColors.json";
-import { Toast } from "../common/Alert";
+import { Toast } from "../common/Modal";
 interface BeforeInstallPromptEvent extends Event {
   prompt?: () => void;
   userChoice?: Promise<{ outcome: string; platform: string }>;

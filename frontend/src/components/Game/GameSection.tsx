@@ -12,7 +12,7 @@ import SuperPOP from "@/assets/SuperPOP.jpg";
 import GreenPOP from "@/assets/GreenPOP.jpg";
 import KachuPOP from "@/assets/KachuPOP.jpg";
 import Image, { StaticImageData } from "next/image";
-import { Toast, useModal } from "../common/Alert";
+import { Toast, useModal } from "../common/Modal";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";

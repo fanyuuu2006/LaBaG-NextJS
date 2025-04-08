@@ -62,7 +62,7 @@ export const useModal = () => {
 
       return React.cloneElement(child, {
         onClick: (e: React.MouseEvent) => {
-          e.stopPropagation();
+          e.stopPropagation(); // 阻止事件冒泡
           if ((child as React.JSX.Element).props.onClick) {
             (child as React.JSX.Element).props.onClick(e);
           }
