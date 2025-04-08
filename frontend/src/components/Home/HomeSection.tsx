@@ -13,7 +13,6 @@ export const HomeSection = () => {
   return (
     <section style={{ height: "100%" }}>
       <Space
-        className="Home-Div"
         direction="vertical"
         align="center"
         size={"large"}
@@ -38,8 +37,8 @@ export const HomeSection = () => {
             進入遊戲
           </Button>
         </Tooltip>
+        <InstallPWAButton />
       </Space>
-      <InstallPWAButton />
     </section>
   );
 };

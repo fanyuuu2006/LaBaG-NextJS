@@ -59,8 +59,6 @@ export const InstallPWAButton = () => {
           type="text"
           className="Hint"
           style={{
-            position: "fixed",
-            bottom: "1.5em",
             padding: "1em",
             color: "#FFFFFF",
             backgroundColor: ModeColors[NowMode].dark,

@@ -6,7 +6,7 @@ import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { useEffect, useRef, useState } from "react";
 import { CopyOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
-import { CustomModal, Toast } from "@/components/common/Alert";
+import { Toast, useModal } from "@/components/common/Alert";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
@@ -15,6 +15,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
   const { User: targetUser, Loading, refreshUser } = useUser(UserID as string);
   const { User } = useUser();
+  const Modal = useModal();
 
   const [HistoryScore, setHistoryScore] = useState<number>(0);
   const [HistoryRecord, setHistoryRecord] = useState<gameRecord[]>([]);
@@ -95,85 +96,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
                         className="Note"
                         style={{ color: "inherit" }}
                         onClick={() => {
-                          CustomModal({
-                            html: (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                  backdropFilter: "blur(2px)",
-                                  border: `3px solid ${ModeColors[NowMode].dark}`,
-                                  borderRadius: "10px",
-                                  padding: "1em",
-                                  gap: "1em",
-                                  textAlign: "start",
-                                }}
-                              >
-                                <input
-                                  type="text"
-                                  placeholder="請輸入新使用者名稱"
-                                  className="Note"
-                                  style={{
-                                    color: "#FFFFFF",
-                                    border: `2px solid ${ModeColors[NowMode].dark}`,
-                                    borderRadius: "5px",
-                                    padding: "0.5em",
-                                  }}
-                                  ref={nameInputRef}
-                                />
-                                <Button
-                                  type="text"
-                                  style={{
-                                    color: "#FFFFFF",
-                                    border: `1px solid ${ModeColors[NowMode].dark}`,
-                                  }}
-                                  onClick={async () => {
-                                    try {
-                                      const newName =
-                                        nameInputRef.current?.value;
-
-                                      const response = await fetch(
-                                        `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
-                                        {
-                                          method: "PATCH",
-                                          headers: {
-                                            "Content-Type": "application/json",
-                                            Authorization: `Bearer ${localStorage.getItem(
-                                              "authToken"
-                                            )}`,
-                                          },
-                                          body: JSON.stringify({
-                                            field: "name",
-                                            value: newName,
-                                          }),
-                                        }
-                                      );
-                                      if (response.status !== 200)
-                                        throw new Error(
-                                          (await response.json()).error ??
-                                            "未知錯誤"
-                                        );
-                                      Toast.fire({
-                                        icon: "success",
-                                        title: "暱稱修改成功",
-                                      });
-                                      setTimeout(refreshUser, 1000);
-                                    } catch (err) {
-                                      console.error(err);
-                                      Toast.fire({
-                                        icon: "error",
-                                        title: "暱稱更新失敗，請稍後再試...",
-                                        text: err as string,
-                                      });
-                                    }
-                                  }}
-                                >
-                                  保存
-                                </Button>
-                              </div>
-                            ),
-                          });
+                          Modal.Open();
                         }}
                         icon={<EditOutlined />}
                       />
@@ -245,6 +168,80 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
           </>
         )}
       </div>
+      <Modal.Container>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(2px)",
+            border: `3px solid ${ModeColors[NowMode].dark}`,
+            borderRadius: "10px",
+            padding: "1em",
+            gap: "1em",
+            textAlign: "start",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="請輸入新使用者名稱"
+            className="Note"
+            style={{
+              color: "#FFFFFF",
+              border: `2px solid ${ModeColors[NowMode].dark}`,
+              borderRadius: "5px",
+              padding: "0.5em",
+            }}
+            ref={nameInputRef}
+          />
+          <Button
+            type="text"
+            style={{
+              color: "#FFFFFF",
+              border: `1px solid ${ModeColors[NowMode].dark}`,
+            }}
+            onClick={async () => {
+              try {
+                const newName = nameInputRef.current?.value;
+
+                const response = await fetch(
+                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users`,
+                  {
+                    method: "PATCH",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem(
+                        "authToken"
+                      )}`,
+                    },
+                    body: JSON.stringify({
+                      field: "name",
+                      value: newName,
+                    }),
+                  }
+                );
+                if (response.status !== 200)
+                  throw new Error((await response.json()).error ?? "未知錯誤");
+                Toast.fire({
+                  icon: "success",
+                  title: "暱稱修改成功",
+                });
+                setTimeout(refreshUser, 1000);
+              } catch (err) {
+                console.error(err);
+                Toast.fire({
+                  icon: "error",
+                  title: "暱稱更新失敗，請稍後再試...",
+                  text: err as string,
+                });
+              }
+            }}
+          >
+            保存
+          </Button>
+        </div>
+        ;
+      </Modal.Container>
     </section>
   );
 };

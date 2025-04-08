@@ -3,14 +3,16 @@ import { useRouter } from "next/navigation";
 
 import { CodePicture } from "./CodePicture";
 import { InfoText } from "./InfoText";
-import { PopPicture } from "./PopPicture";
 
 import BG from "@/assets/BG.jpg";
 import SuperBG from "@/assets/SuperBG.jpg";
 import GreenBG from "@/assets/GreenBG.jpg";
 import KachuBG from "@/assets/KachuBG.jpg";
-import { StaticImageData } from "next/image";
-import { Toast } from "../common/Alert";
+import SuperPOP from "@/assets/SuperPOP.jpg";
+import GreenPOP from "@/assets/GreenPOP.jpg";
+import KachuPOP from "@/assets/KachuPOP.jpg";
+import Image, { StaticImageData } from "next/image";
+import { Toast, useModal } from "../common/Alert";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
@@ -27,6 +29,12 @@ const BGs: Record<ModeNames, StaticImageData> = {
   PiKaChu: KachuBG,
 };
 
+const POPs: Record<Exclude<ModeNames, "Normal">, StaticImageData> = {
+  SuperHHH: SuperPOP,
+  GreenWei: GreenPOP,
+  PiKaChu: KachuPOP,
+};
+
 function Sound(src: string) {
   const audio = new Audio(src);
   audio.play();
@@ -35,6 +43,7 @@ function Sound(src: string) {
 export const GameSection = () => {
   const { User } = useUser();
   const { NowMode, setNowMode } = useNowMode();
+  const Modal = useModal();
   const router = useRouter();
   const { MusicButton, setBgmRunning } = useMusic();
 
@@ -192,7 +201,7 @@ export const GameSection = () => {
           router.replace("./GameOver");
         }
         if (Game.NowMode() !== "Normal" && Game.ModeToScreen) {
-          PopPicture(Game.NowMode() as Exclude<ModeNames, "Normal">);
+          Modal.Open();
         }
       }, 3500);
     }
@@ -200,6 +209,19 @@ export const GameSection = () => {
 
   return (
     <section style={{ height: "100%" }}>
+      <Modal.Container>
+        <Image
+          src={POPs[NowMode as Exclude<ModeNames, "Normal">]}
+          alt="PopPicture"
+          style={{
+            height: "100%",
+            width: "auto",
+          }}
+          onClick={() => {
+            Modal.Close();
+          }}
+        />
+      </Modal.Container>
       <CodePicture LCode={LCode} MCode={MCode} RCode={RCode} />
       <InfoText
         Score={Score}
@@ -210,7 +232,7 @@ export const GameSection = () => {
         GssNum={GssNum}
       />
       <CoolDownButton
-      coolDownTime={3500}
+        coolDownTime={3500}
         className="Content"
         onClick={Begin}
         enabledStyle={{
