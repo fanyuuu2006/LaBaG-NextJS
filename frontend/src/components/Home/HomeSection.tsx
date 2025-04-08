@@ -10,13 +10,10 @@ import { InstallPWAButton } from "./InstallPWAButton";
 export const HomeSection = () => {
   const router = useRouter();
   const { NowMode, setNowMode } = useNowMode();
+
   return (
     <section style={{ height: "100%" }}>
-      <Space
-        direction="vertical"
-        align="center"
-        size={"large"}
-      >
+      <Space direction="vertical" align="center" size={"large"}>
         <Image priority src={SuperCircle} alt="SuperCircle" />
         <Tooltip title="點擊進入遊戲">
           <Button

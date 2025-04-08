@@ -1,7 +1,12 @@
 import Swal from "sweetalert2";
 import "@/style/Alert.css";
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ExclamationCircleOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
 
 export const Toast = Swal.mixin({
   toast: true,
@@ -17,8 +22,9 @@ export const Toast = Swal.mixin({
 });
 
 export type alignOption = "start" | "center" | "end";
+
 export interface ContainerProps
-  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, "style" | "onClick"> {
+  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, "onClick"> {
   direction?: "horizon" | "vertical";
   mainAlign?: alignOption;
   crossAlign?: alignOption;
@@ -28,14 +34,14 @@ const crossAlignMap: Record<alignOption, React.CSSProperties["alignItems"]> = {
   start: "flex-start",
   center: "center",
   end: "flex-end",
-};
+} as const;
 
 const mainAlignMap: Record<alignOption, React.CSSProperties["justifyContent"]> =
   {
     start: "flex-start",
     center: "center",
     end: "flex-end",
-  };
+  } as const;
 
 export const useModal = () => {
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -52,23 +58,20 @@ export const useModal = () => {
       mainAlign = "center",
       crossAlign = "center",
       children,
+      style,
       ...rest
     } = props;
 
-    const flexDirection = direction === "horizon" ? "row" : "column";
-
-    const clonedChildren = React.Children.map(children, (child) => {
-      if (!React.isValidElement(child)) return child;
-
-      return React.cloneElement(child, {
-        onClick: (e: React.MouseEvent) => {
-          e.stopPropagation(); // 阻止事件冒泡
-          if ((child as React.JSX.Element).props.onClick) {
-            (child as React.JSX.Element).props.onClick(e);
-          }
-        },
-      } as React.ComponentPropsWithoutRef<"div">);
-    });
+    const clonedChildren = React.Children.map(children, (child) =>
+      React.isValidElement(child)
+        ? React.cloneElement(child, {
+            onClick: (e: React.MouseEvent) => {
+              e.stopPropagation();
+              (child as React.JSX.Element).props?.onClick?.(e);
+            },
+          } as React.ComponentPropsWithoutRef<"div">)
+        : child
+    );
 
     return (
       <div
@@ -81,9 +84,10 @@ export const useModal = () => {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
 
           display: "flex",
-          flexDirection,
+          flexDirection: direction === "horizon" ? "row" : "column",
           alignItems: crossAlignMap[crossAlign],
           justifyContent: mainAlignMap[mainAlign],
+          ...style,
         }}
         onClick={Close}
         {...rest}
@@ -100,4 +104,69 @@ export const useModal = () => {
     Container,
     isShow,
   };
+};
+
+export type ToastOptions = {
+  time?: number;
+  type: "success" | "error" | "warning" | "info";
+  message: string;
+  customClassName?: string;
+  customStyle?: React.CSSProperties;
+};
+
+const ToastTypeStyle: Record<
+  ToastOptions["type"],
+  { icon: React.ReactNode; style: React.CSSProperties }
+> = {
+  success: {
+    icon: <CheckCircleOutlined />,
+    style: { backgroundColor: "#17c600" },
+  },
+  error: {
+    icon: <CloseCircleOutlined />,
+    style: { backgroundColor: "#ff3300" },
+  },
+  warning: {
+    icon: <ExclamationCircleOutlined />,
+    style: { backgroundColor: "#f18b0f" },
+  },
+  info: { icon: <InfoCircleOutlined />, style: { backgroundColor: "#005fcc" } },
+};
+
+export const useToast = () => {
+  const Modal = useModal();
+  const [option, setOption] = useState<ToastOptions | null>(null);
+
+  const Show = (o: ToastOptions) => {
+    setOption(o);
+    Modal.Open();
+    setTimeout(() => {
+      Modal.Close();
+      setOption(null);
+    }, o?.time || 30000);
+  };
+
+  const Container = () => {
+    return (
+      <Modal.Container style={{ backgroundColor: "transparent" }}>
+        <div
+          className={`Content ${option?.customClassName}`}
+          style={{
+            color: "#FFFFFF",
+            borderRadius: "10px",
+            padding: "0.5em 1em",
+            display: "flex",
+            gap: "0.5em",
+            ...ToastTypeStyle[option?.type ?? "info"].style,
+            ...option?.customStyle,
+          }}
+        >
+          {ToastTypeStyle[option?.type ?? "info"].icon}
+          {option?.message}
+        </div>
+      </Modal.Container>
+    );
+  };
+
+  return { Show, Container };
 };
