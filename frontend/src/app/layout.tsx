@@ -11,8 +11,9 @@ export const metadata: Metadata = {
   title: "啦八機 LaBaG",
   description: "只需動動手指就能在無聊時候打發時間的小遊戲",
   icons: {
-    icon: "/Superhhh.ico",
+    icon: "/favicon.ico",
   },
+  manifest: "/manifest.json",
 
   authors: [
     { name: "范余" },
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     locale: "zh-TW",
     images: [
       {
-        url: "/Superhhh.ico", // 分享時顯示的圖片
+        url: "/favicon.ico", // 分享時顯示的圖片
         width: 600,
         height: 600,
         alt: "LaBaG Logo",
@@ -71,6 +72,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#317EFB" />
+      </head>
       <body>
         <UserProvider>
           <NowModeProvider>

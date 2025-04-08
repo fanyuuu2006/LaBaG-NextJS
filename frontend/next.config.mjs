@@ -1,11 +1,13 @@
-/** @type {import('next').NextConfig} */
+// next.config.mjs
+import withPWA from "next-pwa";
+
 const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.(mp3|wav|ogg)$/i,
-      type: 'asset/resource',
+      type: "asset/resource",
       generator: {
-        filename: 'static/media/[name].[hash][ext]',
+        filename: "static/media/[name].[hash][ext]",
       },
     });
 
@@ -16,4 +18,9 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  ...nextConfig,
+});
