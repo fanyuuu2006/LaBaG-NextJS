@@ -1,13 +1,19 @@
-import withPWA from 'next-pwa';
+import pwa from "next-pwa";
 
-/** @type {import('next').NextConfig} */
+const withPWA = pwa({
+  dest: "public", // Service Worker 輸出目錄
+  register: true, // 自動註冊 Service Worker
+  skipWaiting: true, // 跳過等待階段
+  runtimeCaching: [], // 可添加緩存策略
+});
+
 const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.(mp3|wav|ogg)$/i,
-      type: 'asset/resource',
+      type: "asset/resource",
       generator: {
-        filename: 'static/media/[name].[hash][ext]',
+        filename: "static/media/[name].[hash][ext]",
       },
     });
 
