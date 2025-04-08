@@ -20,7 +20,7 @@ export interface DownloadButtonProps
 export const DownloadButton: React.FC<DownloadButtonProps> = (
   props: DownloadButtonProps
 ) => {
-  const { children, style, fileName, fileUrl, ...rest } = props;
+  const { children, style, rel, fileName, fileUrl, ...rest } = props;
   return (
     <a
       download={fileName} // 如果 fileName 沒有提供，則會使用原始檔案名稱
@@ -29,6 +29,7 @@ export const DownloadButton: React.FC<DownloadButtonProps> = (
         cursor: "pointer",
         ...style,
       }}
+      rel={rel ?? "noopener noreferrer"} // 增加安全性，防止滲透攻擊
       {...rest}
     >
       <>

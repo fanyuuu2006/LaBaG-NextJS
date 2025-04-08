@@ -5,12 +5,13 @@ import SuperCircle from "@/assets/SuperCircle.png";
 import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { Game } from "@/utils/game";
+import { InstallPWAButton } from "./InstallPWAButton";
 
 export const HomeSection = () => {
   const router = useRouter();
   const { NowMode, setNowMode } = useNowMode();
   return (
-    <section style={{height: "100%"}}>
+    <section style={{ height: "100%" }}>
       <Space
         className="Home-Div"
         direction="vertical"
@@ -38,6 +39,7 @@ export const HomeSection = () => {
           </Button>
         </Tooltip>
       </Space>
+      <InstallPWAButton />
     </section>
   );
 };
