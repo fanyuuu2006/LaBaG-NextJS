@@ -1,6 +1,7 @@
 "use client";
 import { Logo } from "./Logo";
 import Link from "next/link";
+import { OutsideLink } from "fanyucompopents";
 import ModeColors from "@/json/ModeColors.json";
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
@@ -14,7 +15,6 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useUser } from "@/context/UserContext";
-import { OutsideLink } from "./OutsideLink";
 
 type NavItem = {
   key: string;

@@ -17,10 +17,11 @@ import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
 import { useUser } from "../../context/UserContext";
-import { CoolDownButton } from "../common/CoolDownButton";
+import { CoolDownButton } from "fanyucompopents";
 import ModeColors from "@/json/ModeColors.json";
 import { ModeNames, Modes } from "labag";
 import { Game } from "@/utils/game";
+import { Button } from "antd";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
@@ -231,6 +232,7 @@ export const GameSection = () => {
         GssNum={GssNum}
       />
       <CoolDownButton
+        as={Button}
         coolDownTime={3500}
         className="Content"
         onClick={Begin}
