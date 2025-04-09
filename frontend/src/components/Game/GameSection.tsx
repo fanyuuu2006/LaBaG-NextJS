@@ -209,7 +209,7 @@ export const GameSection = () => {
 
   return (
     <section style={{ height: "100%" }}>
-      <Modal.Container>
+      <Modal.Container stopPropagation={false}>
         <Image
           src={POPs[NowMode as Exclude<ModeNames, "Normal">]}
           alt="PopPicture"
@@ -218,9 +218,6 @@ export const GameSection = () => {
             width: "auto",
             maxWidth: "100vw",
             objectFit: "contain",
-          }}
-          onClick={() => {
-            Modal.Close();
           }}
         />
       </Modal.Container>

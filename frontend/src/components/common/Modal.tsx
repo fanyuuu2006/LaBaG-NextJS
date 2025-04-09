@@ -1,12 +1,6 @@
 import Swal from "sweetalert2";
 import "@/style/Alert.css";
 import React, { useState } from "react";
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-} from "@ant-design/icons";
 
 export const Toast = Swal.mixin({
   toast: true,
@@ -23,25 +17,68 @@ export const Toast = Swal.mixin({
 
 export type alignOption = "start" | "center" | "end";
 
+/**
+ * ContainerProps 定義了 Modal 容器的配置屬性
+ */
 export interface ContainerProps
-  extends Omit<React.HtmlHTMLAttributes<HTMLDivElement>, "onClick"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
+  /**
+   * 指定 Modal 內容的排列方向
+   * 可選值為 "horizon" 或 "vertical"
+   * 默認為 "vertical"
+   */
   direction?: "horizon" | "vertical";
+
+  /**
+   * 指定主軸對齊方式
+   * 可選值為 "start", "center", "end"
+   * 默認為 "center"
+   */
   mainAlign?: alignOption;
+
+  /**
+   * 指定交叉軸對齊方式
+   * 可選值為 "start", "center", "end"
+   * 默認為 "center"
+   */
   crossAlign?: alignOption;
+
+  /**
+   * 是否在點擊時停止事件冒泡，默認為 true
+   */
+  stopPropagation?: boolean;
+
+  /**
+   * 內嵌樣式
+   */
+  style?: React.CSSProperties;
+
+  /**
+   * 子元素，通常是組件或 DOM 元素
+   */
+  children?: React.ReactNode;
 }
 
-const crossAlignMap: Record<alignOption, React.CSSProperties["alignItems"]> = {
-  start: "flex-start",
-  center: "center",
-  end: "flex-end",
-} as const;
-
-const mainAlignMap: Record<alignOption, React.CSSProperties["justifyContent"]> =
-  {
+/**
+ * flexAlignMap 定義了不同對齊選項對應的 CSS 屬性值
+ */
+const flexAlignMap = {
+  main: {
     start: "flex-start",
     center: "center",
     end: "flex-end",
-  } as const;
+  },
+  cross: {
+    start: "flex-start",
+    center: "center",
+    end: "flex-end",
+  },
+} as const;
+
+/**
+ * useModal hook 用於控制模態框顯示與隱藏
+ * @returns {Object} 返回打開、關閉、切換顯示狀態的函數，以及容器組件
+ */
 
 export const useModal = () => {
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -57,20 +94,26 @@ export const useModal = () => {
       direction = "vertical",
       mainAlign = "center",
       crossAlign = "center",
+      stopPropagation = true,
       children,
       style,
       ...rest
     } = props;
 
-    const clonedChildren = React.Children.map(children, (child) =>
-      React.isValidElement(child)
-        ? React.cloneElement(child, {
-            onClick: (e: React.MouseEvent) => {
-              e.stopPropagation();
-              (child as React.JSX.Element).props?.onClick?.(e);
-            },
-          } as React.ComponentPropsWithoutRef<"div">)
-        : child
+    const clonedChildren = React.Children.map(
+      children,
+      (child: React.ReactNode) =>
+        React.isValidElement(child)
+          ? React.cloneElement(
+              child as React.ReactElement<React.HTMLAttributes<HTMLElement>>,
+              {
+                onClick: (e: React.MouseEvent) => {
+                  if (stopPropagation) e.stopPropagation();
+                  (child as React.JSX.Element).props?.onClick?.(e);
+                },
+              }
+            )
+          : child
     );
 
     return (
@@ -85,8 +128,8 @@ export const useModal = () => {
 
           display: "flex",
           flexDirection: direction === "horizon" ? "row" : "column",
-          alignItems: crossAlignMap[crossAlign],
-          justifyContent: mainAlignMap[mainAlign],
+          alignItems: flexAlignMap.cross[crossAlign],
+          justifyContent: flexAlignMap.main[mainAlign],
           ...style,
         }}
         onClick={Close}
@@ -104,69 +147,4 @@ export const useModal = () => {
     Container,
     isShow,
   };
-};
-
-export type ToastOptions = {
-  time?: number;
-  type: "success" | "error" | "warning" | "info";
-  message: string;
-  customClassName?: string;
-  customStyle?: React.CSSProperties;
-};
-
-const ToastTypeStyle: Record<
-  ToastOptions["type"],
-  { icon: React.ReactNode; style: React.CSSProperties }
-> = {
-  success: {
-    icon: <CheckCircleOutlined />,
-    style: { backgroundColor: "#17c600" },
-  },
-  error: {
-    icon: <CloseCircleOutlined />,
-    style: { backgroundColor: "#ff3300" },
-  },
-  warning: {
-    icon: <ExclamationCircleOutlined />,
-    style: { backgroundColor: "#f18b0f" },
-  },
-  info: { icon: <InfoCircleOutlined />, style: { backgroundColor: "#005fcc" } },
-};
-
-export const useToast = () => {
-  const Modal = useModal();
-  const [option, setOption] = useState<ToastOptions | null>(null);
-
-  const Show = (o: ToastOptions) => {
-    setOption(o);
-    Modal.Open();
-    setTimeout(() => {
-      Modal.Close();
-      setOption(null);
-    }, o?.time || 30000);
-  };
-
-  const Container = () => {
-    return (
-      <Modal.Container style={{ backgroundColor: "transparent" }}>
-        <div
-          className={`Content ${option?.customClassName}`}
-          style={{
-            color: "#FFFFFF",
-            borderRadius: "10px",
-            padding: "0.5em 1em",
-            display: "flex",
-            gap: "0.5em",
-            ...ToastTypeStyle[option?.type ?? "info"].style,
-            ...option?.customStyle,
-          }}
-        >
-          {ToastTypeStyle[option?.type ?? "info"].icon}
-          {option?.message}
-        </div>
-      </Modal.Container>
-    );
-  };
-
-  return { Show, Container };
 };
