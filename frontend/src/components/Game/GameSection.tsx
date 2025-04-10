@@ -236,15 +236,17 @@ export const GameSection = () => {
         coolDownTime={3500}
         className="Content"
         onClick={Begin}
-        enabledStyle={{
-          backgroundColor: "#FFFFFF",
-          borderColor: ModeColors[NowMode].light,
-          color: ModeColors[NowMode].dark,
-        }}
-        disabledStyle={{
-          backgroundColor: "#787878",
-          borderColor: "#000000",
-          color: "#000000",
+        styles={{
+          enabled: {
+            backgroundColor: "#FFFFFF",
+            borderColor: ModeColors[NowMode].light,
+            color: ModeColors[NowMode].dark,
+          },
+          disabled: {
+            backgroundColor: "#787878",
+            borderColor: "#000000",
+            color: "#000000",
+          },
         }}
       >
         開始
