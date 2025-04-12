@@ -1,7 +1,7 @@
 "use client";
 import { Logo } from "./Logo";
 import Link from "next/link";
-import { OutsideLink } from "fanyucompopents";
+import { OutsideLink } from "fanyucomponents";
 import ModeColors from "@/json/ModeColors.json";
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";

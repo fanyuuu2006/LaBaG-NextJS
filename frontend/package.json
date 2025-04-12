@@ -14,7 +14,7 @@
     "antd": "^5.24.3",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.3",
-    "fanyucompopents": "^1.2.1",
+    "fanyucomponents": "^2.0.0",
     "googleapis": "^146.0.0",
     "jsonwebtoken": "^9.0.2",
     "labag": "^1.1.13",

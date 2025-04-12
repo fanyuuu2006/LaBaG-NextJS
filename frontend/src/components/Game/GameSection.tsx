@@ -12,12 +12,12 @@ import SuperPOP from "@/assets/SuperPOP.jpg";
 import GreenPOP from "@/assets/GreenPOP.jpg";
 import KachuPOP from "@/assets/KachuPOP.jpg";
 import Image, { StaticImageData } from "next/image";
-import { Toast, useModal } from "../common/Modal";
+import { Toast } from "../common/Modal";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
 import { useUser } from "../../context/UserContext";
-import { CoolDownButton } from "fanyucompopents";
+import { CoolDownButton, useModal } from "fanyucomponents";
 import ModeColors from "@/json/ModeColors.json";
 import { ModeNames, Modes } from "labag";
 import { Game } from "@/utils/game";
@@ -233,6 +233,7 @@ export const GameSection = () => {
       />
       <CoolDownButton
         as={Button}
+        type="primary"
         coolDownTime={3500}
         className="Content"
         onClick={Begin}

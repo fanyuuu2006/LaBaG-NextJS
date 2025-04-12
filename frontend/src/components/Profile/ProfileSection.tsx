@@ -6,10 +6,11 @@ import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { useEffect, useRef, useState } from "react";
 import { CopyOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
-import { Toast, useModal } from "@/components/common/Modal";
+import { Toast } from "@/components/common/Modal";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
+import { useModal } from "fanyucomponents";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
