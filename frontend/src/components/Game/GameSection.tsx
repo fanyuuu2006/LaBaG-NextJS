@@ -237,20 +237,19 @@ export const GameSection = () => {
         coolDownTime={3500}
         className="Content"
         onClick={Begin}
+        style={{
+          padding: "1em 1.5em",
+          backgroundColor: "#FFFFFF",
+          borderColor: ModeColors[NowMode].light,
+          color: ModeColors[NowMode].dark,
+        }}
         styles={{
-          enabled: {
-            backgroundColor: "#FFFFFF",
-            borderColor: ModeColors[NowMode].light,
-            color: ModeColors[NowMode].dark,
-          },
           disabled: {
-            backgroundColor: "#787878",
-            borderColor: "#000000",
-            color: "#000000",
+            opacity: "0.5",
           },
-          hover:{
-            filter:`drop-shadow(0 0 10px ${ModeColors[NowMode].light})`
-          }
+          hover: {
+            filter: `drop-shadow(0 0 10px ${ModeColors[NowMode].light})`,
+          },
         }}
       >
         開始
