@@ -249,8 +249,7 @@ export const GameSection = () => {
             color: "#000000",
           },
          hover:{
-          color: ModeColors[NowMode].light,
-          filter:`drop-shadow(0 0 5px ${ModeColors[NowMode].light})`
+          filter:`drop-shadow(0 0 10px ${ModeColors[NowMode].light})`
         }
         }}
       >

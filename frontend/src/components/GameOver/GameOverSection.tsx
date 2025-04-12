@@ -42,6 +42,7 @@ export const GameOverSection = () => {
           className="Title"
           style={{
             color: "red",
+            filter: "drop-shadow(0px 0px 1px #ff0000)",
           }}
         >
           遊戲結束！
