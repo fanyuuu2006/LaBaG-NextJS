@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useNowMode } from "@/context/NowModeContext";
 import { Button, Space } from "antd";
 import { DownloadButton } from "fanyucomponents";
@@ -14,15 +14,28 @@ export const GameOverSection = () => {
   const { setNowMode } = useNowMode();
   const [historyScore, setHistoryScore] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [downloadFile, setDownloadFile] = useState<{
+    name: string;
+    url: string;
+  } | null>(null);
+  useEffect(() => {
+    // 取得當前日期，格式化為 YYYYMMDD
+    const Today = new Date();
+    const FormattedDate = Today.toISOString().slice(0, 10).replace(/-/g, ""); // 轉換成 YYYYMMDD
 
-  // 取得當前日期，格式化為 YYYYMMDD
-  const Today = new Date();
-  const FormattedDate = Today.toISOString().slice(0, 10).replace(/-/g, ""); // 轉換成 YYYYMMDD
-  const FileName = `${Game.Score}_${FormattedDate}.json`;
+    const fileName = `${Game.Score}_${FormattedDate}.json`;
 
-  const jsonstring = JSON.stringify(Game.AllData, null, 4);
-  const blob = new Blob([jsonstring], { type: "application/json" }); //Blob 是 JavaScript 的二進制物件
-  const url = URL.createObjectURL(blob);
+    const jsonstring = JSON.stringify(Game.AllData, null, 4);
+    const blob = new Blob([jsonstring], { type: "application/json" }); //Blob 是 JavaScript 的二進制物件
+    const fileUrl = URL.createObjectURL(blob);
+    setDownloadFile({
+      name: fileName,
+      url: fileUrl,
+    });
+    return () => {
+      if (fileUrl) URL.revokeObjectURL(fileUrl);
+    };
+  }, []);
 
   useEffect(() => {
     if (!User) {
@@ -81,26 +94,25 @@ export const GameOverSection = () => {
           再玩一次
         </Button>
       </Space>
-      <DownloadButton
-        fileName={FileName}
-        fileUrl={url}
-        className="Hint"
-        style={{
-          backgroundColor: "#FFFF00 ",
-          color: "#000000",
-          position: "fixed",
-          padding: "0 1em",
-          bottom: "1em",
-          border: "#878700 solid 2px",
-          borderRadius: "5px",
-        }}
-        icon={<DownloadOutlined />}
-        onClick={() => {
-          URL.revokeObjectURL(url);
-        }}
-      >
-        保存本次紀錄檔案
-      </DownloadButton>
+      {downloadFile && (
+        <DownloadButton
+          fileName={downloadFile.name}
+          fileUrl={downloadFile.url}
+          className="Hint"
+          style={{
+            backgroundColor: "#FFFF00 ",
+            color: "#000000",
+            position: "fixed",
+            padding: "0 1em",
+            bottom: "1em",
+            border: "#878700 solid 2px",
+            borderRadius: "5px",
+          }}
+          icon={<DownloadOutlined />}
+        >
+          保存本次紀錄檔案
+        </DownloadButton>
+      )}
     </section>
   );
 };
