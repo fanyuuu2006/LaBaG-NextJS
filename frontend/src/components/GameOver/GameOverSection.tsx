@@ -1,10 +1,12 @@
+"use client"
 import { useNowMode } from "@/context/NowModeContext";
 import { Button, Space } from "antd";
+import { DownloadButton } from "fanyucomponents";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { Game } from "@/utils/game";
-import { DownloadButton } from "../common/DownloadButton";
+import { DownloadOutlined } from "@ant-design/icons";
 
 export const GameOverSection = () => {
   const { User } = useUser();
@@ -91,6 +93,10 @@ export const GameOverSection = () => {
           bottom: "1em",
           border: "#878700 solid 2px",
           borderRadius: "5px",
+        }}
+        icon={<DownloadOutlined />}
+        onClick={() => {
+          URL.revokeObjectURL(url);
         }}
       >
         保存本次紀錄檔案
