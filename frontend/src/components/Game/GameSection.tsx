@@ -12,7 +12,7 @@ import SuperPOP from "@/assets/SuperPOP.jpg";
 import GreenPOP from "@/assets/GreenPOP.jpg";
 import KachuPOP from "@/assets/KachuPOP.jpg";
 import Image, { StaticImageData } from "next/image";
-import { Toast } from "../common/Modal";
+import { Toast } from "../common/Toast";
 import { useNowMode } from "@/context/NowModeContext";
 import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
@@ -233,7 +233,7 @@ export const GameSection = () => {
       />
       <CoolDownButton
         as={Button}
-        type="primary"
+        type="text"
         coolDownTime={3500}
         className="Content"
         onClick={Begin}
@@ -248,6 +248,10 @@ export const GameSection = () => {
             borderColor: "#000000",
             color: "#000000",
           },
+         hover:{
+          color: ModeColors[NowMode].light,
+          filter:`drop-shadow(0 0 5px ${ModeColors[NowMode].light})`
+        }
         }}
       >
         開始

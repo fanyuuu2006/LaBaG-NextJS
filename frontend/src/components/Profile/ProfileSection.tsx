@@ -6,7 +6,7 @@ import { useNowMode } from "@/context/NowModeContext";
 import ModeColors from "@/json/ModeColors.json";
 import { useEffect, useRef, useState } from "react";
 import { CopyOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
-import { Toast } from "@/components/common/Modal";
+import { Toast } from "@/components/common/Toast";
 import { HistoryTable } from "./HistoryTable";
 import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
