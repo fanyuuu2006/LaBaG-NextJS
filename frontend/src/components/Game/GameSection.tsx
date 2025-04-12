@@ -248,9 +248,9 @@ export const GameSection = () => {
             borderColor: "#000000",
             color: "#000000",
           },
-         hover:{
-          filter:`drop-shadow(0 0 10px ${ModeColors[NowMode].light})`
-        }
+          hover:{
+            filter:`drop-shadow(0 0 10px ${ModeColors[NowMode].light})`
+          }
         }}
       >
         開始
