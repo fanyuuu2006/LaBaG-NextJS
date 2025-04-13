@@ -7,6 +7,7 @@ import KachuTitle from "@/assets/KachuTitle.png";
 import { useNowMode } from "@/context/NowModeContext";
 import { useRouter } from "next/navigation";
 import { ModeNames } from "labag";
+import { StateStylesComponent } from "fanyucomponents";
 
 const ModeTitle: Record<ModeNames, StaticImageData> = {
   Normal: Title,
@@ -19,7 +20,8 @@ export const Logo = () => {
   const router = useRouter();
   const { NowMode } = useNowMode();
   return (
-    <Image
+    <StateStylesComponent
+      as={Image}
       priority
       style={{
         height: "100%",
@@ -27,6 +29,11 @@ export const Logo = () => {
         width: "auto",
         objectFit: "cover",
         cursor: "pointer",
+      }}
+      styles={{
+        pressed: {
+          transform: "scale(0.9)",
+        }
       }}
       src={ModeTitle[NowMode]}
       alt={NowMode}

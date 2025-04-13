@@ -30,11 +30,14 @@ export const HomeSection = () => {
             hover: {
               filter: `drop-shadow(0 0 5px ${ModeColors[NowMode].light})`,
             },
+            pressed: {
+              transform: "scale(0.9)",
+            },
           }}
           onClick={() => {
             Game.Reset();
             setNowMode(Game.NowMode());
-            router.push("./Game");
+            router.push("/Game");
           }}
         >
           進入遊戲

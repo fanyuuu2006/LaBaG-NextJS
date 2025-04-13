@@ -250,6 +250,9 @@ export const GameSection = () => {
           hover: {
             filter: `drop-shadow(0 0 10px ${ModeColors[NowMode].light})`,
           },
+          pressed: {
+            transform: "scale(0.9)",
+          },
         }}
       >
         開始
