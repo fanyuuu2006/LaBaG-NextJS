@@ -2,11 +2,11 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 import { Button, Space, Table, Tooltip } from "antd";
 import { useNowMode } from "@/context/NowModeContext";
-import ModeColors from "@/json/ModeColors.json";
 
 import { ColumnsType } from "antd/es/table";
 import { PData, PDatas } from "labag";
 import { useModal } from "fanyucomponents";
+import { ModeColors } from "@/utils/ModeColors";
 
 const columns: ColumnsType<{
   name: string;

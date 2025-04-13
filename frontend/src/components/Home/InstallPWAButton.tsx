@@ -2,8 +2,8 @@ import { useNowMode } from "@/context/NowModeContext";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React, { useState, useEffect } from "react";
-import ModeColors from "@/json/ModeColors.json";
 import { Toast } from "../common/Toast";
+import { ModeColors } from "@/utils/ModeColors";
 interface BeforeInstallPromptEvent extends Event {
   prompt?: () => void;
   userChoice?: Promise<{ outcome: string; platform: string }>;

@@ -1,12 +1,12 @@
 "use client";
 import { useNowMode } from "@/context/NowModeContext";
 import { useUser } from "@/context/UserContext";
-import ModeColors from "@/json/ModeColors.json";
 import { Tooltip } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Toast } from "../common/Toast";
 import { RankedGameRecord } from "@/types/Record";
+import { ModeColors } from "@/utils/ModeColors";
 
 export const RankSection = () => {
   const { User } = useUser();

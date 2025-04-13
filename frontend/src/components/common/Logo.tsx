@@ -19,7 +19,6 @@ export const Logo = () => {
   const router = useRouter();
   const { NowMode } = useNowMode();
   return (
-    // <Tooltip title="點擊返回首頁">
     <Image
       priority
       style={{
@@ -35,6 +34,5 @@ export const Logo = () => {
         router.push("./");
       }}
     />
-    // </Tooltip>
   );
 };

@@ -1,11 +1,11 @@
 "use client";
 import { useNowMode } from "@/context/NowModeContext";
-import ModeColors from "@/json/ModeColors.json";
 import { Space } from "antd";
 import { AuthButton } from "../common/AuthButton";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import { ModeColors } from "@/utils/ModeColors";
 
 export const LoginSection = () => {
   const { User } = useUser();

@@ -3,9 +3,9 @@ import { Button, Space, Tooltip } from "antd";
 import Image from "next/image";
 import SuperCircle from "@/assets/SuperCircle.png";
 import { useNowMode } from "@/context/NowModeContext";
-import ModeColors from "@/json/ModeColors.json";
 import { Game } from "@/utils/game";
 import { InstallPWAButton } from "./InstallPWAButton";
+import { ModeColors } from "@/utils/ModeColors";
 
 export const HomeSection = () => {
   const router = useRouter();

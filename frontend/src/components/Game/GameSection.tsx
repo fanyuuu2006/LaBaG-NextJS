@@ -18,10 +18,10 @@ import { RuleButton } from "./RuleButton";
 import { useMusic } from "@/context/MusicContext";
 import { useUser } from "../../context/UserContext";
 import { CoolDownButton, useModal } from "fanyucomponents";
-import ModeColors from "@/json/ModeColors.json";
 import { ModeNames, Modes } from "labag";
 import { Game } from "@/utils/game";
 import { Button } from "antd";
+import { ModeColors } from "@/utils/ModeColors";
 
 const BGs: Record<ModeNames, StaticImageData> = {
   Normal: BG,
