@@ -31,7 +31,7 @@ export const HomeSection = () => {
               filter: `drop-shadow(0 0 5px ${ModeColors[NowMode].light})`,
             },
             pressed: {
-              transform: "scale(0.9)",
+              transform: "scale(0.8)",
             },
           }}
           onClick={() => {

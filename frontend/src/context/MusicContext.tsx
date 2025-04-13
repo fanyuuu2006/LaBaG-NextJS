@@ -77,6 +77,7 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
           cursor: "pointer",
           border: `3px solid ${bgmRunning ? "#006900" : "#696969"}`,
           backgroundColor: bgmRunning ? "#00FF00" : "#E0E0E0",
+          ...(bgmRunning?{filter: "drop-shadow(0 0 5px #00FF00)"}:{}),
           ...style,
         }}
         {...rest}

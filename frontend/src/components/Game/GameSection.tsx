@@ -251,7 +251,7 @@ export const GameSection = () => {
             filter: `drop-shadow(0 0 10px ${ModeColors[NowMode].light})`,
           },
           pressed: {
-            transform: "scale(0.9)",
+            transform: "scale(0.8)",
           },
         }}
       >
