@@ -59,7 +59,11 @@ export const RuleButton = (props: AntdIconProps) => {
           }}
         />
       </Tooltip>
-      <Modal.Container>
+      <Modal.Container
+        style={{
+          animation: "Pop 0.1s ease-out",
+        }}
+      >
         <Space
           className="Hint"
           direction="vertical"

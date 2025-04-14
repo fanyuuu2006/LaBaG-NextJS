@@ -9,9 +9,13 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { Button, ButtonProps } from "antd";
+import { Button } from "antd";
 import { useNowMode } from "./NowModeContext";
 import { ModeNames } from "labag";
+import {
+  StateStylesComponent,
+  StateStylesComponentProps,
+} from "fanyucomponents";
 
 const musicSources: Record<ModeNames, string> = {
   Normal: "/audio/Bgm.mp3",
@@ -22,7 +26,12 @@ const musicSources: Record<ModeNames, string> = {
 
 const musicContext = createContext<
   | {
-      MusicButton: React.FC<Omit<ButtonProps, "onClick" | "children">>;
+      MusicButton: React.FC<
+        Omit<
+          StateStylesComponentProps<typeof Button>,
+          "onClick" | "as" | "children"
+        >
+      >;
       setBgmRunning: Dispatch<SetStateAction<boolean>>;
     }
   | undefined
@@ -61,29 +70,41 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [bgmRunning, NowMode]);
 
-  const MusicButton = (props: Omit<ButtonProps, "onClick" | "children">) => {
-    const { style, ...rest } = props;
+  const MusicButton = (
+    props: Omit<
+      StateStylesComponentProps<typeof Button>,
+      "onClick" | "as" | "children"
+    >
+  ) => {
+    const { style, styles, ...rest } = props;
     return (
-      <Button
-      onClick={() => {
-        console.log(`音樂${!bgmRunning ? "開啟" : "關閉"}`);
-        setBgmRunning(!bgmRunning);
-      }}
-      style={{
-        width: "2.5em",
-        height: "2.5em",
-        color: "black",
+      <StateStylesComponent
+        as={Button}
+        onClick={() => {
+          console.log(`音樂${!bgmRunning ? "開啟" : "關閉"}`);
+          setBgmRunning(!bgmRunning);
+        }}
+        style={{
+          width: "2.5em",
+          height: "2.5em",
+          color: "black",
           borderRadius: "100%",
           cursor: "pointer",
           border: `3px solid ${bgmRunning ? "#006900" : "#696969"}`,
           backgroundColor: bgmRunning ? "#00FF00" : "#E0E0E0",
-          ...(bgmRunning?{filter: "drop-shadow(0 0 5px #00FF00)"}:{}),
+          ...(bgmRunning ? { filter: "drop-shadow(0 0 5px #00FF00)" } : {}),
           ...style,
+        }}
+        styles={{
+          pressed: {
+            ...(bgmRunning ? { filter: "none" } : {}),
+          },
+          ...styles,
         }}
         {...rest}
       >
         {bgmRunning ? "開" : "關"}
-      </Button>
+      </StateStylesComponent>
     );
   };
 
