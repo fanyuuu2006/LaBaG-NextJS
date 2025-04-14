@@ -50,7 +50,7 @@ body {
   transition: background-image 0.5s;
 }
 
-header{
+header {
   width: 100%;
 }
 
@@ -62,7 +62,6 @@ section {
   align-items: center;
   justify-content: center;
   gap: 3%;
-  
 }
 
 ul,
@@ -93,12 +92,12 @@ tbody > tr:hover {
 input {
   background-color: transparent;
   border: none;
-  color: inherit; 
+  color: inherit;
   outline: none; /* 防止點擊時出現藍色外框 */
 }
 
 input::placeholder {
-  color: #ffffff !important; 
+  color: #ffffff !important;
   opacity: 0.7;
 }
 
@@ -137,6 +136,17 @@ input::placeholder {
 
 .RightAlign {
   text-align: right;
+}
+
+@keyframes Pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 768px) {

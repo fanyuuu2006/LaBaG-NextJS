@@ -219,6 +219,7 @@ export const GameSection = () => {
             width: "auto",
             maxWidth: "100vw",
             objectFit: "contain",
+            animation: "Pop 0.1s ease-out",
           }}
         />
       </Modal.Container>

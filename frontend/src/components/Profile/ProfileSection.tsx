@@ -169,7 +169,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
           </>
         )}
       </div>
-      <Modal.Container>
+      <Modal.Container style={{}}>
         <div
           style={{
             display: "flex",
@@ -181,6 +181,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
             padding: "1em",
             gap: "1em",
             textAlign: "start",
+            animation: "Pop 0.2s ease-out",
           }}
         >
           <input
