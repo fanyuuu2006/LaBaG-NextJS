@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Toast } from "../common/Toast";
 import { RankedGameRecord } from "@/types/Record";
 import { ModeColors } from "@/utils/ModeColors";
+import { StateStylesComponent } from "fanyucomponents";
 
 export const RankSection = () => {
   const { User } = useUser();
@@ -98,11 +99,17 @@ export const RankSection = () => {
               </thead>
               <tbody>
                 {RankDataSource.map((data) => (
-                  <tr
+                  <StateStylesComponent
+                   as={"tr"}
                     key={data.id}
                     className="Hint"
                     style={{
                       color: User?.id == data.id ? "#FFFF69" : "#FFFFFF",
+                    }}
+                    styles={{
+                      hover:{
+                        outline: "#FFF solid 1px",
+                      }
                     }}
                   >
                     <td className="CenterAlign">{data.rank}</td>
@@ -130,7 +137,7 @@ export const RankSection = () => {
                     >
                       {data.time}
                     </td>
-                  </tr>
+                  </StateStylesComponent>
                 ))}
               </tbody>
               {UserRank && (
