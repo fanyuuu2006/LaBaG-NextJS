@@ -1,5 +1,4 @@
 import { gameRecord } from "@/types/Record";
-import { StateStylesComponent } from "fanyucomponents";
 
 export const HistoryTable = ({
   HistoryRecord,
@@ -48,15 +47,11 @@ export const HistoryTable = ({
                 .sort((a, b) => b.index - a.index)
                 .slice(0, 20)
                 .map((data: gameRecord, i: number) => (
-                  <StateStylesComponent as={"tr"} key={i} styles={{
-                    hover:{
-                      outline: "2px solid #FFFFFF",
-                    }
-                  }}>
+                  <tr key={i}>
                     <td>{data.time}</td>
 
                     <td style={{ whiteSpace: "nowrap" }}>{data.score}</td>
-                  </StateStylesComponent>
+                  </tr>
                 ))
             ) : (
               <tr>

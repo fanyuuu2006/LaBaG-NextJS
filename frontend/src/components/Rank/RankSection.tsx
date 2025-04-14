@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { Toast } from "../common/Toast";
 import { RankedGameRecord } from "@/types/Record";
 import { ModeColors } from "@/utils/ModeColors";
-import { StateStylesComponent } from "fanyucomponents";
 
 export const RankSection = () => {
   const { User } = useUser();
@@ -21,25 +20,18 @@ export const RankSection = () => {
   const { NowMode } = useNowMode();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records/ranking`
-        );
-
-        if (!response.ok) throw new Error(await response.json());
-
-        setRankDataSource(await response.json());
-      } catch (error) {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/records/ranking`)
+      .then(async (res) => {
+        if (!res.ok) throw new Error(await res.json());
+        setRankDataSource(await res.json());
+      })
+      .catch((error) => {
         console.error("無法獲取排行榜數據:", error);
         Toast.fire({
           icon: "error",
           text: "載入排行榜數據失敗，請稍後再試。",
         });
-      }
-    }
-
-    fetchData();
+      });
   }, []);
 
   return (
@@ -99,17 +91,11 @@ export const RankSection = () => {
               </thead>
               <tbody>
                 {RankDataSource.map((data) => (
-                  <StateStylesComponent
-                   as={"tr"}
+                  <tr
                     key={data.id}
                     className="Hint"
                     style={{
                       color: User?.id == data.id ? "#FFFF69" : "#FFFFFF",
-                    }}
-                    styles={{
-                      hover:{
-                        outline: "#FFF solid 1px",
-                      }
                     }}
                   >
                     <td className="CenterAlign">{data.rank}</td>
@@ -137,7 +123,7 @@ export const RankSection = () => {
                     >
                       {data.time}
                     </td>
-                  </StateStylesComponent>
+                  </tr>
                 ))}
               </tbody>
               {UserRank && (
@@ -162,10 +148,7 @@ export const RankSection = () => {
                       }}
                     >
                       <Tooltip title="查看個人檔案">
-                        <Link
-                          href={`/Profile`}
-                          style={{ color: "inherit" }}
-                        >
+                        <Link href={`/Profile`} style={{ color: "inherit" }}>
                           {UserRank.name}
                         </Link>
                       </Tooltip>

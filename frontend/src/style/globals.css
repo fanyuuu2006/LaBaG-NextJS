@@ -10,7 +10,6 @@
 }
 
 * {
-  box-sizing: border-box;
   font-weight: bold !important;
   padding: 0;
   margin: 0;
@@ -84,6 +83,10 @@ a {
 th,
 td {
   padding: var(--space-medium);
+}
+
+tbody > tr:hover {
+  outline: 1px solid #fff;
 }
 
 input {
