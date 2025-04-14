@@ -141,6 +141,7 @@ export const Header = () => {
                         hover: {
                           color: ModeColors[NowMode].light,
                           textDecoration: "underline",
+                          transform: "scale(1.1)"
                         },
                       }}
                     >
