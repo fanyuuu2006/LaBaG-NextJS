@@ -1,7 +1,7 @@
 "use client";
 import { Logo } from "./Logo";
 import Link from "next/link";
-import { OutsideLink } from "fanyucomponents";
+import { OutsideLink, StateStylesComponent } from "fanyucomponents";
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useNowMode } from "@/context/NowModeContext";
@@ -135,7 +135,17 @@ export const Header = () => {
                     }}
                     aria-current={isCurrentPath ? "page" : undefined}
                   >
-                    {item.label}
+                    <StateStylesComponent
+                      as={"div"}
+                      styles={{
+                        hover: {
+                          color: ModeColors[NowMode].light,
+                          textDecoration: "underline",
+                        },
+                      }}
+                    >
+                      {item.label}
+                    </StateStylesComponent>
                   </Nav.Link>
                 );
               })}
