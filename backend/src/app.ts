@@ -5,6 +5,7 @@ import passport from "./config/passport"; // 初始化 Passport 設定
 
 import { router as authRouter } from "./routes/auth";
 import { router as dataRouter } from "./routes/data";
+import { router as labagRouter } from "./routes/labag";
 import { globalRateLimit } from "./middlewares/rateLimitMiddleware";
 
 export const app = express();
@@ -37,3 +38,6 @@ app.use("/auth", authRouter);
 
 // 資料庫
 app.use("/data", dataRouter);
+
+// 遊戲數據
+app.use("/labag", labagRouter);
