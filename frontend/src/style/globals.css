@@ -47,7 +47,6 @@ body {
   overflow-x: hidden;
 
   background: black url("../assets/BG.jpg") center/cover no-repeat fixed;
-  transition: background-image 0.5s;
 }
 
 header {

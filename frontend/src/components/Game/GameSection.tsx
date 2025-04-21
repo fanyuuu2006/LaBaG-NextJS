@@ -68,7 +68,7 @@ export const GameSection = () => {
     Modes.SuperHHH?.Score ?? 0
   );
   const [RestTimes, setRestTimes] = useState<number>(Game.Times - Game.Played);
-  const [ModeTimes, setModeTimes] = useState<number | null>(null);
+  const [ModeTimes, setModeTimes] = useState<number>(0);
   const [GssNum, setGssNum] = useState<number>(Modes.GreenWei?.Score ?? 0);
 
   // 使用 useEffect 來更新背景
@@ -140,18 +140,8 @@ export const GameSection = () => {
       setScore(Game.Score);
       setRestTimes(Game.Times - Game.Played);
       setGssNum(Modes.GreenWei?.Score ?? 0);
-      const Mode = Game.NowMode();
-      switch (Mode) {
-        case "SuperHHH":
-          setModeTimes(Modes.SuperHHH?.Times ?? 0);
-          break;
-        case "GreenWei":
-          setModeTimes(Modes.GreenWei?.Times ?? 0);
-          break;
-        case "PiKaChu":
-          setModeTimes(Modes.PiKaChu?.Times ?? 0);
-          break;
-      }
+      const mode = Game.NowMode();
+      if (mode !== "Normal")setModeTimes(Modes[mode]?.Times ?? 0);
     };
     // 主要執行區段
     if (!Game.GameRunning()) {
