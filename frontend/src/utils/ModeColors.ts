@@ -1,6 +1,6 @@
 import { ModeNames } from "labag";
 
-export const ModeColors: Record<
+export const ModeColors:Record<
   ModeNames,
   {
     dark: string;
@@ -12,7 +12,7 @@ export const ModeColors: Record<
     light: "#00FFFF",
   },
   SuperHHH: {
-    dark: "#550055",
+    dark: "#780078",
     light: "#FF00FF",
   },
   GreenWei: {
