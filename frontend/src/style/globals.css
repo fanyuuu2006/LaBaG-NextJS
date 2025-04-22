@@ -77,7 +77,11 @@ mark {
 
 a {
   cursor: pointer;
-  text-decoration: none !important; /* 移除底線 */
+  text-decoration: none; /* 移除底線 */
+}
+
+a:hover{
+  text-decoration:underline ;
 }
 
 th,
