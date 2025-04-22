@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Toast } from "../common/Toast";
 import { RankedGameRecord } from "@/types/Record";
 import { ModeColors } from "@/utils/ModeColors";
+import { ModeBorderCard } from "../common/ModeBorderCard";
 
 export const RankSection = () => {
   const { User } = useUser();
@@ -36,15 +37,10 @@ export const RankSection = () => {
 
   return (
     <section>
-      <div
+      <ModeBorderCard
         style={{
           width: "100%",
-          transition: "ease-in-out 0.5s",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          backdropFilter: "blur(2px)",
-          border: `${ModeColors[NowMode].dark} solid 5px`,
-          borderRadius: "10px",
-          padding: "1em",
+          padding: "1em 1.5em",
           marginTop: "0.5em",
         }}
       >
@@ -170,7 +166,7 @@ export const RankSection = () => {
             資料載入中...
           </div>
         )}
-      </div>
+      </ModeBorderCard>
     </section>
   );
 };

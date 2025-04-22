@@ -1,7 +1,7 @@
 "use client";
 import { Logo } from "./Logo";
 import Link from "next/link";
-import { OutsideLink, StateStylesComponent } from "fanyucomponents";
+import { OutsideLink } from "fanyucomponents";
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useNowMode } from "@/context/NowModeContext";
@@ -69,7 +69,10 @@ export const Header = () => {
       label: (
         <div
           onClick={() => {
-            if (User) signOut();
+            if (User) {
+              signOut();
+              console.log("已點擊登出");
+            }
           }}
         >
           {User ? "登出" : "登入"}
@@ -135,18 +138,7 @@ export const Header = () => {
                     }}
                     aria-current={isCurrentPath ? "page" : undefined}
                   >
-                    <StateStylesComponent
-                      as={"div"}
-                      styles={{
-                        hover: {
-                          color: ModeColors[NowMode].light,
-                          textDecoration: "underline",
-                          transform: "scale(1.1)"
-                        },
-                      }}
-                    >
-                      {item.label}
-                    </StateStylesComponent>
+                    <>{item.label}</>
                   </Nav.Link>
                 );
               })}

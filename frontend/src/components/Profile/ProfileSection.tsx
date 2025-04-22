@@ -11,6 +11,7 @@ import { useUser } from "@/context/UserContext";
 import { gameRecord } from "@/types/Record";
 import { useModal } from "fanyucomponents";
 import { ModeColors } from "@/utils/ModeColors";
+import { ModeBorderCard } from "../common/ModeBorderCard";
 
 export const ProfileSection = ({ UserID }: { UserID?: string }) => {
   const { NowMode } = useNowMode();
@@ -44,19 +45,14 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
 
   return (
     <section>
-      <div
+      <ModeBorderCard
         style={{
           width: targetUser ? "100%" : "auto",
-          color: "white",
           display: "flex",
           flexDirection: "column",
           gap: "0.5em",
           padding: "1em 2em",
           marginTop: "2em",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          border: `${ModeColors[NowMode].dark} solid 3px`,
-          borderRadius: "10px",
-          transition: "ease-in-out 0.5s",
         }}
       >
         {Loading ? (
@@ -168,7 +164,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
             {UserID && <div className="Hint">找不到 ID 為 {UserID} 的玩家</div>}
           </>
         )}
-      </div>
+      </ModeBorderCard>
       <Modal.Container style={{}}>
         <div
           style={{
