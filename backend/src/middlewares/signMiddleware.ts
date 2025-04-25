@@ -25,7 +25,7 @@ export const signInMiddleware = (
   }
 };
 
-export const signInCallBackMiddleware = (
+export const signCallBackMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction

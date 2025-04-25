@@ -1,12 +1,8 @@
 import { Router } from "express";
-import {
-  getUserProfile,
-  signInCallBack,
-  signOut,
-} from "../controllers/authController";
+import { getUserProfile, signCallBack } from "../controllers/authController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import {
-  signInCallBackMiddleware,
+  signCallBackMiddleware,
   signInMiddleware,
 } from "../middlewares/signMiddleware";
 
@@ -17,8 +13,6 @@ router
   .get("/profile", authMiddleware, getUserProfile)
 
   // Google 回呼
-  .get("/callback/:signBy", signInCallBackMiddleware, signInCallBack)
+  .get("/callback/:signBy", signCallBackMiddleware, signCallBack)
 
-  .get("/:signBy", signInMiddleware)
-
-  .get("/signOut", signOut);
+  .get("/:signBy", signInMiddleware);

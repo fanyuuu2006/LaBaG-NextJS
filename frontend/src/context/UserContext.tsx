@@ -35,13 +35,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   /**
    * 登出
    */
-  const signOut = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signOut`, {
-      method: "POST",
-      credentials: "include", // 確保會帶上 session cookie
-    });
-  
-    // 在登出成功後清空本地的使用者資料
+  const signOut = () => {
+    localStorage.removeItem("authToken");
     setUser(undefined);
   };
 
@@ -54,7 +49,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
       method: "GET",
-      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     })
       .then((res) => {
         if (!res.ok) throw new Error("API 回應錯誤");

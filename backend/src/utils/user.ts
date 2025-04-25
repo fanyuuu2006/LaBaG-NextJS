@@ -1,6 +1,7 @@
 import { Sheet } from "../config/googleapi";
 import {
   authUser,
+  dataUserFields,
   dataUserIndex,
   signProfiles,
 } from "../types/user";

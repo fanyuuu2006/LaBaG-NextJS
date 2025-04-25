@@ -9,8 +9,8 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = (req.session as unknown as { user: { token: string } }).user
-    ?.token;
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     res.status(401).json({ message: "未授權的存取" });
