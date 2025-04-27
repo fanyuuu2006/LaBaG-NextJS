@@ -62,7 +62,7 @@ export const Header = () => {
           <GithubOutlined /> 儲存庫
         </>
       ),
-      href: "https://github.com/fanyuuu2006/LaBaG-NextJS.git",
+      href: "https://github.com/fanyuuu2006/LaBaG-Web",
     },
     {
       key: "Sign",
