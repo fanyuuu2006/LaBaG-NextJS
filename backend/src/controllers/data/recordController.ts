@@ -132,7 +132,8 @@ export const getRecordsById = async (req: Request, res: Response) => {
 
     const response = await fetch(`${process.env.BACKEND_URL}/data/records`);
     if (!response.ok) {
-      throw new Error(await response.json());
+      const errorData = await response.json();
+      throw new Error(JSON.stringify(errorData));
     }
 
     const recordDatass = (await response.json()) as gameRecord[];
