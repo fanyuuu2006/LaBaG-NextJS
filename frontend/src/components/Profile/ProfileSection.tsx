@@ -165,7 +165,7 @@ export const ProfileSection = ({ UserID }: { UserID?: string }) => {
           </>
         )}
       </ModeBorderCard>
-      <Modal.Container style={{}}>
+      <Modal.Container>
         <div
           style={{
             display: "flex",
