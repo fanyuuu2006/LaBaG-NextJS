@@ -1,6 +1,5 @@
 "use client";
 import { authUser, signOptions, LaBaGUser } from "@/types/user";
-import { fetcher } from "@/utils/fetcher";
 import {
   createContext,
   useContext,
@@ -8,8 +7,6 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-
-import useSWR from "swr";
 
 // 建立 Context
 const UserContext = createContext<
@@ -95,20 +92,34 @@ export const useUser = (id?: string) => {
   }
 
   const { User, Loading, ...rest } = context;
-
-  const { data: fetchedUserData, isLoading: swrLoading } = useSWR<authUser>(
-    id ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users/${id}` : null,
-    fetcher
+  const [FetchedUser, setFetchedUser] = useState<LaBaGUser | undefined>(
+    undefined
   );
+  const [Fetching, setFetching] = useState<boolean>(false);
 
-  const FetchedUser = fetchedUserData
-    ? new LaBaGUser(fetchedUserData)
-    : undefined;
+  // 如果有傳入 id，則查詢該 id 的用戶資料
+  useEffect(() => {
+    if (id) {
+      setFetching(true);
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/data/users/${id}`)
+        .then(async (res) => {
+          if (!res.ok) throw new Error("API 回應錯誤");
+          return await res.json();
+        })
+        .then((data: authUser) => {
+          if (data) {
+            setFetchedUser(new LaBaGUser(data));
+          }
+          setFetching(false);
+        })
+        .catch(() => setFetching(false));
+    }
+  }, [id]);
 
   // 如果沒有 id，則使用 Context 中的 authUser
   return {
     User: id ? FetchedUser : User, // 如果有 id，則返回查詢到的 User，否則返回 Context 中的 authUser
-    Loading: Loading || swrLoading, // 如果登入狀態是 loading 或者在獲取資料時，則為 loading
+    Loading: Loading || Fetching, // 如果登入狀態是 loading 或者在獲取資料時，則為 loading
     ...rest,
   };
 };

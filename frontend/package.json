@@ -29,8 +29,7 @@
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
     "sweetalert2": "^11.17.2",
-    "sweetalert2-react-content": "^5.1.0",
-    "swr": "^2.3.3"
+    "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
